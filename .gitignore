@@ -1,0 +1,28 @@
+# Package Files #
+*.jar
+*.war
+*.ear
+*.zip
+
+# IDE Files #
+.classpath
+.project
+.settings/
+.idea/
+*.iml
+
+dist
+build
+bin
+4cc.checksum
+ebay.log
+*.class
+*.mul
+target/
+test-output/
+build.xml
+ebay-build.xml
+/.metadata
+dist
+build
+bin
