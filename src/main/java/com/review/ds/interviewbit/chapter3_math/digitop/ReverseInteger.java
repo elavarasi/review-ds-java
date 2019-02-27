@@ -1,6 +1,6 @@
 
 //come back again
-package interviewbit.chapter3_math.digitop;
+package com.review.ds.interviewbit.chapter3_math.digitop;
 
 import java.util.Arrays;
 

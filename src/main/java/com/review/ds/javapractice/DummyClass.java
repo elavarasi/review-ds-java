@@ -1,4 +1,4 @@
-package javapractice;
+package com.review.ds.javapractice;
 
 public class DummyClass {
 

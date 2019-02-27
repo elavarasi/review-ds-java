@@ -1,6 +1,6 @@
 package com.review.ds.interviewbit.chapter5_linkedlist;
 
-import interviewbit.chapter5_linkedlist.LinkedList.Node;
+import com.review.ds.interviewbit.chapter5_linkedlist.LinkedList.Node;
 
 public class LinkedListImplementation {
 	public static void main(String args[]) {

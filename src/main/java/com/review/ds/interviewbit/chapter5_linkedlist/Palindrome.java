@@ -2,7 +2,7 @@ package com.review.ds.interviewbit.chapter5_linkedlist;
 
 import java.util.Stack;
 
-import interviewbit.chapter5_linkedlist.LinkedList.Node;
+import com.review.ds.interviewbit.chapter5_linkedlist.LinkedList.Node;
 
 public class Palindrome {
 	public static void main(String args[]) {

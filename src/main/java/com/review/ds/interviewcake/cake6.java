@@ -1,4 +1,4 @@
-package interviewcake;
+package com.review.ds.interviewcake;
 //not done
 public class cake6 {
 	

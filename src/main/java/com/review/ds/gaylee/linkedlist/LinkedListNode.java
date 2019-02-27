@@ -1,4 +1,4 @@
-package gaylee.linkedlist;
+package com.review.ds.gaylee.linkedlist;
 
 public class LinkedListNode {
 	LinkedListNode next;

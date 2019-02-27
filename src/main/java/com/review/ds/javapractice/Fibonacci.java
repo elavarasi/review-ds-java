@@ -1,4 +1,4 @@
-package javapractice;
+package com.review.ds.javapractice;
 
 import java.util.HashMap;
 

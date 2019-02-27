@@ -17,7 +17,7 @@ The IDs are not guaranteed to be sorted or sequential. Orders aren't always fulf
 
 
 
-package interviewcake;
+package com.review.ds.interviewcake;
 
 public class cake21_find_unique_int_among_duplicates {
 

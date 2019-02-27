@@ -28,7 +28,7 @@ Drawing pictures will help a lot with this one. Grab some paper and pencil (or a
 
 
 
-package interviewcake;
+package com.review.ds.interviewcake;
 
 public class cake41_FindADuplicateSpaceEditionBEASTMODE {
 

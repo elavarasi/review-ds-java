@@ -1,4 +1,4 @@
-package geeksforgeek;
+package com.review.ds.geeksforgeek.BinaryTree;
 
 import java.util.Arrays;
 

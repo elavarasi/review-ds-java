@@ -1,4 +1,4 @@
-package interviewcake;
+package com.review.ds.interviewcake;
 //Write a function fib() that a takes an integer n and returns the nth fibonacci number.
 
 

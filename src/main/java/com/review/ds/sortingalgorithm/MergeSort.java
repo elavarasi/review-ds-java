@@ -1,4 +1,4 @@
-package sortingalgorithm;
+package com.review.ds.sortingalgorithm;
 
 import java.util.Arrays;
 

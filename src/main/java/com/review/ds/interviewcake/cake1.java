@@ -1,4 +1,4 @@
-package interviewcake;
+package com.review.ds.interviewcake;
 //1. apple stock - make profit by buying and selling using yesterdays stock record
 
 /*

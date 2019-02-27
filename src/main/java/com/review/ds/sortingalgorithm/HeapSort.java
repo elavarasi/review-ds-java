@@ -1,4 +1,4 @@
-package sortingalgorithm;
+package com.review.ds.sortingalgorithm;
 
 /*http://www.sanfoundry.com/java-program-implement-heap-sort/
 
