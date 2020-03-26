@@ -1,6 +1,7 @@
 package com.review.ds.educativeio.Pattern1_SlidingWindow;
-
-import java.util.Arrays;
+/**
+ * Given an array of positive numbers and a positive number ‘k’, find the maximum sum of any contiguous subarray of size ‘k’.
+ */
 
 public class Problem2_findMaxSumSubArray {
 

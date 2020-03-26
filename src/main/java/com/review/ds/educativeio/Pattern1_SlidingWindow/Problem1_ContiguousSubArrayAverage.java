@@ -11,6 +11,13 @@ Calculate something among all the contiguous subarrays (or sublists) of a given 
 
 
 **/
+/**
+ * Given an array, find the average of all contiguous subarrays of size ‘K’ in it.
+ *
+ * Let’s understand this problem with a real input:
+ *
+ * Array: [1, 3, 2, 6, -1, 4, 1, 8, 2], K=5
+ */
 
 package com.review.ds.educativeio.Pattern1_SlidingWindow;
 import java.util.Arrays;
