@@ -26,7 +26,7 @@ public class PrintList {
         return number%2 == 0;
     }
 
-    private static void printAllNumbersInListStructured(List<Integer> numbers) {
+    private static void priFCustntAllNumbersInListStructured(List<Integer> numbers) {
         for(int number: numbers) {
             System.out.println(number);
         }
