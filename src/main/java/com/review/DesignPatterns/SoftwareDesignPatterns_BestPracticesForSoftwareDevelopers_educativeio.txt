@@ -1,0 +1,62 @@
+Whenever writing code in an object oriented language, sticking to the following list of suggestions will make your code amenable to changes with the least effort.
+
+(1) Separate out parts of code that vary or change from those that remain the same.
+
+(2) Always code to an interface and not against a concrete implementation.
+
+(3) Encapsulate behaviors as much as possible.
+
+(4) Favor composition over inheritance. Inheritance can result in explosion of classes and also sometimes the base class is fitted with new functionality that isn't applicable to some of its derived classes.
+
+(5) Interacting components within a system should be as loosely coupled as possible.
+
+(5) Ideally, class design should inhibit modification and encourage extension.
+
+Using patterns in your day to day work, allows exchanging entire implementation concepts with other developers via shared pattern vocabulary.
+
+-------------------------------------------------------
+
+SOLID:
+SOLID programs scale better, cost less time to work with, and can more easily respond to change
+https://www.educative.io/blog/solid-principles-oop-c-sharp?aid=5082902844932096&utm_source=google&utm_medium=cpc&utm_campaign=blog-dynamic&gclid=Cj0KCQiAifz-BRDjARIsAEElyGIrO1OPFtP8mtjxIAfQd5AMOZjYYC60vjIbT5NdurjqKBSeps6DIE0aAgWFEALw_wcB
+
+The 5 principles of SOLID are:
+
+(1) Single-responsibility principle
+Open-closed principle
+Liskov substitution principle
+Interface segregation principle
+Dependency inversion principle
+
+“A class should only have a single responsibility, that is, only changes to one part of the software’s specification should be able to affect the specification of the class.”
+
+
+(2) O: Open-closed principle
+“Software entities … should be open for extension, but closed for modification.”
+Our parent entity will serve as an abstract base class that can be reused with added specializations through inheritance. However, the original entity is locked to allow the program to be both open and closed.
+
+The advantage of OCP is that it minimizes program risk when you add new uses for an entity. Instead of reworking the base class to fit a work-in-progress feature, you create a derived class separate from the classes currently present throughout the program.
+
+We can then work on this unique derived class, confident that any changes we make to it will not affect the parent or any other derived class.
+
+
+(3) L: Liskov substitution principle
+The principle says that any class must be directly replaceable by any of its subclasses without error.
+
+In other words, each subclass must maintain all behavior from the base class along with any new behaviors unique to the subclass. The child class must be able to process all the same requests and complete all the same tasks as its parent class.
+
+(4) I: Interface segregation principle
+The interface segregation principle (ISP) requires that classes only be able to perform behaviors that are useful to achieve its end functionality. In other words, classes do not include behaviors they do not use.
+
+(5) D: Dependency inversion principle
+The dependency inversion principle (DIP) has two parts:
+
+a. High-level modules should not depend on low-level modules. Instead, both should depend on abstractions (interfaces)
+b. Abstractions should not depend on details. Details (like concrete implementations) should depend on abstractions.
+
+**************************************************************************************
+
+Design Patterns
+https://www.educative.io/courses/javascript-design-patterns-for-coding-interviews/qVyBWAGzj8D
+https://www.tutorialspoint.com/design_pattern/factory_pattern.htm
+https://www.educative.io/courses/software-design-patterns-best-practices/B8nMkqBWONo

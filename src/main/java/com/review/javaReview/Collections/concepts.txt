@@ -1,0 +1,6 @@
+
+
+
+
+Splititerator:
+1. Supports parallel iteration of portion of sequence

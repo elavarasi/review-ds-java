@@ -1,0 +1,33 @@
+https://uplevel.interviewkickstart.com/resource/helpful-class-video-27347-9-370-0
+
+******************************************************
+Interview quick start:
+
+General Concepts:
+Basics:
+    Sundar videos
+    Reading materials
+        Engineering blogs - fb, google, linkedin
+        Youtube videos
+        Engineering conferences / Qcon videos
+        Kafka, Web Search, MapReduce, Dynamo-papers
+
+Design Twitter:
+Scalable Systems 1 - Vivek:
+    Try to ask why? to prepare well for big interview:
+
+    Scalable system interview structure:
+        1. Requirements
+        2. capacity planning / 5 min or less
+        3. Data model
+        4. API design
+        5. High level design
+        6. Detailed design
+        7. Scale:  Replication
+        8. Scale:  Sharding
+        9. Scale:  Caching
+        10. Scale:  Load Balancing
+        11. CDN
+        12. Monitoring / Testing
+        13. Failures / What if scenarios - how resilient our system is
+

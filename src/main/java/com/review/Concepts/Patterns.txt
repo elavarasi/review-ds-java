@@ -1,0 +1,400 @@
+Hard https://leetcode.com/explore/interview/card/top-interview-questions-hard/
+Medium https://leetcode.com/explore/interview/card/top-interview-questions-medium/
+Easy https://leetcode.com/explore/interview/card/top-interview-questions-easy/94/trees/
+
+Educative io
+Datastructure: https://www.educative.io/module/lesson/data-structures-in-java
+Algorithms:
+
+
+16 patterns:
+
+1. Sliding Window [all substring kind of problems]
+    Problems: Max sum contiguous
+        Start from beginning and and when the window size is reached start sliding.
+        In some problems, the size of the sliding window is not fixed
+    Anagrams
+    replacing and finding a substring
+
+    Practice problems:
+    String Anagrams - https://www.educative.io/courses/grokking-the-coding-interview/YQ8N2OZq0VM
+    Smallest Window containing Substring - https://www.educative.io/courses/grokking-the-coding-interview/3wDJAYG2pAR
+    Permutation in a String - https://www.educative.io/courses/grokking-the-coding-interview/N8vB7OVYo2D
+    Longest Substring with Same Letters after Replacement  - https://www.educative.io/courses/grokking-the-coding-interview/R8DVgjq78yR
+
+
+
+2. Two pointer: [numbers should be sorted, sum might say target sum, find triplets, find two numbers that sums to given number]
+    In problems where we deal with sorted arrays (or LinkedLists) and need to find a set of elements that fulfill certain constraints, the Two Pointers approach becomes quite useful. The set of elements could be a pair, a triplet or even a subarray.
+    To solve this problem, we can consider each element one by one (pointed out by the first pointer) and iterate through the remaining elements (pointed out by the second pointer) to find a pair with the given sum. The time complexity of this algorithm will be O(N^2)O(N
+    ​2) where ‘N’ is the number of elements in the input array.
+
+    Given that the input array is sorted, an efficient way would be to start with one pointer in the beginning and another pointer at the end. At every step, we will see if the numbers pointed by the two pointers add up to the target sum. If they do not, we will do one of two things:
+    If the sum of the two numbers pointed by the two pointers is greater than the target sum, this means that we need a pair with a smaller sum. So, to try more pairs, we can decrement the end-pointer.
+
+    If the sum of the two numbers pointed by the two pointers is smaller than the target sum, this means that we need a pair with a larger sum. So, to try more pairs, we can increment the start-pointer.
+    The time complexity of the above algorithm will be O(N)O(N).
+
+    Practice problems:
+    Triplet sum close to target - https://www.educative.io/courses/grokking-the-coding-interview/3YlQz7PE7OA
+    Comparing Strings containing Backspaces - https://www.educative.io/courses/grokking-the-coding-interview/g7pBzR12YPl
+    Dutch flag problem - https://www.educative.io/courses/grokking-the-coding-interview/RMBxV6jz6Q0
+
+3. Fast and Slow pointers:
+    The Fast & Slow pointer approach, also known as the Hare & Tortoise algorithm, is a pointer algorithm that uses two pointers which move through the array (or sequence/LinkedList) at different speeds. This approach is quite useful when dealing with cyclic LinkedLists or arrays.
+    One of the famous problems solved using this technique was Finding a cycle in a LinkedList.
+
+    Practice problems:
+    Palindrome Linked list https://www.educative.io/courses/grokking-the-coding-interview/JERG3q0p912
+    cycle in a array https://www.educative.io/courses/grokking-the-coding-interview/NE67J9YMj3m
+    Rearrange a linked list https://www.educative.io/courses/grokking-the-coding-interview/YQJ4mr7yOrW
+
+
+
+4. Merge Intervals
+    An efficient technique to deal with overlapping intervals. In a lot of problems involving intervals, we either need to find overlapping intervals or merge intervals if they overlap.
+    Given two intervals (‘a’ and ‘b’), there will be six different ways the two intervals can relate to each other:
+
+        a and b do not overlap
+        a and b overlap - ba ends after a
+        a completely overlaps b
+        a & b overlap, 'a' ends after 'b'
+        b completely overlaps a
+        a and b do not overlap
+
+        Algorithm:
+            (step1) Sort the intervals on the start time to ensure a.start <= b.start
+            (Step2) If ‘a’ overlaps ‘b’ (i.e. b.start <= a.end), we need to merge them into a new interval ‘c’ such that:
+                c.start = a.start
+                c.end = max(a.end, b.end)
+            (Step3) We will keep repeating the above two steps to merge ‘c’ with the next interval if it overlaps with ‘c’.
+
+
+       Problems:
+       Merge intervals - sort by start time or end time, might have to use priority queue
+       Employee Free Time https://www.educative.io/courses/grokking-the-coding-interview/RLwKZWgMJ1q
+       Minimum Meeting Rooms https://www.educative.io/courses/grokking-the-coding-interview/JQMAmrVPL7l
+       Given a list of intervals representing the arrival and departure times of trains to a train station, our goal is to find the minimum number of platforms required for the train station so that no train has to wait.
+       Employee Free Time https://www.educative.io/courses/grokking-the-coding-interview/YQykDmBnvB0
+
+
+5. Cyclic Sort
+
+
+6. In place reversal of linked list
+
+
+7. Tree Breadth First Search --
+    queue used to keep track of all nodes in a level. So space complexity is O(W) - the width or max no. of nodes in a level.
+
+    Problems:
+    zig zag level order traversal - https://www.educative.io/courses/grokking-the-coding-interview/qVA27MMYYn0
+    Minimum depth of binary tree - https://www.educative.io/courses/grokking-the-coding-interview/3jwVx84OMkO
+    connect level order successor - https://www.educative.io/courses/grokking-the-coding-interview/m2YYxXDOJ03
+    Connect All Level Order Siblings - https://www.educative.io/courses/grokking-the-coding-interview/qVxy1qop77p
+
+8. Tree Depth First Search:
+    We will use recursion or stack (for iterative approach) - this also means that the space complexity of the algorithm will be O(H)
+
+    Problems -
+        Path with Maximum Sum - https://www.educative.io/courses/grokking-the-coding-interview/B89q6NpX0Vx
+        Count path for a sum - https://www.educative.io/courses/grokking-the-coding-interview/xV2J7jvN1or
+        All Paths for a sum - https://www.educative.io/courses/grokking-the-coding-interview/B815A0y2Ajn
+        Path with given sequence - https://www.educative.io/courses/grokking-the-coding-interview/m280XNlPOkn
+
+
+
+9. Two Heap
+
+
+10. Subsets
+
+
+11. Modified Binary search - for sorted array or linked list or matrix, to search a element we use binary search.
+    Say we don't know if array is sorted in ascending or descending order.
+
+
+12. BitWise XOR
+
+13. Top K elements
+
+
+14. K way Merge
+
+15. 0/1 Knapsack (Dynamic programming)
+
+16. Topological Sort (Graph) --
+    Topological Sort is used to find a linear ordering of elements that have dependencies on each other. For example, if event ‘B’ is dependent on event ‘A’, ‘A’ comes before ‘B’ in topological ordering.
+    Topological Sort of a directed graph (a graph with unidirectional edges) is a linear ordering of its vertices such that for every directed edge (U, V) from vertex U to vertex V, U comes before V in the ordering.
+    A topological ordering is possible only when the graph has no directed cycles, i.e. if the graph is a Directed Acyclic Graph (DAG). If the graph has a cycle, some vertices will have cyclic dependencies which makes it impossible to find a linear ordering among vertices.
+
+    Problems -
+        **** Must do -good one - all possible ordering of tasks https://www.educative.io/module/lesson/data-structures-in-java/q2DpKlWR49r
+        Topological sort - https://www.educative.io/courses/grokking-the-coding-interview/m25rBmwLV00
+        Task Scheduling - https://www.educative.io/courses/grokking-the-coding-interview/q2YmVjQMMr3
+        minimum spanning tree - https://leetcode.com/problems/min-cost-to-connect-all-points/
+        shortest path - https://www.educative.io/module/lesson/data-structures-in-java/g2v3BY2y0gl
+        is a directed graph a tree https://www.educative.io/module/lesson/data-structures-in-java/7X4xR7O29nQ
+
+        Topological sort - https://www.educative.io/module/lesson/data-structures-in-java/q2DpKlWR49r
+        Word chain - Eulerian - https://www.educative.io/module/lesson/data-structures-in-java/m2JjmWkY3zE    path contains all edges without repetition and start and ends in same vertex. All vertices with non zero degree are connected. All vertices have even degree.
+
+    BST
+        Leetcode card - https://leetcode.com/explore/learn/card/introduction-to-data-structure-binary-search-tree/140/introduction-to-a-bst/1017/
+        Inorder successor in a BST will give us ascending order.
+                [good one - go through all solution] - https://leetcode.com/problems/validate-binary-search-tree/solution/
+                [inorder successor] https://leetcode.com/problems/inorder-successor-in-bst/solution/
+                2nd largest in BST https://www.geeksforgeeks.org/second-largest-element-in-binary-search-tree-bst/
+                Search in BST - https://leetcode.com/problems/search-in-a-binary-search-tree/solution/
+                [important] delete bst - https://leetcode.com/problems/delete-node-in-a-bst/solution/
+                [lowest common ancestor] https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
+                [*** important Tree set bst] https://leetcode.com/problems/contains-duplicate-iii/solution/
+                [** important building a bst tree from inorder traversal] https://leetcode.com/problems/convert-sorted-array-to-binary-search-tree/solution/
+
+
+
+    Tree:
+        *** Leetcode card - https://leetcode.com/explore/learn/card/data-structure-tree/
+        [** basic important - balance tree] https://leetcode.com/problems/balanced-binary-tree/solution/
+        Problem - dfs for tree - recursion https://leetcode.com/problems/count-univalue-subtrees/submissions/
+        symmetric tree - https://leetcode.com/problems/symmetric-tree/solution/
+        [** build tree from inorder and post order array] https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/
+        [** build tree from inorder and preorder] https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/solution/
+
+        Tree traversal
+            DFS - Pre, Post, inorder - With explanation [try both recursive and iterative] - https://leetcode.com/problems/binary-tree-preorder-traversal/solution/
+            [nice recursion problem - tree - see how if conditions are handled] https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/solution/
+            [how preorder works in this ordering] - https://leetcode.com/problems/serialize-and-deserialize-binary-tree/solution/
+
+            BFS - with explanation https://leetcode.com/problems/binary-tree-level-order-traversal/solution/
+
+            Another tree problem:
+              /**
+               * Coding Exercise:
+               * Given a tree structure as in the diagram below.
+               * Provide an algorithm to find the lowest common parent for 2 given inputs
+               * However, there is one special caveat, the children must reside on opposite sides of the parent
+               * ie. one on the left, with the other on the right
+               * Please take some time to observe the tree, notice anything strange about the sample diagram?
+               */
+
+        Leetcode - BST - card 1 - https://leetcode.com/explore/learn/card/introduction-to-data-structure-binary-search-tree/140/introduction-to-a-bst/
+                       - card 2 - https://leetcode.com/explore/learn/card/binary-search/146/more-practices-ii/
+
+
+    Graph: =[youtube videos - https://www.youtube.com/watch?v=YZtHU7R7J_0&list=PLJtzaiEpVo2xg89cZzZCHqX03a1Vb6w7C&index=8]
+    Leetcode card: https://leetcode.com/explore/learn/card/graph/619/depth-first-search-in-graph/
+
+    Cycle detection in directed graph- modified DFS: https://www.youtube.com/watch?v=joqmqvHC_Bo
+    cycle detection in undirected graph - https://www.youtube.com/watch?v=6ZRhq2oFCuo
+
+        Important one to start with: DFS and cycle detection and backtracking: [do both]
+            https://leetcode.com/problems/all-paths-from-source-lead-to-destination/solution/
+            https://leetcode.com/problems/reconstruct-itinerary/solution/
+
+        Shortest path
+            (1) Simple BFS - word ladder - https://leetcode.com/problems/word-ladder/
+            (2) directed - single source - non negative - Dijkstra's  [Network delay] https://leetcode.com/problems/network-delay-time/solution/
+                - initialize with -1, and have a distance array and path array
+            (3) negative cycle - shortest path - bellmanford
+                - initialize with -1, and have a distance array and path array
+                Shortest path - dijkstra and bellmanford explanation https://leetcode.com/problems/cheapest-flights-within-k-stops/solution/
+            (4) Path With Minimum Effort - https://leetcode.com/problems/path-with-minimum-effort/solution/
+
+         Graph and matrix grid important problems
+            [medium - rotten fruits] https://leetcode.com/problems/rotting-oranges/
+            [dfs - good one] https://leetcode.com/problems/longest-increasing-path-in-a-matrix/
+            https://leetcode.com/discuss/interview-question/1137426/Facebook-or-Minimizing-Permutations
+            [***all paths in a graph] https://leetcode.com/problems/all-paths-from-source-to-target/  - dfs and backtracking
+
+    Trie:
+       **** Leetcode - trie card - https://leetcode.com/explore/learn/card/trie/
+
+    Backtracking card - Leetcode - https://leetcode.com/explore/learn/card/recursion-ii/472/backtracking/
+        Sudoku - https://leetcode.com/problems/sudoku-solver/     https://leetcode.com/submissions/detail/570246839/
+        n queen - https://leetcode.com/problems/n-queens-ii/solution/ or https://leetcode.com/problems/n-queens-ii/discuss/1524746/Java-or-TC%3A-O(N2)-or-SC%3A-O(1)-or-Faster-than-100
+        combinations - https://leetcode.com/problems/combinations/
+        phone number - https://leetcode.com/problems/letter-combinations-of-a-phone-number/solution/
+
+    Divide and Conquer
+        leetcode - card - https://leetcode.com/explore/learn/card/recursion-ii/470/divide-and-conquer/2897/
+        [merge sort] https://leetcode.com/explore/learn/card/recursion-ii/470/divide-and-conquer/2868/
+        [quick sort] https://leetcode.com/explore/learn/card/recursion-ii/470/divide-and-conquer/2870/
+
+
+    Queue and Stack card - Leetcode - https://leetcode.com/explore/learn/card/queue-stack/
+    Arrays card - Leetcode - https://leetcode.com/explore/featured/card/fun-with-arrays/521/introduction/
+
+    Design - card
+        https://leetcode.com/tag/design/   Sort by frequency - LRU Cache, Find median from data stream..HashMap
+
+
+    Sorting:
+        Problem try merge sort, quick sort - https://leetcode.com/problems/sort-an-array/
+        Educative io - https://www.educative.io/module/lesson/algorithms-in-java/YMEyz4Y0jmA
+
+     Queue
+        [card - leetcode] -  https://leetcode.com/explore/learn/card/queue-stack/
+        [circular queue] https://leetcode.com/problems/design-circular-queue/solution/
+
+    Stack
+        [min stack] https://leetcode.com/problems/min-stack/solution/
+        [valid parenthesis] https://leetcode.com/problems/valid-parentheses/solution/
+        [Monotonic Stack]  A monotonic stack is simply a stack where the elements are always in sorted order - https://leetcode.com/problems/daily-temperatures/solution/
+        [clone graph] https://leetcode.com/problems/clone-graph/solution/
+
+******************************************
+
+
+
+Company cards
+https://leetcode.com/company/uber/
+
+
+
+
+**************************************************
+
+2. K -Way merge
+    Solve problem involving list of sorted array.
+
+        Whenever we are given ‘K’ sorted arrays, we can use a Heap to efficiently perform a sorted traversal of all the elements of all arrays.
+        We can push the smallest (first) element of each sorted array in a Min Heap to get the overall minimum
+        While inserting elements to the Min Heap we keep track of which array the element came from.
+        We can, then, remove the top element from the heap to get the smallest element and push the next element from the same array, to which this smallest element belonged, to the heap.
+        We can repeat this process to make a sorted traversal of all elements.
+
+        [We need a priority queue remember that]
+       Example:
+        Merge K Sorted Lists (medium): https://www.educative.io/courses/grokking-the-coding-interview/Y5n0n3vAgYK
+        Kth Smallest Element in a Sorted Matrix: https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/
+
+
+**************************************************
+
+3. Top K elements:
+    Any problem that asks us to find the top/smallest/frequent ‘K’ elements among a given set falls under this pattern.
+    The best data structure that comes to mind to keep track of ‘K’ elements is Heap.
+    This pattern will make use of the Heap to solve multiple problems dealing with ‘K’ elements at a time from a set of given elements.
+
+    The best data structure that comes to mind to keep track of top ‘K’ elements is Heap.
+
+    Problems:
+        Top 'K' Numbers  -
+        K smallest number
+        Top k frequent number
+        https://leetcode.com/problems/rearrange-string-k-distance-apart/
+        Rearrange strings K distance apart
+        https://www.educative.io/courses/grokking-the-coding-interview/B1gBkopEBzk => Nice one
+
+
+**************************************************
+
+4. Two Heaps
+    In many problems, where we are given a set of elements such that we can divide them into two parts. We are interested in knowing the smallest element in one part and the biggest element in the other part. The Two Heaps pattern is an efficient approach to solve such problems.
+    As the name suggests, this pattern uses two Heaps; A Min Heap to find the smallest element and a Max Heap to find the biggest element.
+
+
+
+**************************************************
+
+5. Bitwise XOR  (xor with same number will give 0) (xor with 0 will give same number):
+    XOR is a bitwise operator that returns 0 (false) if both bits are the same and return 1 (true) otherwise.
+    In other words, if only returns 1 if exactly one bit is set to 1 out of the two bits in comparison.
+
+        A	B	    A xor B
+        0	0	        0
+        0	1	        1
+        1	0	        1
+        1	1	        0
+
+    XOR returns 0 if both the bits in comparison are same. XOR of a number to itself will always result in 0.
+
+    Important properties of XOR to remember #
+    Following are some important properties of XOR to remember:
+
+    Taking XOR of a number with itself returns 0, e.g.,
+    1 ^ 1 = 0
+    29 ^ 29 = 0
+
+    Taking XOR of a number with 0 returns the same number, e.g.,
+    1 ^ 0 = 1
+    31 ^ 0 = 31
+
+    XOR is Associative & Commutative, which means:
+    (a ^ b) ^ c = a ^ (b ^ c)
+    a ^ b = b ^ a
+
+    Problems:
+        Finding missing number can be done by XOR - Given an array of n-1n−1 integers in the range from 11 to nn, find the one number that is missing from the array.
+            Find the sum of all integers from 11 to nn; let’s call it s1.
+            Subtract all the numbers in the input array from s1; this will give us the missing number.
+
+
+            Concept
+            Bit Manipulation - Single Number in an array
+            If we take XOR of zero and some bit, it will return that bit
+            a ^ 0 = 0
+
+            If we take XOR of two same bits, it will return 0
+            a ^ a = 0
+
+            a ^ b ^ a = (a ^ a) ^ b = 0 ^ b = b
+
+    Bit wise operator Explanations to watch:
+        https://leetcode.com/problems/single-number/
+        https://leetcode.com/problems/single-number-ii/
+
+
+
+
+
+**************************************************
+6. Modified Binary Search https://www.educative.io/courses/grokking-the-coding-interview/JQJOO357VDo
+As we know, whenever we are given a sorted Array or LinkedList or Matrix, and we are asked to find a certain element, the best algorithm we can use is the Binary Search.
+This pattern describes an efficient way to handle all problems involving Binary Search
+
+    When we do not know the order sorting then we can compare start item with end item to decide it is is ascening or descending
+    Then we modify the binary search to look up as per the order.
+
+    Problem: For modified binary search application:
+        Find First and Last Position of Element in Sorted Array https://leetcode.com/problems/find-first-and-last-position-of-element-in-sorted-array/solution/
+        Search in a Sorted Array of Unknown Size https://leetcode.com/problems/search-in-a-sorted-array-of-unknown-size/
+
+
+
+**************************************************
+7. Pattern: Topological Sort (Graph)
+    Linear ordering of elements that have dependencies on each other.
+    Eg. if event B is dependent on event A, A comes before B in topological ordering.
+
+
+
+**************************************************
+8. Merge intervals:
+    Deal with overlapping intervals.
+    Given two intervals - there are 6 different ways the two intervals can relate to each other.
+        a and b do not overlap
+        a and b overlap - ba ends after a
+        a completely overlaps b
+        a & b overlap, 'a' ends after 'b'
+        b completely overlaps a
+        a and b do not overlap
+
+        Algorithm:
+            (step1) Sort the intervals on the start time to ensure a.start <= b.start
+            (Step2) If ‘a’ overlaps ‘b’ (i.e. b.start <= a.end), we need to merge them into a new interval ‘c’ such that:
+                c.start = a.start
+                c.end = max(a.end, b.end)
+            (Step3) We will keep repeating the above two steps to merge ‘c’ with the next interval if it overlaps with ‘c’.
+
+
+       Problems:
+       Merge intervals
+
+**************************************************
+9. Subsets
+   A huge number of coding interview problems involve dealing with Permutations and Combinations of a given set of elements. This pattern describes an efficient Breadth First Search (BFS) approach to handle all these problems.
+
+  Given a set with distinct elements, find all of its distinct subsets.
+  Subsets With Duplicates

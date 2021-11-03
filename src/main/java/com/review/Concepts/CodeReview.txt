@@ -1,0 +1,11 @@
+Code review interview:
+PR give and we need to do a code review of the PR
+
+https://docs.github.com/en/github/collaborating-with-pull-requests/reviewing-changes-in-pull-requests
+https://blog.palantir.com/code-review-best-practices-19e02780015f
+https://gist.github.com/airbnb-robot/af6e9068639733bff79d4e3773a8d1dc
+https://github.com/airbnb
+https://google.github.io/eng-practices/review/reviewer/looking-for.html
+
+
+https://www.hackerrank.com/test/9e26m70rtfm/questions

@@ -1,0 +1,41 @@
+1. Fibonnaci series
+recursion time complexity is exponential - 1.618 golden ratio
+With memoization time complexity is O(n) and space complexity is O(n)
+
+Exponential to linear by memoization
+
+Directed acyclic graph - the vertices can be arranged to go in single direction
+If we go in the topological sort order, the vertices are already calculated
+Going from smaller subproblem to larger subproblem.
+
+Topological sort order
+
+
+Dynamic programming:
+Those who cannot remember the past are condemned to repeat it.
+Working definition DynamicProgramming = Recursion without repetition - Memoized solution - linear time and linear space
+Bottom up tabulation - linear time and O(1) space
+
+First think of what is the recursion here
+then think solving bottom up
+i.e decrease the problem size by 1
+
+Every recurrence - is obtained by decrease and conquer or divide and conquer
+
+Problems
+Counting problems - When there is a directed acyclic graph, there is a topological sort and we have to pick one of them.
+
+1. Fibonacci series
+2. steps
+3. No of ways to tile a dominos
+4. N-th Tribonacci number
+5. Domino and Tromino Tiling
+6. Unique Paths - robot moving an m*n grid and need to reach bottom right
+
+
+decrease and conquer -> leads to recurrence equation -> leads to dependency graph leads to model in which subproblem needs to be built up ->
+leads to what datastructure to use to solve the problem (arrays/trees/2d array) -> building up solution.
+
+With all dynamic programming solutions, we solve for the base case first, and reuse our previous solutions to smaller sub-problems to solve larger ones.
+
+

@@ -1,0 +1,45 @@
+https://www.geeksforgeeks.org/category/puzzles/
+https://www.youtube.com/watch?v=ko-KkSmp-Lk
+careers.google.com
+
+
+Prove whats on resume
+Datastructure - Hash table, stack, arrays
+Algorithms - Space and time complexity - how complex your algorithm is - and how to improve it
+Code on white board
+
+System design
+Object oriented programming
+
+understand all aspect of a problem
+
+Preparation:
+Coding
+API's
+object oriented design and programming
+How to test code - what test cases you can think of. End to end integration. Security test such as real world system as gmail.
+
+Dkystar and A star
+
+As many datastructre - as many as possible 0 NP complete problem, Knap sac problem, trees, tree constuction, traversal and manipulation algorithms,
+hash table, arrays, linked list,
+
+Math - basic discrete math problems, counting problems, probability, probability theory, cominatorial, familiar with n choose k problems
+
+Recursion - prepare for recursion. Solve iteratively and then practice solving with recursion.
+
+Operating system - processes, thread, concurrency issues and related topics, semaphores, mutex, locks, resource allocation, what resource a process or thread might need, context switching, operating system and underlying hardware, scheduling
+
+System design - Feature sets, interfaces, class hierarchy, distributed systems, designing system under a certain constrain, how internet actually works, routers, domain name, load balancers, firewalls
+
+-----
+
+3 tips:
+Explain and clarify - important to talk though ur thought process and say what you are thinking even if you are discarding ideas.
+    Clarify question are important. Interviewer looks for what questions you ask. Eg. are there any time or space complexity requirements.
+
+Keep thinking - first solution may not be elegant, keep thinking
+Practice physically writing code - no editor - easily readable.
+
+
+

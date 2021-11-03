@@ -1,0 +1,176 @@
+Must do sums
+https://www.geeksforgeeks.org/top-10-algorithms-in-interview-questions/
+
+Bio O cheat sheet - https://www.bigocheatsheet.com/
+Puzzles - https://www.geeksforgeeks.org/category/puzzles/
+
+1. Sort and
+    Complexity of each algorithm:
+    Array.sort offers  O(n log n).
+
+
+2. Searching: Binary search complexity is log(n) - Array has to be sorted
+   Problem space is reduced each time and then we search for the answer.
+   We can do binary search recursively or iteratively.
+    When doing recursive there is also space complexity of log(n) for the depth of the recursion tree and time complexity is log(n)
+    When doing iterative approach space complexity is O(1) and time complexity is log(n)
+
+
+   Doing int mid = (lo + hi) / 2; is prone to overflow. Instead int mid = lo + (hi - lo) / 2.
+
+   example
+   https://leetcode.com/problems/find-peak-element/solution/
+
+   Sample recursion approach for find the peak problem:
+   public class Solution {
+       public int findPeakElement(int[] nums) {
+           return search(nums, 0, nums.length - 1);
+       }
+       public int search(int[] nums, int l, int r) {
+           if (l == r)
+               return l;
+           int mid = (l + r) / 2;
+           if (nums[mid] > nums[mid + 1])
+               return search(nums, l, mid);
+           return search(nums, mid + 1, r);
+       }
+   }
+
+   Sample iterative approach:
+   public class Solution {
+       public int findPeakElement(int[] nums) {
+           int l = 0, r = nums.length - 1;
+           while (l < r) {
+               int mid = (l + r) / 2;
+               if (nums[mid] > nums[mid + 1])
+                   r = mid;
+               else
+                   l = mid + 1;
+           }
+           return l;
+       }
+   }
+
+
+
+3. Tree and Graph
+    Traversal
+        Breadth first traversal
+            -> level-order
+        Depth First
+            -> <root><left><right> - Preorder DLR - <data> left right
+            -> <left><root><right> - Inorder LDR - left <data> right
+            -> <left><right><root> - PostOrder LRD - left right <data>
+
+        Breadth First Search
+            - Data structure used is Queue and graph. Every node is visited no more than once
+            - Nodes have to be marked as visited. Else we will go in infinite loop.
+
+        Depth First Search
+            - Data structure used is Stack
+            - cycle detection, Path finding, solving maze puzzles
+
+        Dijkstra Algorithm
+            - Used to find shortest path between a node/vertex to any other node/vertices
+            - Single Source Shortest Path Algorithm
+
+
+https://www.youtube.com/watch?v=tkQ8NhQf6bE&list=PLJtzaiEpVo2xg89cZzZCHqX03a1Vb6w7C&index=2
+    Graph:
+    A graph is a pair (V,E) where V is the set of nodes, called vertices, and E is a collection of pairs of vertices called edges.
+        1. Undirected pair of vertices. we can write the pair as (u,v) or (v, u). Example railway line
+        2. Directed pair of edges / ordered pair of vertices (u,v) u is the origin and v is the destination. Example one way road traffic.
+        3. Directed Graph: all edges are directed. Example world wide web.
+        4. Undirected Graph: all the edges are undirected. Example flight network.
+        5. self loop
+        6. Degree: degree of vertex is the number of edges incident on it.
+        7. Subgraph: If we delete some vertices and edges from graph then the remaining graph is called subgraph
+        8. Path: Path is a sequence of adjacent vertices
+        9. Cycle: Path where the first and last vertices are the same.
+        10. Connected graph: There is a path from every vertex to every other vertex.
+        11. Sparse graph: Relatively fewer edges.
+        12. Dense graph: Most of the edges.
+        13. Directed acyclic graph: Directed edges and has no cycle (called as trees)
+        14. Weighted graph: when edges are weighted or has a value. can be directed or undirected.
+     Applications: 1. Transportation network, 2. computer networks www, LAN, 3. Database: entity relationship.
+
+     Graph Representation:
+        1. Adjacency matrix: 2 dimentional matrix - vertex * list of Destination
+        2. Adjacency List
+        2. Adjacency Set: Disjoint Set.
+
+    Graph: Finding shortest path:
+    1. Shortest path in unweighted graph (Modified BFS with distance array)
+    2. Shortest path in weighted graph (Dijkstra's Algorithm) -> one path costs more than another -> use distance array and priority queue. Can't handle negative edges.
+    3. Shortest path in weighted graph with negative edges (Bellman Ford Algorithm) - say some path don't have road we encounter negative value or loss
+    3. Shortest path in weighted graph with negative edges (Bellman Ford Algorithm) - say some path don't have road we encounter negative value or loss
+
+    4. Bipartite Graph: A Bipartite graph is a graph whose vertices can be divided into two disjoint and independent sets U and V such that
+    every edge connects a vertex:
+    Properties:
+        a. A graph is called bipartie if and only if the given graph does not have an odd length cycle.
+        b. A complete bipartie graph is a bipartie graph which has each vertex from one set adjacent to each vertex from another set.
+        Graph colouring (2 colours) and DFS.
+
+    5. Topological sort of a Graph - nodes with 0 in degree to be printed first. It has to be an Directed acyclic graph DAG to do so.
+    Approach1: Modified DFS where we push to stack after pushing all adjacencies. Then print the stack
+    Another approach 2:
+        calculate in-degree for all vertices. [Array]
+        Start iteration from vertices with in degree = 0. [Queue]
+        After visiting vertex with in-degree 0, decrement in-degree for all connected vertices.
+        If in-degree becomes 0 for any vertex then we can traverse it too.
+        In end we check if topological sort has same number of vertices as total number of vertices. If no then cycle exists.
+     Applications:  course prerequisite, identify deadlock, pipeline of computing jobs, check symbolic link loops.
+
+     6. Kosaraju's Algorithm - Strongly connected components - DFS Application
+     In a directed graph, two vertices are v and u are said to be strongly connected if
+     and only if there exists path from u to v and there exist a path from v to u.
+        step1: We will use DFS two times
+        first DFS we push the vertices according to post order traversal in stack
+        Step2: Reverse all edges in the stack
+        Step3: Perform second DFS - Each tree in the resulting depth-first spanning forest corresponds to strongly connected component.
+
+
+4. Recursion
+    Recursive function - Function that calls itself repeatedly until it reaches a specified stopping condition.
+    Recursion is most useful for tasks that can be defined in terms of similar subtasks.
+    Graph and Tree traversals are inherently recursive.
+
+
+5. Dynamic Programming:
+Dynamic programming is a technique that might be used to provide more efficient solutions to same sub-problem over and over.
+- When ever there are smaller sub problems.
+- We need to find all combinations.
+- option1: recursion
+- option2: top down (recursion + dynamic programming dp)
+- option3: bottom up approach (tables to calculate value)
+
+Problems:
+- 0/1 Knapsack
+- Unbound knapsack
+- One side of the table gets filled up:
+    Longest Palindromic Subsequence [input agbdba output 5 as abdba] - note this is not Longest Palindromic Substring which will be continuous like bdb (this is subsequence)
+- Single Array DP problems
+    Staircase (n steps, how many ways to reach top taking 1, 2 or 3 steps)
+    Minimum jumps to reach the end (find the minimum number of jumps needed to reach the end of the array (starting from the first element).Input = {2,1,1,1,4} Output = 3
+    Minimum jumps with fee (calculate the minimum fee required to reach the top of the staircase, at every step we can take 1 step, 2 step or 3 step) Number of stairs (n) : 6 / Fee: {1,2,5,2,1,2} / Output: 3
+    House Thief (Given a number array representing the wealth of n houses, determine the maximum amount of money the thief can steal without alerting the security system.)
+
+- 2 Dimentional DP problems
+    Longest Palindromic Subsequence: A subsequence is a sequence that can be derived from another sequence by deleting some or no elements without changing the order of the remaining elements.
+        Two dimentional array half filled from bottom.
+
+
+
+
+
+
+Datastructure:
+Sting Problems: Must See:
+1. Word break problem (3 good options on leet code)
+https://www.educative.io/module/lesson/data-structures-in-java/Y5G6Zyz4AnY
+https://leetcode.com/problems/word-break/solution/
+
+
+
+

@@ -1,0 +1,368 @@
+https://www.youtube.com/watch?v=UzLMhqg3_Wc&list=UUZLJf_R2sWyUtXSKiKlyvAw&index=2
+https://lethain.com/introduction-to-architecting-systems-for-scale/
+
+Introduction:
+- Features
+    What to include
+    What to exclude
+- Define APIs
+    What are the APIs, who are going to call them
+- Availability
+    How much availability
+- Latency Performance
+    is it a back end job where latency is fine
+    or is it customer facing application and needs to be fast - we will think about cache
+- Scalability
+    can it work for a million users
+- Durability
+    Fact that data can be stored securely and data is not compromised
+- Class diagram
+    Design a parking lot, design an elevator - how would you design the class and what are the object oriented principles
+- Secure & Privacy
+    Design and authentication system
+- Cost Effective
+    It it a cost effective system.
+
+---------------------------------------------------------------------------------------------------
+https://www.youtube.com/watch?v=UzLMhqg3_Wc&list=UUZLJf_R2sWyUtXSKiKlyvAw&index=2
+
+System design concepts
+1. Vertical vs Horizontal scaling
+    Vertical - add more memory, CPU and hard drive to a system. - expensive, but no distributed system problems.
+    Horizontal - Add more hosts - can add more hosts but has distributed system problem.
+2. CAP theorem - Consistency Availability and Partition tolerance
+    Consistency means read has most recent write.
+    Availability we will get a response for sure, but may be or may not be a recent write
+    Partition tolerance is between two nodes we can loose network packages.
+       CAP theorem says - We can only achieve 2 out of these 3 things. We should have Partition tolerance to not loose packets.
+       So we have to choose between consistency and availability.
+
+    Traditional relational database chooses consistency over availability - i.e less available but consistent
+    No SQL - we can configure consistency or availability preference.
+3. ACID and BASE
+    ACID - Atomicity, consistency, Isolation and Durability - used more in traditional relational database
+    BASE - Basically Available soft state eventual consistency - for NoSQL database
+4. Partitioning / Sharding Data - consistent hashing
+    Trillions of record can't be stored in one node of database.
+    Shard/slit data so every node of the database is responsible for some part of the trillion of record.
+    Consistency Hashing:
+        https://medium.com/system-design-blog/consistent-hashing-b9134c8a9062
+        https://www.toptal.com/big-data/consistent-hashing
+        https://en.wikipedia.org/wiki/Consistent_hashing
+        http://tom-e-white.com/2007/11/consistent-hashing.html
+
+5. Optimistic vs Pessimistic Locking
+    Optimistic locking - we don't get lock until we want to commit
+    Pessimistic locking - we get lock before hand and then we commit transaction
+6. Strong vs Eventual consistency
+    Strong consistency - reads will always see latest write - traditional database
+    Eventual consistency - reads will see some write and eventually see latest write - can choose in No SQL if we need availability
+7. Relational DB vs NoSQL
+    Relational DB
+    NoSQL - most people prefer, but relational DB provides ACID properties, while No SQL scales a little bit better and has higher availability
+    Depending on problem try to see which one fits better.
+8. Types of NoSQL
+    Key Value DB
+        Simplest, where we have a key and a value and store the key value into the database
+    Wide Column DB
+        A row can have many many column
+    document based
+        XML or JSON data or a semi structured data, then we will use document based no sql database
+    graph based
+        We have entities, edges and relation ship between entities then graph based NoSQL database is used to hold it.
+9. Caching
+    Used to speed up request. If some data is going to be used more frequently then cache it.
+    Two types: (1) every node has its own caching (2) distributed cache where cache data is shared between nodes.
+    * Cache cannot be the source of truth
+    * Cache data has to be small as cache keeps all data in memory.
+    * We have to consider some of the eviction policy around cache.
+10. Data center / Racks / Hosts
+    Data center has racks and racks has hosts.
+    What is the latency between talking cross racks, cross hosts and even cross Data center.
+    What is the worst case if an entire rack goes down or a data center goes down.
+11. CPU / memory / Hard drive / Network bandwidth
+    All these are limited resources.
+    So when we design consider how we work around limitation and improve throughput, latency, and scale around limited resources.
+12. Random vs Sequential read/write on disk
+    Sequential read/write is better on disk.
+12. http vs http2 vs websockets
+    Http is request response architecture between client and server. Entire web runs on http.
+    websockets bidirectional connection between client and server.
+13. TCP/IP model
+    4 layers
+14. IPV4 vs IPV6
+    IPV4 has 32 bit addresses and IPV6 has 128 bit addresses. World is migrating towards IPV6.
+    How IP routing works.
+15. TCP vs UDP
+    TCP is connection oriented, reliable connection - for documents
+    UDP is unreliable connection (super fast - for video streaming)
+16. DNS Lookup
+    Domain name server lookup.
+    www.facebook.com -> to ip address
+    Learn the hierarchy and hashing
+17. HTTPS & TLS
+    TLS - Transport layer security - used to secure communication between client and server, in terms of privacy and data integrity
+    When used with HTTP it becomes https.
+18. Public Key infrastructure & Certificate Authority
+    Used to manage public key and digital certificates.
+    Certificate Authority is a trusted entity which tells if public key is from correct party.
+    www.facebook.com -> going over https -> we get a public key back -> certificate authority is used to tell that this public key
+    is coming from facebook and not from any where else / a third party who has hacked.
+19. Symmetric vs asymmetric encryption
+    asymmetric encryption is computationally more expensive, so used to send small amount of data
+    example of asymmetric encryption: is public private key encryption
+    Example of symmetric encryption is AES.
+20. Load Balancer -> L4 vs L7
+    Load balancer sit in front of a service and delegate and distributes client request to one of the nodes in the service.
+    can be based on round robin basis or load average on the nodes behind the service.
+    L4 and L7 are levels for OSI model. L4 load balancer considers both client and server ip addresses for routing
+    L7 is http level it uses http uri to do routing. Most of them are L7
+21. CDNs & Edge
+    Content Delivery Network - eg. netflix puts the movies in a network close to you, so streaming happens from network close to you.
+    Edge - Processing happens close to end user. Has dedicated edge to data center.
+22. Bloom Filters & Count-min Sketch
+    To decide if element is a member of set are not. Is our design fault tolerant.
+23. Paxos - Consensus over distributed hosts * leader election
+24. Design Patter and Object oriented design
+    Design Pattern - Factory method and singleton are good to know.
+    Object oriented design -  abstractions and inheritance
+25. Virtual machines and containers
+    VM - Way of giving your operating system on top of a shared resource such that you are the exclusive owner of this hardware
+    but in reality that hardware is share between different isolated operating system.
+    Containers - way of running your application and its dependencies in an isolated environment. Has become very important.
+26. Publisher - Subscriber or Queue - Important concept
+    Publisher publishes message to a Queue
+    Subscriber receives message from a Queue.
+    Customer facing applications should not be exposed to a pub sub system
+27. Map reduce - big data field
+    Distributed and parallel processing of big data.
+    Map is filtering and sorting data and reduce is summarizing the data.
+28. Multithreading, concurrency, locks, synchronization, CAS -> World of multithreading
+    Java comes with it.
+
+---------------------------------------------------------------------------------------------------
+
+Tools:
+1. Cassandra:
+    Wide column, highly scalable database.
+    Used to store simple key value storage or for storing time series data or just rows with columns
+    Cassandra can provide both eventual and strong consistency
+    It uses consistent Hashing to shard your data and uses gossiping to keep all the nodes informed about the cluster
+
+2. MongoDB or Couchbase
+    JSON like structure data, then use MongoDB
+    Provide ACID properties at a document level and scales well.
+
+3. MySQL
+    If we have a more traditional use case with many tables and relationship within these tables and we want ACID properties use MySQL.
+    It has master slave architecture, so it scales up pretty well.
+
+4. Memcached and Redis
+    They are distributed cache and they hold data in memory.
+    Memcached is simple, fast, key value storage
+    Redis is also key value storage but also does lot of other things.
+    Redis can also be set like a cluster like availability.
+    Remember - distributed cache should never be used as source of truth and can host only limited amount of data.
+
+5. Zookeeper - centralized configuration management tool. Used for things like leader election and distributed locking.
+    Scales well for reads but not for writes.
+    Zookeeper stores all data in memory, so cant store more data.
+
+6. Kafka - highly available, fault tolerant queue, used in subscriber or streaming application.
+    Depending on use case it can deliver message once and can also keep all message ordered inside partition of a topic.
+
+7. NGINX and HAProxy are load balancer that are very effective.
+    NGINX can manage tens of thousands of a connection from a client from a single instance.
+
+8. Solr and Elastic search
+    Search platforms - highly reliable, scalable and fault tolerant.
+    Full text search is provided
+
+9. Blobstore -  amazon S3 is a famous blobstore which is provided as part of AWS platform
+    To store big picture or file in cloud.
+
+10. Docker - Kubernetes and Mesos
+    Software platform providing containers withing which we can run our application.
+    These containers can run on laptop or a data center or cloud.
+    Kubernetes and Mesos software tools used to manage these containers.
+
+11. Hadoop / Spark
+    Map reduce - processing in parallel of large data. Spark is a faster version which does map reduce in memory.
+    HDFS java based file system which is distributed and fault tolerant and hadoop relies on HDFS to do all its processing.
+
+---------------------------------------------------------------------------------------------------
+Design Distributed Database:
+
+- Characteristic of the database
+    To consider in order:
+    Durability
+    Availability
+    Performance
+- Basic operations of the database
+    Create table
+    put
+    get
+    delete
+    list
+    delete table
+    Sequencer - unique number - timestamp in ns + unique per node + unique node id (every record will have a sequencer)
+- Overall Architecture
+    request manager
+    load balancer
+    metadata manager
+        -leader election in a replication group
+        - mapping of table part of replication group
+        - zookeeper, redis
+        - paxos, raft
+        - data stored in metadata manager is not consistent
+        - keep all this data in memory of request manager
+        - very critical data so back up frequently as possible.
+    replication group
+    controller
+- Metadata Manager
+- Replication
+- Data Plane
+- Control Plane
+- Edge cases
+- Scale Numbers
+
+---------------------------------------------------------------------------------------------------
+(1) Design TinyURL:
+Design a service where user will give you a long URL and we need to return a short URL. And when he gives the short URL we need to
+give the original long URL.
+
+Scalability
+Durability
+
+1. Using Map is neither scalable nor durable
+
+Things to think about in designing:
+1. What are my APIs
+2. Application Layer
+3. Persistence Layer
+
+
+API
+createTiny(long url) -> returns tiny url
+getLong(tiny url) -> returns long url
+
+Application Layer
+How to generate an URL that is unique
+
+
+Persistence layer
+How will you store the long and short URL
+
+Put a block diagram
+client -> REST service -> Load Balancer -> worker hosts w1 w2 w3 -> cache or persistence layer
+
+How can we generate a unique tiny url with 7 characters:
+what are the characters we can use
+    a-z - 26, A-Z - 26, 0-9 - 10 = total 62
+    62 ^ 7 = 3.5 trillion combinations
+
+    If service is generating 1000 url's per second it will take us 110 year to use of 3.5 trillion urls
+    Else if our service generates a million tiny url per second then we will exhaust in
+
+
+    100,000 Hundred thousand
+    1,000,000 Million
+    1,000,000,000 Billion
+    1,000,000,000,000 Trillion
+
+    If more request per second then we need to increase the characters in the url.
+
+Strategies to generate tiny URL
+Strategy 1: Generate random tiny URL and check DB
+
+    Table Schema:
+    key can be tiny url and value can be long url. This should do.
+    (Technique 1) generate tiny url and check the DB
+
+
+
+Strategy 2: Pick first 43 bits of MD5
+    MD5 approach - we calculate MD5 of long URL, then take first 43 bits to generate the tiny url
+    MD5 is a hashing function that generates 128 bit long hash. Out of which we take 43 bits and generate tiny url.
+    If we take more bits probability of collision is less.
+
+    Advantage over random url: saving space in database. If 2 users have tried same long url then we will only have one row.
+
+    43 bits is 0s and 1s.
+        01010111 -> binary
+        convert to decimal by raising to 2 and adding
+        Then convert to base 62 -> divide by 62 and percent by 62
+
+
+Strategy 3: Counter
+    -> Single host is responsible for maintaining a counter. This can be a database or a zookeeper
+    -> all host
+        Every host tries to manage a counter. Every host gets unique 6 bits.
+    -> range based approach
+
+
+Load balancer
+Rest API
+Zookeepr
+NoSQL DB
+CDN
+MD5
+memcached
+
+*********************************************************************************
+
+https://www.educative.io/courses/grokking-the-system-design-interview/B892KY261z2
+1. Different architectural. Decide on trade offs
+Scalability
+    Scalability is the capability of a system, process, or a network to grow and manage increased demand. Any distributed system that can continuously evolve in order to support the growing amount of work is considered to be scalable.
+    Horizontal vs. Vertical Scaling: Horizontal scaling means that you scale by adding more servers into your pool of resources whereas Vertical scaling means that you scale by adding more power (CPU, RAM, Storage, etc.) to an existing server.
+Reliability
+    Reliability is the probability a system will fail in a given period. In simple terms, a distributed system is considered reliable if it keeps delivering its services even when one or several of its software or hardware components fail.
+Availability
+    Availability is the time a system remains operational to perform its required function in a specific period
+Efficiency
+    Two standard measures of its efficiency are the response time (or latency) that denotes the delay to obtain the first item and the throughput (or bandwidth) which denotes the number of items delivered in a given time unit (e.g., a second). The two measures correspond to the following unit costs:
+    Number of messages globally sent by the nodes of the system regardless of the message size.
+    Size of messages representing the volume of data exchanges.
+Serviceability or Manageability
+
+
+Load Balancing
+    critical component of a distributed system, helps spread traffic across a cluster of servers to improve responsiveness and availability of applications, websites or databases
+    requests are immediately passed on to a more readily available resource.
+    Service providers experience less downtime and higher throughput. Even a full server failure won’t affect the end user experience as the load balancer will simply route around it to a healthy server.
+    Load balancing methods:
+        Least Connection Method
+        Least Response Time Method
+        Least Bandwidth Method
+        Round Robin Method
+        Weighted Round Robin Method
+        IP Hash
+Cache
+    A cache is like short-term memory: it has a limited amount of space, but is typically faster than the original data source and contains the most recently accessed items. Caches can exist at all levels in architecture, but are often found at the level nearest to the front end where they are implemented to return data quickly without taxing downstream levels.
+    Caches take advantage of the locality of reference principle: recently requested data is likely to be requested again
+    1. Application Server Cache
+    2. Content Distribution Network (CDN)
+        CDNs are a kind of cache that comes into play for sites serving large amounts of static media. In a typical CDN setup, a request will first ask the CDN for a piece of static media; the CDN will serve that content if it has it locally available. If it isn’t available, the CDN will query the back-end servers for the file, cache it locally, and serve it to the requesting user.
+
+    Cache invalidation
+        Write-through cache
+        Write-around cache
+        Write-back cache
+    Cache eviction policy
+        First in First Out (FIFO)
+        Last in First out (LIFO)
+        Least Recently Used (LRU)
+        Most Recently Used (MRU)
+        Least Frequently Used(LFU)
+        Random Replacement (RR)
+
+Data Partitioning
+    Horizontal partitioning
+    Vertical Partitioning
+    Directory Based Partitioning
+
+Proxies
+Redundancy and Replication
+
+

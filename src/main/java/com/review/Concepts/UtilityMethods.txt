@@ -1,0 +1,957 @@
+Small note that helped me. if recursive calls before conditional check, then its bottom up. If recursive call after conditional check, its top down.
+
+***************************************************************************
+Character Class Utility Methods:
+1. Method to check if a character is a letter of digit
+Character.isLetterOrDigit(character)
+2. Method to change a letter to lower case or upper case
+Character.toLowerCase(character)
+3. Character.getNumericValue(str.charAt(i)) -> to get a numeric value of a character (for addition purpose)
+4. Character.isDigit(character) -> to check if the character is a digit
+5. Character.toString(ch) -> to convert a character to String
+6. To get a substring of a string we will use substring()
+    a. String substring(int beginIndex) -> return substring starting from the specified beginning index to the end.
+    This method throws IndexOutOfBoundsException If the beginIndex is less than zero or greater than the length of String
+    Example: "Chaitanya".substring(2) would return "aitanya".
+
+    Note:
+    e.substring(1) will return an empty string.
+    e.substring(2) will return index out of bound.
+
+    b. String substring(int beginIndex, int endIndex)
+    Returns a new string that is a substring of this string.
+    The substring begins at the specified beginIndex and extends to the character at index endIndex – 1.
+    Thus the length of the substring is endIndex-beginIndex.
+    In other words you can say that beginIndex is inclusive and endIndex is exclusive while getting the substring.
+    Example: "Chaitanya".substring(2,5) would return "ait".
+
+
+7. To put a white space in a character
+str[writeIndex] = '\0'; // Initializing empty character
+
+8 How to get character from index
+// add the index with 'a'
+char ch = (char) (5 + a); // f
+
+9. To find if a character is uppercase or lowercase
+    boolean isUpper = Character.isUpperCase(ch);
+    boolean isUpper = Character.isUpperCase(ch);
+
+    boolean isLowerCase = Character.isLowerCase(ch);
+
+
+***************************************************************************
+
+String Class Utility Methods:
+0. == for reference comparison and .equals for content comparison
+1. s.charAt(i) -> Character at a specific string position
+2. s.charAt(i) - '0' -> to get specific int on a string
+3. String to String data comparison use .equals instead of ==
+    .equals will compare the value and not address in the string constant pool.
+    When we use the == operator for s1 and s2 comparison then the result is true as both have the same addresses in the string constant pool.
+    Equality operator(==) can be applied for object type
+3. str.toCharArray(); -> returns a character array of the given string.
+    Repeated string concatenation is expensive. Converting to char array is better
+    char[] chars = str.toCharArray();
+4. String class does not offer sort to sort a String. We need to to get character array, then sort the array and return new sorted String
+    new String(Arrays.sort(str.toCharArray()));
+5. String.valueOf(current_node) -> here current_node is of type integer. To get a string value of the integer.
+6. To get length of a String ->  str1.length();
+7. Get a substring of a string java -> "smiles".substring(1, 5); // miles // startIndex, endIndex-1
+
+     * Returns a string that is a substring of this string. The
+     * substring begins at the specified {@code beginIndex} and
+     * extends to the character at index {@code endIndex - 1}.
+     * Thus the length of the substring is {@code endIndex-beginIndex}.
+     * <p>
+     * Examples:
+     * <blockquote><pre>
+     * "hamburger".substring(4, 8) returns "urge"
+     * "smiles".substring(1, 5) returns "mile"
+     * </pre></blockquote>
+
+
+8. for loop on characters
+    for (char c = 'a'; c <='z'; c++) {
+        chars[i] = c;
+        String neighbor = new String(chars);
+        result.add(neighbor);
+    }
+
+9. String to Integer
+int b = Integer.parserInt("444");
+
+10. Integer to String:
+String.valueOf(435);
+
+11. How to reverse a string. There is no built in reverse method in String.
+option1: String builder has reverse method
+    String input = "Geeks for Geeks";
+    StringBuilder input1 = new StringBuilder();
+    input1.append(input);
+    input1.reverse();
+
+option 2:
+    String input = "GeeksForGeeks";
+    char[] try1 = input.toCharArray();
+    for (int i = try1.length - 1; i >= 0; i--) {
+      System.out.print(try1[i]);
+    }
+
+Option3:
+    Using byte array
+    String input = "GeeksforGeeks";
+    byte[] strAsByteArray = input.getBytes();
+    for (int i = 0; i < strAsByteArray.length; i++)
+        result[i] = strAsByteArray[strAsByteArray.length - i - 1];
+    System.out.println(new String(result));
+
+
+12. To concat to strings use concat method
+String[] words = {"ela", "dc"};
+String combined = words[i].concat(words[j]);
+
+//To reverse use String Builder
+String reversed = new StringBuilder(combined).reverse().toString();
+List<List<Integer>> pairs = new ArrayList<>();
+if (combined.equals(reversed) {   // use equals for string value comparison
+    pairs.add(Arrays.asList(i, j));
+}
+
+13. With String builder we can insert in a specific position - every - other characters get pushed to other sides
+ StringBuilder str = new StringBuilder("al");
+ str.insert(0, 'b'); // bal  -> inserts b at 0th index
+ // So no need to convert to char array to make an insertion. String builder is easier.
+
+
+
+
+***************************************************************************
+
+Integer class Utility Methods:
+1. Integer n = Integer.parseInt(str) -> get the integer value and can be used to sum to assign to int
+2. Integer.MAX_VALUE  //2147483647
+3. Integer.MIN_VALUE // -2147483648
+
+***************************************************************************
+
+Math Utils and operations:
+1. Get each digit from an integer to sum up or do operation
+Use mod and then div operator.
+
+        int number = 145;
+        int sum = 0;
+        int quotient = number;
+        while (quotient > 0) {
+            sum = sum + quotient % 10; // takes the remainder - gives the digit in unit place
+            quotient = quotient / 10;  // remaining number without digit in units place
+        }
+        // Result 10 which is the sum of 145.
+
+2. To reverse a template:
+
+
+2. Get Maximum value
+
+
+***************************************************************************
+
+Array:
+
+1. Initializing array
+    int[] top = new int[size];
+    String[] arr = {"Ela", "Kr"}
+2. Fill an Array with initial value
+    Arrays.fill(result, -1);
+3. Get Length of array
+    int size = arr.length;   // length is a property and not method
+
+4. Arrays.toString(arr)
+    Print array
+
+5. Iterate an array
+    for (type var : array) {
+        statements using var;
+    }
+
+    same as
+
+    for (int i = 0; i < arr.length; i++) {
+       type var = arr[i];
+       statements using var;
+    }
+
+6. Copy items from one array and create another array
+    int[] result = inputArr.clone();
+
+7. Arrays.sort(inputArr); // to sort in ascending order
+ Arrays.sort(items, Collection.reverseOrder());  // to sort in descending order
+
+8. sort an input array - two dimentional array
+int[][] intervals = new int[2][2] {{0, 1}, {4, 5}, {0, 5}};
+ Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+        or
+ Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
+
+ Interval[] intervals
+ Arrays.sort(intervals, (a, b) -> Integer.compare(a.start, b.start));
+
+ 9. Array of ArrayList of String
+ ArrayList<String>[] group = new ArrayList[4];  // See no () in the end of ArrayList
+
+***************************************************************************
+
+Set:
+HashSet: Unique elements, unordered, unsorted
+LinkedHashSet: Unique elements, Maintains insertion order
+TreeSet: Unique Elements, sorted based on natural ordering. [automatically sorted on insertion and deletion at log n]
+        headSet() - returns all element above a specified element
+        tailSet() - returns all element below a specified element
+
+        TreeSet<Integer> set = new TreeSet<>();
+        Integer s = set.ceiling(5); find the successor of current element and null if one does not exist
+        Integer s = set.floor(7); Find the predecessor of current element and null if one does not exist
+
+The height-balanced BST is widely used in practice since it can provide search, insertion and deletion operations all in O(logN) time complexity
+TreeSet in Java is implemented by the height-balanced BST.
+Therefore, the time complexity of search, insertion and deletion are all O(logN).
+
+The hash set, HashSet in Java, is implemented by hash, but the height-balanced BST also plays an important role in hash set.
+
+difference between the hash set and the tree set is that keys in the tree set are ordered.
+
+***************************************************************************
+
+HashMap
+1. Initialize map
+    Map <Integer, Integer> map = new HashMap <> ();
+2. Put in HashMap
+        map.put(key, value)
+
+3. put a default value if key is not present
+    map.getOrDefault(n, 0);
+
+4. Get from Map
+        map.get(arr[i]);
+5. Check if a key is present in a map
+    map.containsKey(key_element)
+
+6. To get all the map key set only - say we want to iterate over the keys
+    map.keySet();
+
+7. Iterate a hash map
+        // using for-each loop for iteration over Map.entrySet()
+        for (Map.Entry<String,String> entry : gfg.entrySet())
+            System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+
+        // using keySet() for iteration over keys
+        for (String name : gfg.keySet())
+            System.out.println("key: " + name);
+
+        // using values() for iteration over values
+        for (String url : gfg.values())
+            System.out.println("value: " + url);
+
+HashMap: No ordering & No preservation of insertion order on keys/values
+LinkedHashMap: Preserves the insertion order
+TreeMap: Ordered by the key
+HashTable: Unlike HashMap, it is synchronized
+
+7. To iterate and modify we need to use a iterator. Otherwise we get concurrent modification exception
+ // This won't work
+ Iterator it = map.entrySet().iterator();
+ while (it.hasNext())
+ {
+    Entry item = it.next();
+    map.remove(item.getKey());   // This will fail as we are iterating and modifying at same time. Use iterator.
+ }
+
+
+ // This is correct - Here also iterator type we have to give otherwise will fail as object cannot be assigned
+  Iterator it = map.entrySet().iterator();
+   while (it.hasNext())
+   {
+      Entry item = it.next(); // Just Entry does not work. check this. Has to be Map.Entry with data types - see good one below
+      it.remove();
+   }
+
+  // Correct one. See how Iterator has type and eachMapEntry has the type
+  Iterator<Map.Entry<Integer, ArrayList<Integer>>> itr = map.entrySet().iterator();
+  while(itr.hasNext()) {
+     Map.Entry<Integer, ArrayList<Integer>> eachMapEntry = itr.next();
+       if (eachMapEntry.getValue().size() == 0) {
+          queue.offer(eachMapEntry.getKey());
+            itr.remove();
+       }
+  }
+
+    // Good one
+    // How to define iterator and access elements // Right way.
+                    Iterator<Map.Entry<Integer, ListNode>> itr = sumNodeMap.entrySet().iterator();
+                    while (itr.hasNext()) {
+                        Map.Entry<Integer, ListNode> item = itr.next();
+                        itr.remove();
+                    }
+
+8. To delete a map entry
+map.remove(key);
+
+9. If we iterate a map and modify at the same time we get
+ConcurrentModificationException
+
+10. If we need to be able to access map elements by index, or retain the order of insertion then we need to use LinkedHashMap
+Map <Integer, Integer> map = new LinkedHashMap<> ();
+Normal hashmap does not retain order remember that.
+Linked hash map retains order of insertion.
+map.remove(map.keySet().iterator().next());
+
+
+
+
+***************************************************************************
+HashSet
+Set<Character> hashset = new LinkedHashSet<Character>();
+hashset.contains('c');
+hashSet.add('c');
+hashset.remove("Welcome");
+
+
+Set<String> set = new HashSet<String>();
+
+//populate set
+for (String s : set) {
+    System.out.println(s);
+}
+
+// Java 8
+set.forEach(System.out::println);
+
+
+//Hash Set  =>  HashSet<Integer> hSet = new HashSet<>();
+//HashMap   =>  HashMap<Integer,String> hMap = new HashMap<>();
+//HashTable =>  Hashtable<Integer,String> hTable = new Hashtable<>();
+//Hash Set Functions => {add(), remove(), contains()}
+//Hash Map and Table Functions => {put(key,value), get(key), remove(key), containsKey(key), containsValue(value)}
+
+
+See in set we cant get by index. We have to get by key. - important
+If we want to get the first element
+set.iterator().next();   // in list we can get by index list.get(0);
+
+***************************************************************************
+ArrayList
+1. Ways to create an ArrayList
+List<Integer> l1 = new ArrayList<Integer>();
+List<Integer> l1 = new ArrayList<Integer>(size);
+ArrayList<String> l1 = new ArrayList<String>(Arrays.asList("Geeks", "for", "Geeks"));
+List<String> gfg = new ArrayList<>(List.of("Geeks", "for", "Geeks"));
+Create an Array of Collection:
+    Set<Character>[] rows = new HashSet[9];
+    rows[0] = new HashSet(9);
+
+2. Add to ArrayList
+l1.add(index);
+
+3. Add to the beginning of the array list
+ArrayList<String> aListNumbers = new ArrayList<String>();
+aListNumbers.add(0, "Ela");
+
+// Very Important:
+3. to remove
+l1.remove(index);
+Array list has 2 over loaded remove function. If we want to remove by index the value has to be primitive integer.
+If we want to remove the object then non primitive value should be passed. Do not pass Integer and expect the index is removed. cast to (int)
+By using remove() methods :
+ArrayList provides two overloaded remove() method.
+    a. remove(int index) : Accept index of object to be removed.
+    b. remove(Object obj) : Accept object to be removed.
+
+
+
+3. Check if an array list has an element
+l1.contains(item);
+
+4. l1.get(int index) -> get item in a particular index
+
+5. to sort: Collections.sort(l1)
+
+6. to remove all elements from list remove()
+
+7. to get size arrlist.size();
+
+8. To convert an array list to array use toArray();
+        List<Integer> al = new ArrayList<Integer>();
+        al.add(10);
+        al.add(20);
+        al.add(30);
+        al.add(40);
+        Object[] objects = al.toArray();
+
+    List<Interval> result = new ArrayList<Interval>();
+    return result.toArray(new Interval[result.size()]);
+
+
+9. To initialize an array list with values:
+ArrayList<Integer> numbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6));
+ArrayList<String> cities = new ArrayList<>(Arrays.asList("London", "Tokyo", "New York"));
+ArrayList<Float> floats = new ArrayList<>(Arrays.asList(3.14f, 6.28f, 9.56f));
+List<Integer> listOfInts = Arrays.asList(1, 2, 3);
+
+Array list from a queue / min Heap / priority queue
+ArrayList<>(minHeap);
+
+10. contains - to find if an element is present
+List<Integer> list = new ArrayList<Integer>(4);
+list.add(1);
+list.add(2);
+boolean ans = list.contains(2);
+
+
+11. Important read: Comparision between contains() on a HashSet and a List
+https://www.baeldung.com/java-hashset-arraylist-contains-performance
+contains in HashSet is O(1) as it uses HashCode
+contains in List is O(n) as it iterates the entire list to find the item
+The contains() method works faster in HashSet compared to an ArrayList.
+
+12. Create an array list from and array
+ List<Integer> gfg = new ArrayList<Integer>(arr);
+
+****************************************************************************
+Iterator:
+To initialize an iterator use the collection for which we are adding the iterator to return one. We can use new here to initialize
+          LinkedList<Integer> currentNodeAdj = adjacency[top];
+          Iterator<Integer> itr = currentNodeAdj.iterator();
+          while(itr.hasNext()) {
+            int eachAdjacency = itr.next();
+            itr.remove();
+          }
+
+****************************************************************************
+
+Linked List:
+
+        LinkedList<Integer> list = new LinkedList<Integer>();
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        list.size();
+        list.remove(2);
+        list.remove() // removes from head of the linked list
+
+        Iterator itr = list.iterator();
+        int i = 0;
+        while(itr.hasNext()) {
+            itr.next();
+            if (i == target - 1) {
+                itr.remove();
+                break;
+            }
+            i++;
+        }
+
+To add to the beginning of the linked list
+LinkedList<String> aListNumbers = new LinkedList<String>();
+aListNumbers.add(0, "Ela");
+
+
+1. Build a linked list from an array
+String[] nodeArray = {"this", "is", "array"};
+List<String> data_list = new LinkedList<String>(Arrays.asList(nodeArray));
+
+2. Get the first element on a linked list: We can access elements on a list by index
+list.get(0);
+list.get(i);
+
+3. remove the first item of linked list
+list.remove(0);
+list.remove(i) // remove by index
+
+4. Get last item of linked list
+list.getLast();
+
+LinkedList<int[]> merged = new LinkedList<>();
+merged.getLast()[1] = 5;
+
+
+4. Sort a collection / linked list
+    // Make a list of the keys, sorted by frequency.
+    Map<Character, Integer> counts = new HashMap<>();
+    List<Character> characters = new ArrayList<>(counts.keySet());
+    Collections.sort(characters, (a, b) -> counts.get(b) - counts.get(a));
+
+5. sort a collection
+Collections.sort(sortedArr, (num1, num2) -> Math.abs(num1 - x) - Math.abs(num2 - x));
+
+6. create a list from array
+String[] array = {"one", "two", "three"};
+List newListObject = Arrays.asList(array);
+
+7. //adding to existing List
+   String[] newArray = {"four", "five"};
+    
+   List all = new ArrayList();
+   all.addAll(newListObject);
+   all.addAll(Arrays.asList(newArray));
+
+8. Convert List to Array
+    list.toArray(new int[list.size()][]);
+
+9. Linked list removing first element
+    list.removeFirst();
+   Linked list removing last element
+    list.removeLast();
+
+****************************************************************************
+
+
+Queue:
+Queue is an interface. So to initialize a Queue we need to use one of its implementations like PriorityQueue / LinkedList etc.
+Queue<Integer> q = new PriorityQueue<>();
+q.add(1);
+q.poll(); // retrieve and remove
+q.size() // current queue size
+
+Add all elements of an list to queue
+    q.addAll(lst);
+Alternatively to create an array list from a queue
+    new ArrayList<>(queue);
+
+Add a hash map to Priority Queue // Here we add an entire map entry to the Queue.
+PriorityQueue<Map.Entry<Character, Integer>> maxHeap = new PriorityQueue<Map.Entry<Character, Integer>>
+    (e1, e2) -> e2.getValue() - e1.getValue());
+maxHeap.addAll(CharacterFrequencyMap.entrySet());
+
+
+Priority Queue:  heap  https://docs.oracle.com/javase/8/docs/api/java/util/PriorityQueue.html
+The elements of the priority queue are ordered according to their natural ordering, or by a Comparator provided at queue construction time.
+add(E element)
+peek() - retrieves but does not remove the head of the Queue. Return null if empty
+poll() -> retrieves and removes the head of the Queue, return null if queue is empty.
+
+        PriorityQueue<String> pq = new PriorityQueue<>();
+
+        // Create a heap / priority queue that keeps smallest element in the head
+        PriorityQueue<Integer> heap = new PriorityQueue<Integer>((n1, n2) -> n1 - n2);
+
+        // Min heap has smallest element at the top (peek operation on a heap takes O(logN)
+        PriorityQueue<Integer> allocator = new PriorityQueue<Integer>( intervals.length,
+                    new Comparator<Integer>() {
+                      public int compare(Integer a, Integer b) {
+                        return a - b;
+                      }
+                    });
+
+                    or
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b) -> a-b);
+
+        // To get the size of the heap
+        heap.size();
+
+        // To Poll the heap - retrieve and remove the head of the queue
+        heap.poll;
+
+        pq.add("Geeks");
+        pq.add("For");
+        pq.add("Geeks");
+
+        pq.remove("Geeks");
+
+        String element = pq.peek();
+
+        // Iterating a priority queue
+        Iterator iterator = pq.iterator();
+        while (iterator.hasNext()) {
+            System.out.print(iterator.next() + " ");
+        }
+
+
+      // Initialize with a comparator
+      Queue<Integer> heap = new PriorityQueue<>(
+            (n1, n2) -> count.get(n1) - count.get(n2));
+
+       heap.poll();
+
+       //cast before assigning to avoid casting error
+        currentNode.next = (Node) que.peek();
+
+------->
+       // Priority Queue with an object
+       PriorityQueue<MyHeapNode> minHeap = new PriorityQueue<MyHeapNode>(Math.min(N, k), new MyHeapComparator());
+
+
+       // The corresponding MyHeapNode and Comparator
+            class MyHeapNode {
+                int row;
+                int column;
+                int value;
+
+                public MyHeapNode(int v, int r, int c) {
+                    this.value = v;
+                    this.row = r;
+                    this.column = c;
+                }
+
+                public int getValue() {
+                    return this.value;
+                }
+
+                public int getRow() {
+                    return this.row;
+                }
+
+                public int getColumn() {
+                    return this.column;
+                }
+            }
+
+            class MyHeapComparator implements Comparator<MyHeapNode> {
+
+                @Override
+                public int compare(MyHeapNode o1, MyHeapNode o2) {
+                    return o1.value - o2.value;
+                }
+            }
+
+------->
+    Queue initialized with LinkedList. If you want a Tree node to be held, and no priority really needed then go with LinkedList implementation of Queue
+            Queue<TreeNode> queue = new LinkedList();
+            queue.add(root);
+
+9. Double sided Queue - Dequeue (Implements Queue)
+can add and remove on both sides
+    Dequeue<String> deque = new LinkedList<String>();
+    deque.add("1");  // adds to tail
+    deque.addFirst("2"); // adds to head
+    deque.addLast("3"); // adds to tail
+    deque.push("4"); // adds to first
+    deque.offer("5"); // add to tail
+    deque.offerFirst("6"); // add to top
+    deque.removeFirst(); // remove last
+    deque.removeLast(); // remove end
+
+------->
+Important:
+Entry set can be added to Priority Queue: See how it is done.
+We can do getValue(), setValue() with entry set.
+Map.Entry
+map.entrySet();
+https://leetcode.com/problems/least-number-of-unique-integers-after-k-removals/
+
+class Solution {
+    public int findLeastNumOfUniqueInts(int[] arr, int k) {
+        Map<Integer, Integer> numberFrequencyMap = new HashMap<Integer, Integer>();
+
+        for (int eachNumber : arr) {
+            numberFrequencyMap.put(eachNumber, numberFrequencyMap.getOrDefault(eachNumber, 0) + 1);
+        }
+
+        PriorityQueue<Map.Entry<Integer, Integer>> queue = new PriorityQueue<>((a, b) -> a.getValue() - b.getValue());
+
+        for (Map.Entry eachEntry: numberFrequencyMap.entrySet()) {
+            queue.add(eachEntry);
+        }
+
+        while (k > 0) {
+            Map.Entry<Integer, Integer> top = queue.poll();
+            if (top.getValue() - 1 > 0) {
+                top.setValue(top.getValue() - 1);
+                queue.offer(top);
+            }
+            k--;
+        }
+
+        return queue.size();
+    }
+}
+
+
+
+
+
+
+
+
+****************************************************************************
+To sort Arrays of objects:
+    To sort array of objects we can pass a comparator:
+
+        Integer[] items = new Integer[] {3, 30, 34, 5, 9}
+
+        // Note: For all sort method with Comparator the items have to be object type Integer[] not primitive type
+
+        // This java offered sort is based on quick sort and offers O(n log n)
+1.        public static void sort(int[] a)
+
+
+2.      // Sorting object
+        Arrays.sort(items, new Comparator<ItemValue>() {
+            @Override
+            public int compare(ItemValue o1, ItemValue o2) {
+                return o2.cost.compareTo(o1.cost);
+            }
+        });
+
+        // two Dimensional array sort based
+        Arrays.sort(
+                intervals,
+                new Comparator<int[]>() {
+                  public int compare(final int[] a, final int[] b) {
+                    return a[0] - b[0];
+                  }
+                });
+        or
+        Arrays.sort(intervals, (a, b) -> {return a[0] - b[0];});
+
+
+3.        public static void sort(int[] a, int fromIndex, int toIndex) // sort a range in the array
+
+4.        Collections.naturalOrder(); // to sort array in natural order
+5.        Collections.reverseOrder() // to sort array in reverse order
+
+6.        Arrays.sort(items, Collections.reverseOrder()); // sort in reverse order
+
+7.        Sort a collection, say a list
+          List<Interval> intervals
+          Collections.sort(intervals, (a, b) -> Integer.compare(a.start, b.start));
+
+***************************************************************************
+Bitwise Operator in Use:
+1. if ((i & 1) == 0) {
+   }
+
+Same as if(n%2==1) to check if a even or odd
+The & operator provides a mask that "cancels out" bits in the first depending if they're set in the second parameter -
+so assume N is the number 17, that expressed in binary is 00010001, the number 1 in binary is 00000001, so masking the two together will "blank" the first set of bits, leaving you with N as 00000001.
+Basically that particular if statement drops all except the last bit, which is either 0 or 1, so it is a condition detecting if N is odd or even.
+
+
+****************************************************************************
+Interfaces:
+                Iterable -> Iterator
+                Collection                                                  Map
+    List    Set->SortedSet->NavigableSet   Queue->Deque             SortedMap <- NavigableMap
+
+
+
+Implementing classes:
+    ArrayList     HashSet              PriorityQueue                    HashMap
+    LinkedList    LinkedHashSet        ArrayDeque                      HashLinkedMap
+    Stack         TreeSet              LinkedList(Deque)                HashTable
+    Vector                                                              TreeMap
+
+https://dzone.com/articles/hashset-vs-treeset-vs
+
+<<interface>> Collection
+    - 1. <<interface>> Set
+        1. HashSet
+        2. LinkedHashSet
+        3. <<interface>> SortedSet <--TreeSet
+    - 2. <<interface>> List
+        1. ArrayList
+        2. Vector
+        3. LinkedList
+    - 3. <<interface>> Queue
+        1. Priority Queue
+        2. LinkedList
+
+Under java.util
+
+*****************************************************************************
+Math functions:
+1.
+By default - Java would round down division result
+Example
+    3/2 = 1  (Java rounds down)
+If we want to round up this to 2 (3/2 = 1.5 -> round it up to 2): do the below Math.round
+    int medianPosition = (int) Math.round(midPoint);
+
+2.
+double result = (2 + 3) / 2; // results in compilation because it division results in integer rounded down 2 and it cant be assigned to double
+double result = (double)(2 + 3) / 2; //results in  2.5
+
+3. return maxHeap.peek() / 2.0 + minHeap.peek() / 2.0;   This also returns double (for median calculation)
+
+3. Integer.MAX_VALUE
+Integer.MIN_VALUE
+
+5. Math.sqrt(10) // To find square root
+
+6. To find square of a number
+Math.pow(i, 2); // i raise to the power of 2.
+
+7. Double.parseDouble();
+
+8. Integer.parseInt() // gives primitive int
+9. Integer.valueOf() // convert String to Integer
+10. s.charAt(0);
+
+String.valueOf(doublevariable) // double to String.
+
+***************************************************************************
+Exceptions to be aware of:
+1. Why am I getting java.util.ConcurrentModificationException?.
+Because you are modifying a collection while iterating it.
+    Iterating Priority queue and at the same time polling it
+
+
+You're modifying it (pq.poll()) concurrently with the iteration (for (String str : pq)).
+Despite what the name suggests, concurrent here doesn't mean concurrency in the multithreading sense. It just means "at the same time as." Specifically, if you modify most of the collection classes during the time that you iterate over them — as you do in this case — they'll throw ConcurrentModificationException. Not all of them do, mind you; in particular, the ones designed for multithreaded access don't. But most of the basic ones, such as PriorityQueue, do.
+Iterate like bellow:
+while (!pq.isEmpty()) {
+        System.out.print(pq.poll() + " ");
+    }
+
+************************************************************************
+What does -a mean
+https://medium.com/swlh/what-does-subtracting-a-char-from-a-char-mean-79da714c1b3b
+     String s = "eellae";
+     int[] charCounts = new int[26]
+     for (int i = 0; i < s.length(); i++) {
+            charCounts[s.charAt(i) - 'a']++;
+     }
+
+     // a = 97, b = 98, c = 99, d = 100, e = 101 -> when we subtract 'e' - 'a' = 4 in integer. So the array count value at 4 is incremented.
+     // A = 65, B 66, C = 67
+     // 0 = 48, 1 = 49
+
+***************************************************************************
+
+
+Comparator and Comparable:
+https://www.baeldung.com/java-comparator-comparable
+https://www.youtube.com/watch?v=oAp4GYprVHM
+*****
+
+How to declare an array of List
+ArrayList<Integer>[] adjMatrix = new ArrayList[n];  //correct
+ArrayList<Integer>[] adjMatrix = new ArrayList<Integer>[n]; //incorrect - error Generic array creation - remove the integer
+
+
+***************************************************************************
+
+Pair
+A convenience class to represent name-value pairs. in java
+Pair​(K key, V value)
+
+Create a new Pair
+
+    LinkedList<Pair<TreeNode, Integer>> stack = new LinkedList<>();
+    stack.add(new Pair(root, 1));
+    Pair<TreeNode, Integer> current = stack.pollLast();
+    TreeNode root = current.getKey();
+    int current_depth = current.getValue();
+
+    Pair <String, Integer> ans = new Pair <String, Integer> ("", 0);
+
+    ArrayList <Pair <String,Integer>> l = new ArrayList <Pair <String,Integer> > ();
+    l.add(new Pair <String,Integer> ("Student A", 90));
+    l.add(new Pair <String,Integer> ("Student B", 54));
+
+Get the key for the pair
+    getKey();
+
+Get the value of the pair
+    getValue();
+
+
+*****************************
+Binary Number problems / Bit manipulation - educative io
+    https://www.educative.io/module/lesson/data-structures-in-java/m7606ZmMo69
+    https://leetcode.com/problems/binary-string-with-substrings-representing-1-to-n/submissions/
+
+    Bitwise operators are fast compared to arithmetic and other math operations.
+        primitive types, their range
+            bytes  8 bits  -128 to 127
+            short 16 bits  -32,768 to 32, 767
+            int   32 bits  -2,147,483,648 to 2,147,483,647
+            long  64 bits  -9,223,372,036,854,774,808 to 9,223,372,036,854,775,807
+
+    Bit manipulation has constant time complexity.
+
+    Computer programming tasks that require bit manipulation include:
+        Low-level device control
+        Error detection and correction algorithms
+        Data compression
+        Encryption algorithms
+        Optimization
+
+
+    Bit manipulation can obviate or reduce the need to loop over a data structure and can speed up coding as bit manipulations are processed in parallel.
+        One’s   complement operator	    Used to turn a bit on/off
+        AND     bitwise operator	    Used to mask particular part of byte
+        Left    shift bitwise operator	Used to shift the bit to the left
+        Right   shift bitwise operator	Used to shift the bit to the right
+
+    Introduction to Number Systems
+        Binary	        2	        0, 1 (base-2 number system) - computer understand binary - all eelectical devices understand electrical signals, which have only two states.
+        Octal	        8	        0, 1, 2, 3, 4, 5, 6, 7
+        Decimal	        10	        0, 1, 2, 3, 4, 5, 6, 7, 8, 9       Also called as base-10 number system (famous number system)
+        Hexadecimal	    16	        0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F
+
+
+           123          456             789
+        million | thousand period | ones period
+        when n is divided by 10 repeatedly until it becomes 0, we get its all digit place value for decimals
+
+        Any thing in computer language gets converted into a binary number system.
+        Convert binary to decimal
+
+        Why use Bitwise operators?#
+        In computer programming, a Bitwise operation operates on one or more bit patterns or binary numerals at the bit level.
+            Advantages#
+            They are fast and simple action.
+            They are directly supported by the processor.
+            They are used to manipulate values for comparisons and calculations.
+            Bitwise operations are incredibly simple and faster than arithmetic operations.
+
+
+    Problems:
+          Right shift (divide by 2): n >>= 1; // this is equivalent to (n = n >> 1) OR (n = n/2);
+          Left shift (multiply by powers of 2): Left shifting any number results in multiplying it with powers of 2.
+                1 << 2 = 1 * 2 pow 2 = 1 * 4 = 4
+
+
+  Part 1: BitWise AND: represented by &
+        If two input bits are 1 then output is 1. In all other case output is 0.
+        a	b	a & b
+        0	0	0
+        0	1	0
+        1	0	0
+        1	1	1
+
+        BitWise AND is a binary operation that takes two equal-length binary representations and performs the logical AND
+        operation on each pair of the corresponding bits. This is equivalent to multiplying them.
+
+        BitWise ANDing any number x with 0 yields 0.
+
+        The & operation starts from the rightmost bit traversing towards the leftmost bit in the 32-bit binary representation.
+        a = 12
+        b = 10
+        ---------------------------------
+        a in Binary : 0000 0000 0000 1100
+        b in Binary : 0000 0000 0000 1010
+        ---------------------------------
+        a & b       : 0000 0000 0000 1000
+        ---------------------------------
+
+     Problems: Count Set Bits - Number of 1's
+
+
+    Part 2: BitWise OR
+        1 | 0 => yields to 1.
+        0 | 1 => yields to 1.
+        1 | 1 => yields to 1.
+
+        Syntax: a | b
+            a	b	a | b
+            0	0	0
+            0	1	1
+            1	0	1
+            1	1	1
+
+
+
+
+

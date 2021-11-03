@@ -1,0 +1,1 @@
+The median is the middle value in an ordered integer list.

@@ -1,0 +1,56 @@
+Big O cheat sheet - https://www.bigocheatsheet.com/
+
+
+1. List of array iteration  - O(n) run time
+2. When number of element in the problem space gets halved each time - O(log n) runtime
+3. Single nested loop - quadratic time.
+
+List of Important Complexities:
+1. Simple for-loop with an increment of size 1
+    for (int x = 0; x < n; x++) {
+        //statement(s) that take constant time
+    }
+
+    O(n)
+
+2. For loop with increments of size k
+    for (int x = 0; x < n; x+=k) {
+        //statement(s) that take constant time
+    }
+    O(n)
+
+3. Simple nested for loop
+    for (int i=0; i<n; i++){
+        for (int j=0; j<m; j++){
+            //Statement(s) that take(s) constant time
+        }
+    }
+    O(nm)
+
+4. Nested for loop with dependent variables
+    for (int i=0; i<n; i++){
+       for (int j=0; j<i; j++){
+           //Statement(s) that take(s) constant time
+       }
+   }
+   O(n2)
+
+5. Nested for loop with Index modification
+    for (int i=0; i<n; i++){
+        i*=2;
+        for (int j=0; j<i; j++){
+            // Statement(s) that take(s) constant time
+        }
+    }
+    O(n2)
+
+6. Loops with log(n) time complexity
+    i = //constant
+    n = //constant
+    k = //constant
+    while (i < n){
+        i*=k;
+        // Statement(s) that take(s) constant time
+    }
+
+    O(log n)

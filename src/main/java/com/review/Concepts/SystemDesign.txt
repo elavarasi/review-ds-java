@@ -1,0 +1,1739 @@
+System Design - Educative io/ Design of different systems / To read upon
+
+https://www.educative.io/module/web-application-architecture-101
+
+Part1:
+Tier: [called as tear]
+Logical separation of components in an application or service. [physical separation at component level]
+
+Components:
+    Database, Backend application server, User interface, Messaging, Caching
+
+Single-tier application
+    An application where the user interface, backend business logic, and database all reside in the same machine.
+    [Example: MS Office, PC Game or an image editing software like Gimp].
+
+    Advantages:
+        No network latency because every component is located on the same machine. Adds up to performance of the software.
+        Real performance depends on how powerful the machine is.
+        User data is in same machine, ensures data safety.
+
+    Disadvantage of single-tier application:
+        Once software is shipped business has no control, so no code or feature changes can be done until customer manually updates by connecting
+        to remote server or by downloading and installing a patch.
+
+
+Two-Tier application:
+    Involves a client and a server.
+    Client has user interface and business logic in one machine.
+    The Backend server includes the database running on a different machine. [Database server is hosted by business and has control].
+    Example: Todo list app or similar planner app
+        In these application the business logic code being available to client does not create any harm. Also as the code and the UI are in the
+        same machine, there are fewer network calls to the backend server and keeps application latency low.
+        The application makes call to the database server only when user had finished creating their to-do list and wants to persist the changes.
+
+Three-Tier architecture:
+    Popular and largely used in the industry.
+    User interface, business logic and database all lie on different machines.
+    Example: All simple website like blogs, news website etc.
+    Example: In a simple blog:
+        User interface is written using HTML, JavaScript or CSS.
+        The backend application logic would run on a server like Apache.
+        Database would be MySQL.
+    Three-Tier architecture works best for simple user cases.
+
+N-Tier application: [Another name distributed applications]
+    Has more than 3 components.
+    What are those components:
+        Cache
+        Message queues for asynchronous behavior
+        Load balancer
+        Search servers for searching massive amount of data
+        Components involed in processing massive amount of data
+        Components running heterogeneous tech commonly know as web services
+
+    Example of n-tier applications:
+                Social applications like Instagram and Facebook,
+                large scale industry service like Uber, Airbnb
+                Online multiplayer games like Pokemon Go
+
+    Why so many tiers needed:
+        Two software design principles:
+        (1) Single responsibility principles:
+            Giving only one responsibility to a component and letting it execute it perfectly, be it saving data, running the application logic or ensuring the delivery of the messages throughout the system.
+            Change in one component does not impact another component.
+            Dedicated teams and code repositories for every component - cleaner approach.
+            A database should not hold business logic. It should only take care of persisting the data. This is what the single responsibility principle is, and this is why we have separate tiers for separate components.
+
+        (2) Separation of concern:
+            Kind of means the same thing, be concerned about your work only and stop worrying about the rest of the stuff.
+            Keeping the components separate makes them reusable
+            Different services can use the same database, messaging server or any component as long as they are not tightly coupled with each other.
+            Having loosely coupled components is the way to go.
+            The approach makes scaling the service easy in the future when things grow beyond a certain level.
+
+Why do software applications have different tiers
+           To assign dedicated roles/tasks to different components for a loosely coupled architecture.
+           To make the management, maintenance of the system and the introduction of new features in the application easier.
+
+
+[Layers are different from tiers - do not confuse -  layers of an application typically means the user interface layer, business layer, service layer, or the data access layer. It is at code level.
+-------------------------------------
+Part2: What is Web Architecture:
+    Web architecture involves multiple components like a database, message queue, cache, and user interface, all running in conjunction with each other to form an online service.
+
+Client-Server Architecture
+    (1) Client-server architecture is the fundamental building block of the web.
+    (2) Client:
+        The client holds our user interface.
+        The user interface is the presentation part of the application.
+        It’s written in HTML, JavaScript, CSS and is responsible for the look and feel of the application.
+        The user interface runs on the client.
+        The client can be a mobile app, a desktop or a tablet like an iPad.
+        It can also be a web-based console, running commands to interact with the backend server.
+        The user interface of a web application always runs on the client.
+
+        Technologies used to implement clients in web applications:
+            Open-source technologies popular for writing the web-based user interface are ReactJS, AngularJS, VueJS, jQuery etc. All these libraries use JavaScript.
+            Different platforms require different frameworks and libraries to write front-end. For instance, mobile phones running Android need a different set of tools than those running Apple or Windows OS.
+
+        Two types of client:
+            Thin client:
+                Thin client is the client that holds just the user interface of the application.
+                No business logic.
+                For every action, the client sends a request to the backend server. Just like in a three-tier application.
+            Thick client:
+                The thick client holds all or some part of the business logic.
+                These are the two-tier applications.
+                Example:  utility apps, online games, etc.
+                When we need to minimize the network latency.
+                When we need to reduce the bandwidth consumption in the client server communication, for a smooth user experience.
+
+    (3) Server:
+    Every service running online, needs a server to run.
+    Servers running web application are commonly know as application servers.
+    All components need a server to run, be it a database, a message queue, a cache, or any other component. In modern application even User interface is hosted on a dedicated server.
+
+    Besides application server, other kinds of servers with specific task assigned to them are: [Server configuration and type differ base on the use case]
+        Proxy Server
+        Mail Server
+        File Server
+        Virtual Server
+
+        Example:
+            If we run a backend application code written in Java, we would pick Apache Tomcat or Jetty.
+            For simple use cases such as hosting websites, we would pick the Apache HTTP Server.
+
+    Server side rendering:
+        Use a server to render the user interface on the backend and then send the rendered data to the client. This technique is known as server-side rendering.
+
+
+Communication between the client and server:
+    1. Request response model - client always sends request and serve sends response. No request, no response.
+    2. HTTP Protocol - Entire client server communication happens over HTTP protocol.
+        HTTP is the protocol for data exchange over the world wide web WWW.
+        HTTP is a request response protocol that defines how information is transmitted across the web.
+        It's a stateless protocol and every process over HTTP is executed independently and has no knowledge of previous processes.
+    3. REST API and API Endpoints:
+        The backend application code has a REST-API implemented.
+        This acts as an interface to the outside world requests.
+        Every request, be it from the client written by the business or the third-party developers that consume our data has to hit the REST-endpoints to fetch the data.
+        HTTP Request methods: GET, POST, PUT, DELETE
+    4. Real world example of using a REST API:
+
+REST:
+    Representational State Transfer - REST stands for Representational State Transfer. It’s a software architectural style for implementing web services.  services implemented using the REST architectural style are known as the RESTful Web services.
+    Communication between client and server happens over HTTP.
+    REST also enables servers to cache the response that improves the application performance.
+    The communication between the client and the server is a stateless process. By that, I mean every communication between the client and the server is like a new one.
+    There is no information or memory carried over from the previous communications. So, every time a client interacts with the backend, the client has to send the authentication information to it as well. This enables the backend to figure out whether the client is authorized to access the data or not.
+
+    REST endpoint:
+        An API/REST/Backend endpoint means the URL of a service. For example, https://myservice.com/users/{username} is a backend endpoint for fetching the user details of a particular user from the service.
+        The REST-based service will expose this URL to all its clients to fetch the user details using the above stated URL.
+        Decoupling clients and the backend service made possible.
+
+        Before REST-based api interface, often tightly coupled the backend code with the client. JSP (Java Server Pages) is one example.
+        We would always put business logic in the JSP tags.
+        This made code refactoring and adding new features difficult because the logic got spread across different layers.
+        Also, in the same codebase, we had to write separate code/classes for handling requests from different types of clients. We needed a different servlet for a mobile client and a different one for a web-based client.
+
+    The REST api acts as a gateway or a single-entry point into the system.
+    It encapsulates business logic and handles the client requests, taking care of the authorization, authentication, sanitizing the input data, and other necessary task before providing access to the application resources.
+    New you are aware of the
+
+HTTP Push and Pull
+    For every request there is a response. Default mode of HTTP Communication, called the HTTP Pull mechanism.
+    The client pulls the data from the server whenever required. It keeps doing this over and over to fetch the updated data.
+    Every request and response consumes bandwidth.
+    Every hit on server costs the business money and adds more load on the server.
+    Excessive pulls by the clients have potential to bring down the server.
+
+HTTP Push:
+    In this mechanism, the client sends the request for particular information to the server just once. After the first request, the server keeps pushing the new updates to the client whenever they are available.
+    The client doesn’t have to worry about sending additional requests to the server for data. This saves a lot of network bandwidth and cuts down the load on the server by notches.
+    This is also known as a callback. The client phones the server for information. The server responds, “Hey!! I don’t have the information right now but I’ll call you back whenever it is available”.
+    A very common example of this is user notifications. We have them in almost every web application today. We get notified whenever an event happens on the backend.
+    Clients use Asynchronous JavaScript & XML (AJAX) to send requests to the server in the HTTP PULL based mechanism.
+    There are multiple technologies involved in the HTTP PUSH based mechanism such as:
+        Ajax Long polling
+        Web Sockets
+        HTML5 Event Source
+        Message Queues
+        Streaming over HTTP
+
+HTTP Pull - Polling with AJAX
+    Asynchronous Javascript and XML
+    AJAX stands for asynchronous JavaScript and XML. The name says it all. AJAX is used for adding asynchronous behavior to the web page.
+    AJAX uses an XMLHttpRequest object for sending the requests to the server which is built-in the browser and uses JavaScript to update the HTML DOM.
+    AJAX is commonly used with the jQuery framework to implement the asynchronous behavior on the UI.
+    This dynamic technique of requesting information from the server after regular intervals is known as polling.
+
+
+Http Push
+    Time To Live (TTL)
+        If the client doesn’t receive a response from the server within the TTL, the browser kills the connection and the client has to re-send the request hoping it receives the data from the server before the TTL ends again.
+        Open connections consume resources, and there is a limit to the number of open connections a server can handle at once. If the connections don’t close and new ones are being introduced, over time, the server will run out of memory. Hence, the TTL is used in client-server communication.
+
+    Persistent connection
+         If we are certain that the response will take more time than the TTL set by the browser we need a persistent connection between the client and the server.
+         A persistent connection is a network connection between the client and the server that remains open for further requests and responses, as opposed to being closed after a single communication.
+         This facilitates HTTP PUSH-based communication between the client and the server. Updates being pushed from the server to the client once the connection is established.
+
+    Heartbeat interceptors
+    Now you might be wondering how is a persistent connection possible if the browser kills the open connections to the server every X seconds?
+    The connection between the client and the server stays open with the help of Heartbeat Interceptors.
+    These are just blank request responses between the client and the server to prevent the browser from killing the connection.
+    Resource intensive - For instance, a browser-based multiplayer game has a pretty large amount of request-response activity within a certain time compared to a regular web application.
+    Long opened connections can be implemented by multiple techniques such as AJAX Long Polling, Web Sockets, Server-Sent Events, etc.
+
+    HTTP Push based technologies:
+        Web Sockets
+            A Web Socket connection is preferred when we need a persistent bi-directional low latency data flow from the client to server and back.
+            Typical use-cases of these are messaging, chat applications, real-time social streams, and browser-based massive multiplayer games which have quite a number of read writes in comparison to a regular web app.
+            With Web Sockets, we can keep the client-server connection open as long as we want.
+            Have bi-directional data? Go ahead with Web Sockets. One more thing, Web Sockets tech doesn’t work over HTTP. It runs over TCP. The server and the client should both support Web Sockets, or else the system won’t work.
+            https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API
+            https://www.html5rocks.com/en/tutorials/websockets/basics/
+
+        AJAX – Long polling
+            Long polling lies somewhere between AJAX and Web Sockets. In this technique instead of immediately returning the response, the server holds the response until it finds an update to be sent to the client.
+            The connection in long polling stays open a bit longer compared to polling. The server doesn’t return an empty response. If the connection breaks, the client has to re-establish the connection to the server.
+            The upside of using this technique is that there are a smaller number of requests sent from the client to the server compared to the regular polling mechanism. This reduces a lot of network bandwidth consumption.
+            Long polling can be used in simple asynchronous data fetch use cases when you do not want to poll the server every now and then.
+
+        HTML5 Event-Source API and Server-Sent Events
+            The Server-Sent Events (SSE) implementation takes a bit of a different approach. Instead of the client polling for data, the server automatically pushes the data to the client whenever the updates are available. The incoming messages from the server are treated as events.
+            The incoming messages from the server are treated as events.
+            Via this approach, the servers can initiate data transmission towards the client once the client has established the connection with an initial request.
+            To implement server-sent events, the backend language should support the technology, and on the UI HTML5 Event-Source API is used to receive the data in-coming from the backend.
+            An important thing to note here is that once the client establishes a connection with the server, the data flow is in one direction only, that is from the server to the client.
+            SSE is ideal for scenarios like a real-time Twitter feed, displaying stock quotes on the UI, real-time notifications etc.
+            https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events
+
+        Streaming over HTTP
+            Streaming over HTTP is ideal for cases where we need to stream large data over HTTP by breaking it into smaller chunks. This is possible with HTML5 and a JavaScript Stream API.
+            The technique is primarily used for streaming multimedia content, like large images, videos etc, over HTTP.
+            Due to this, we can watch a partially downloaded video as it continues to download, by playing the downloaded chunks on the client.
+            To stream data, both the client and the server agree to conform to some streaming settings. This helps them determine when the stream begins and ends over an HTTP request-response model.
+            https://developer.mozilla.org/en-US/docs/Web/API/Streams_API/Concepts
+
+        HTTP PUSH based technology
+           WebSockets - Web Sockets facilitate bi-directional communication between the client and the server which is typically required in an online game.
+           AjaxLongPolling
+           Streaming Over HTTP - This technique is ideal for cases where we need to stream large data over HTTP by breaking it into smaller chunks. It is primarily used for streaming multimedia content, like large images, videos etc., over HTTP.
+           Server side Events
+
+Client-Side vs. Server-Side Rendering
+        When a user requests a web page from the server and the browser receives the response, it has to render the response on the window in the form of an HTML page.
+        For this, the browser has several components, such as the:
+            Browser engine
+            Rendering engine
+            JavaScript interpreter
+            Networking and the UI backend
+            Data storage etc.
+
+
+Scalability:
+    What is scalability?#
+    Scalability means the ability of the application to handle and withstand increased workload without sacrificing the latency.
+    If your app takes x seconds to respond to a user request. It should take the same x seconds to respond to each of the million concurrent user requests on your app.
+    The backend infrastructure of the app should not crumble under a load of a million concurrent requests. It should scale well when subjected to a heavy traffic load and should maintain the latency of the system.
+What is latency?#
+    Latency is the amount of time a system takes to respond to a user request. Let’s say you send a request to an app to fetch an image and the system takes 2 seconds to respond to your request. The latency of the system is 2 seconds.
+    Minimum latency is what efficient software systems strive for. No matter how much the traffic load on a system builds up, the latency should not go up. This is what scalability is.
+    If the latency remains the same, we can say that the application scaled well with the increased load and is highly scalable.
+    Let’s think of scalability in terms of Big-O notation. Ideally, the complexity of a system or an algorithm should be O(1) which is constant time like in a Key-value database.
+    A program with the complexity of O(n^2) where n is the size of the data set is not scalable. As the size of the data set increases the system will need more computational power to process the tasks.
+
+    Measuring Latency:
+    Latency is measured as the time difference between the action that the user takes on the website. It can be an event like the click of a button, and the system response in reaction to that event.
+    This latency is generally divided into two parts:
+        Network latency - Network latency is the amount of time that the network takes to send a data packet from point A to point B. The network should be efficient enough to handle the increased traffic load on the website. To cut down the network latency, businesses use CDN and try to deploy their servers across the globe as close to the end-user as possible.
+        Application latency - Application latency is the amount of time the application takes to process a user request. There are more than a few ways to cut down the application latency. The first step is to run stress and load tests on the application and scan for the bottlenecks that slow down the system as a whole.
+    Latency plays a major role in determining if an online business wins or loses a customer. Nobody likes to wait for a response on a website. There is a well-known saying, “if you want to test a person’s patience, give them a slow internet connection.”
+    If there is money involved, zero latency is what businesses want. If only if this was possible.
+    We can realize the importance of low latency by the fact that in 2011 Huawei and Hibernia Atlantic started laying a fiber-optic link cable across the Atlantic Ocean between London and New York. This property was estimated to cost approximately $300M just to save traders 6 milliseconds of latency.
+
+Types of Scalability:
+    To scale, application needs solid computing power. The servers should be powerful enough to handle increased traffic loads.
+    There are two ways to scale an application:
+        (1) Vertical scaling -
+            Let’s say your app is hosted by a server with 16 gigs of RAM. To handle the increased load you increase the RAM to 32 gigs. Here, you have vertically scaled the server.
+            Ideally, when the traffic starts to build on your app the first step should be to scale vertically. Vertical scaling is also called scaling up.
+            In this type of scaling we increase the power of the hardware running the app. This is the simplest way to scale because it doesn’t require any code refactoring or making any complex configurations and stuff
+            However, there is only so much we can do when scaling vertically. There is a limit to the capacity we can augment for a single server.
+            A good analogy would be to think of a multi-story building. We can keep adding floors to it but only up to a certain point. What if the number of people in need of a flat keeps rising? We can’t scale the building up to the moon for obvious reasons.
+            When the traffic is too great to be handled by single hardware, we bring in more servers to work together.
+
+        (2) Horizontal scaling
+            Horizontal scaling, also known as scaling out, means adding more hardware to the existing hardware resource pool. This increases the computational power of the system as a whole.
+            Horizontal scaling also provides us with the ability to dynamically scale in real-time as the traffic on our website increases and decreases over a period of time as opposed to vertical scaling which requires pre-planning and a stipulated time to be pulled off.
+
+    Cloud counting / Cloud Elasticity :
+        Cloud computing become so popular in the industry is the ability to scale up and down dynamically.
+        If the site has a heavy traffic influx more server nodes get added and when it doesn’t, the dynamically added nodes are removed.
+        This approach is known as cloud elasticity and saves businesses lots of money every single day. It indicates the stretching and returning to the original infrastructural computational capacity.
+    High availability:
+    Having multiple server nodes on the backend also helps the website staying alive online all the time even if a few server nodes crash.
+    This is known as high availability. We’ll get to that in the upcoming lessons.
+
+    Pros and Cons of Vertical VS Horizontal Scaling
+        Vertical scaling for obvious reasons is simpler in comparison to scaling horizontally because we do not have to touch the code or make any complex distributed system configurations. It takes much less administrative, monitoring, and management efforts as opposed to managing a distributed environme
+        A major downside of vertical scaling is availability risk. The servers are powerful but few in number. There is always a risk of them going down and the entire website going offline, which doesn’t happen when the system is scaled horizontally. It becomes more highly available.
+
+    Statelessness
+        To run code on distributed environment is has to be stateless.There should be no state in the code
+        i.e There can be no static instances in the class. Static instances hold application data and if a particular server goes down all the static data/state is lost. The app is left in an inconsistent state.
+        Rather, use a persistent memory like a Key-value store to hold the data and remove all the state/static variable from the class
+
+        The upsides of horizontally scaling include no limit to augmenting the hardware capacity. Data is replicated across different geographical regions as nodes and data centers are set up across the globe.
+
+        If your app is internal app and expected to receive minimal consistent traffic, it may not be mission critical.
+        Why bother hosting it in a distributed environment? A single server is enough to manage the traffic, so go ahead with vertical scaling when you know that the traffic load will not increase significantly.
+        If your app is a public-facing social app like a social network, a fitness app, or something similar, then traffic is expected to spike exponentially in the near future. Both high availability and horizontal scalability is important to you.
+
+    Bottlenecks that hurt scalability of our application:
+        (1) Database: Consider that, we have an application that appears to be well architected. Everything looks good. The workload runs on multiple nodes, and it has the ability to horizontally scale.
+                      However, the database is a poor single monolith, where just one server has the onus of handling the data requests from all the server nodes of the workload.
+                      This scenario is a bottleneck. The server nodes work well, handle millions of requests at a point in time efficiently, yet, the response time of these requests and the latency of the application is very high due to the presence of a single database
+                      Just like workload scalability, the database needs to be scaled well.
+                      Make wise use of database partitioning, sharding, and multiple database servers to make the module efficient.
+
+        (2) Application architecture
+                       A poorly designed application’s architecture can become a major bottleneck as a whole.
+                       A common architectural mistake is not using asynchronous processes and modules whereever required rather all the processes are scheduled sequentially.
+                       For instance, if a user uploads a document on the portal, tasks such as sending a confirmation email to the user or sending a notification to all of the subscribers/listeners to the upload event should be done asynchronously.
+                       These tasks should be forwarded to a messaging server as opposed to doing it all sequentially and making the user wait for everything.
+
+        (3) Not using caching in the application wisely
+                      Caching can be deployed at several layers of the application and it speeds up the response time by notches. It intercepts all the requests going to the database, reducing the overall load.
+                      Use caching exhaustively throughout the application to speed up things significantly.
+
+        (4) Inefficient configuration and setup of load balancers:
+                       Load balancers are the gateway to our application. Using too many or too few of them impacts the latency of our application.
+
+        (5) Adding business logic to the database
+                        The database is just not the place to put business logic. Not only does the whole application tightly coupled it puts an unnecessary load on it.
+
+        (6) Not picking the right database
+                    Picking the right database technology is vital for businesses
+                    Need transactions and strong consistency? Pick a relational database.
+                    If you can do without strong consistency rather than need horizontal scalability on the fly pick a NoSQL database.
+
+        (7) At the code level
+                    This shouldn’t come as a surprise but inefficient and badly written code has the potential to take down the entire service in production, which includes:
+                        Using unnecessary loops or nested loops
+                        Writing tightly coupled code
+                        Not paying attention to the Big-O complexity while writing the code. (be ready to do a lot of firefighting in production)
+
+
+How to Improve and Test the Scalability of our Application?:
+    Application’s performance is directly proportional to scalability.
+    If an application is not performant it will certainly not scale well.
+    These best practices can be implemented even before the real pre-production testing is done on the application.
+
+    Tuning the performance of the application - Enabling it to Scale better:
+        (1) Profiling:
+            Run application profiler and code profiler. See which processes are taking too long and which are eating up too many resources. Find out the bottlenecks. Get rid of them.
+            Profiling is the dynamic analysis of our code. It helps us measure the space and the time complexity of our code and enables us to figure out issues like concurrency errors, memory errors and robustness and safety of the program.
+
+        (2) Caching:
+            Cache wisely, and cache everywhere. Cache all the static content. Hit the database only when it is really required. Try to serve all the read requests from the cache. Use a write-through cache.
+
+        (3) CDN: Content Delivery Network (CDN):
+            Using a CDN further reduces the latency of the application due to the proximity of the data from the requesting user.
+
+        (4) Data compression: Compress data
+            Use apt compression algorithms to compress data, and store data in the compressed form. As compressed data consumes less bandwidth, consequently, the download speed of the data on the client will be faster.
+
+        (5) Avoid unnecessary client server requests
+            Avoid unnecessary round trips between the client and server. Try to club multiple requests into one.
+
+        (6) Testing the scalability of our application
+                During the scalability testing, different system parameters are taken into account such as the
+                    CPU usage,
+                    network bandwidth consumption,
+                    throughput,
+                    number of requests processed within a stipulated time,
+                    latency,
+                    memory usage of the program,
+                    end-user experience when the system is under heavy load etc.
+
+                Study how the system behaves under the heavy load, and how the application scales under the heavy load. Contingencies are planned for unforeseen situations.
+                Several load and stress tests are run on the application.
+                Tools like JMeter are pretty popular for running concurrent user tests on the application if you are working on a Java ecosystem.
+                There are a lot of cloud-based testing tools available that help us simulate test scenarios just with a few mouse clicks.
+
+    https://engineering.fb.com/2018/02/12/production-engineering/how-production-engineers-support-global-events-on-facebook/
+    https://www.8bitmen.com/how-hotstar-scaled-with-10-3-million-concurrent-users-an-architectural-insight/
+
+Important: Read upon Microservices design pattern:
+https://medium.com/geekculture/design-patterns-for-microservices-circuit-breaker-pattern-276249ffab33
+https://www.edureka.co/blog/microservices-design-patterns#CircuitBreaker
+https://medium.com/@madhukaudantha/microservice-architecture-and-design-patterns-for-microservices-e0e5013fd58a
+https://dzone.com/articles/design-patterns-for-microservices
+
+
+*********************************************
+High Availability:
+    High availability, also known as HA, is the ability of the system to stay online despite having failures at the infrastructural level in real-time.
+    High availability ensures the uptime of the service much more than the normal time. It improves the reliability of the system and ensures minimum downtime.
+    In the industry, HA is often expressed as a percentage. For instance, when the system is 99.99999% highly available, it simply means 99.99999% of the total hosting time the service will be up. You might often see this in the Service Level Agreements (SLA) of cloud platforms.
+    Social applications going down for a bit and then bouncing back might not impact businesses that much. However, there are mission-critical systems like aircraft systems, spacecrafts, mining machines, hospital servers, and finance stock-market systems that cannot afford to go down at any time. After all, lives depend on it.
+    To meet the high availability requirements, systems are designed to be fault-tolerant and their components are made redundant.
+
+    Reasons for System failures:
+        1. Software Crashes
+        2. Hardware failures: including overloaded CPU and RAM, hard disk failures, nodes going down, and network outages.
+        3. Human errors: This is the biggest reason for system failures. It includes flawed configurations and what not.
+        4. Planned Downtime:Besides the unplanned crashes, there are planned down times that involve routine maintenance operations, patching software, hardware upgrades, etc.
+
+    Achieving High Availability - Fault Tolerance:
+        Make the system fault tolerant: Fault tolerance is a system’s ability to stay up despite taking hits.
+            Out of several instances/node, running the service, a few go offline and bounce back all the time. In case of these internal failures, the system can work at a reduced level without, going down entirely.
+            A very basic example of a system that is fault-tolerant is a social networking application.
+            Fail soft: In the case of backend node failures, a few services of the app such as image upload, post likes etc. may stop working. However, the application as a whole will still be up. This approach is also technically known as fail soft.
+
+        Designing a highly available fault-tolerant service – Architecture#
+            To achieve high availability at the application level, the entire massive service is architecturally broken down into smaller loosely coupled services called micro services.
+            There are many upsides of splitting a big monolith into several micro services, as it provides:
+                Easier management
+                Easier development
+                Ease of adding new features
+                Ease of maintenance
+                High availability
+
+            Every micro service takes the onus of running different features of an application such as image upload, comment, instant messaging etc.
+
+    Redundancy – Active-passive HA mode
+        Redundancy is duplicating the components or instances and keeping extras on standby to take over in case the active instances go down. It is the fail-safe, backup mechanism.
+
+    Replication:
+        Replication means having a number of similar nodes running the workload together. There are no standby or passive instances. When a single or a few nodes go down, the remaining nodes bear the load of the service. Think of this as load balancing.
+
+    High Availability Clustering:
+        A high availability cluster also known as the fail-over cluster, contains a set of nodes running in conjunction with each other that ensures high availability of the service.
+        The nodes in the cluster are connected by a private network called the heartbeat network that continuously monitors the health and the status of each node in the cluster.
+        A single state across all the nodes in a cluster is achieved with the help of a shared distributed memory and a distributed coordination service like the Zookeeper.
+        To ensure the availability, HA clusters use several techniques such as disk mirroring/Redundant Array of Independent Disks (RAID), redundant network connections, redundant electrical power etc. The network connections are made redundant. So, if the primary network goes down the backup network takes over.
+        Multiple HA clusters run together in one geographical zone ensuring minimum downtime and continual service.
+
+        Mission critical systems like aircrafts, financial services, and hospitals have to be reliable. These services should always stay online, and this can only be achieved by making them highly available via redundancy and replication.
+*********************************************
+
+What is load balancing?
+    Load balancing is vital in enabling our service to scale well with an increase in traffic load, as well as stay highly available.
+    Load balancers distribute heavy traffic load across the servers running in the cluster based on several different algorithms. This averts the risks of all the traffic converging on the service to a single or a few machines in the cluster.
+    If the entire traffic on the service converges only to a few machines, this will not only overload them resulting in the increase in the latency of the application and killing its performance, but it will also eventually bring them down.
+    Load balancing helps us avoid all this mess. While processing a user request, if a server goes down, the load balancer automatically routes the future requests to other up and running servers in the cluster. This enables the service as a whole to stay available.
+    Load balancers can also be set up to efficiently manage traffic directed towards any component of the application, be it the _backend application server, database component, message queue, or any other component. This is done to uniformly spread the request load across the machines in the clusters powering that respective component.
+
+    Performing health checks of the servers with load balancers:
+        To ensure that the user request is always routed to the machine that is up and running, load balancers regularly perform health checks on the machines in the cluster.
+        A load balancer maintains a list of machines that are up and running in the cluster in real-time, and the user requests are forwarded to only those machines that are in service. If a machine goes down it is removed from the list.
+        Machines that are up and running in the cluster are known as in-service machines, and the servers that are down are known as out of service instances.
+        Just for the record, Node, Server, Server Node, Instance, and Machine all mean the same thing and can be used interchangeably.
+        After the out of service instance comes back online and becomes in-service, the load balancer updates its list and starts routing the future requests to that particular instance all over again.
+
+    Domain name system (DNS):
+        Every machine that is online and is a part of the World Wide Web (WWW) has a unique IP address that enables it to be contacted by other machines on the Web using that particular IP address.
+        IP stands for Internet Protocol. It’s a protocol that facilitates the delivery of data packets from one machine to another using their IP addresses.
+        2001:db8:0:1234:0:567:8:1 This is an example of a machine’s IP address. The server that hosts our website will have a similar IP address
+        To fetch content from that server, a user has to type in the unique IP address of the server in their browser’s URL tab and hit enter to interact with the website’s content.
+        Typing in domain names, for instance, amazon.com is a lot easier than working directly with IP addresses.
+
+        Domain name system commonly known as DNS is a system that averts the need to remember long IP addresses to visit a website by mapping easy to remember domain names to IP addresses.
+        https://en.wikipedia.org/wiki/IP_address
+
+        DNS querying: When a user types in the URL of the website in their browser and hits enter.
+        There are four key components, or a group of servers, that make up the DNS infrastructure. These are:
+
+            DNS Recursive nameserver aka DNS Resolver
+            Root nameserver
+            Top-Level Domain nameserver
+            Authoritative nameserver
+
+        Complete DNS query lookup process:
+            How the DNS query lookup process works and the role of different servers in the domain name system:
+            (1) when the user hits enter after typing in the domain name into their browser, the browser sends a request to the DNS Recursive nameserver, also known as the DNS Resolver.
+                The role of DNS Resolver is to receive the client request and forward it to the Root nameserver to get the address of the Top-Level domain nameserver.
+                The DNS Recursive nameserver is generally managed by our ISP Internet service provider. The whole DNS system is a distributed system setup in large data centers managed by internet service providers.
+                These data centers contain clusters of servers that are optimized to process DNS queries in minimal time that is in milliseconds.
+                DNS Resolver forwards the request to the Root nameserver, the Root nameserver returns the address of the Top-Level domain nameserver in response. As an example, the top-level domain for amazon.com is .com.
+
+                Once the DNS Resolver receives the address of the top-level domain nameserver, it sends a request to it to fetch the details of the domain name. Top Level domain nameservers hold the data for domains using their top-level domains.
+                DNS Resolver will route the request to the .com top-level domain name server.
+                Once the top-level domain name server receives the request from the Resolver, it returns the IP address of amazon.com domain name server.
+
+                amazon.com domain nameserver is the last server in the DNS query lookup process. The nameserver is responsible for amazon.com domain and is also known as the Authoritative nameserver. This nameserver is owned by the owner of the domain name.
+                DNS Resolver fires a query to the Authoritative nameserver, and it returns the IP address of amazon.com website to the DNS Resolver. DNS Resolver caches the data and forwards it to the client.
+                On receiving the response, the browser sends a request to amazon.com website’s IP address to fetch data from their servers.
+
+                Often all this DNS information is cached, and the DNS servers don’t have to do so much rerouting every time a client requests an IP of a certain website.
+                The DNS information of websites that we visit also gets cached in our local machines, that is our browsing devices with a TTL Time To Live.
+
+        DNS Load Balancing:
+            To spread the user traffic across different clusters in different data centers. There are different ways to set up load balancing. In this lesson, we will discuss DNS load balancing, which is set up at the DNS level on the authoritative server.
+            DNS load balancing enables the authoritative server to return different IP addresses of a certain domain to the clients. Every time it receives a query for an IP, it returns a list of IP addresses of a domain to the client.
+            With every request, the authoritative server changes the order of the IP addresses in the list in a round-robin fashion.
+            When another client sends out a request for an IP address to the authoritative server, it re-orders the list and puts another IP address at the top of the list following the round-robin algorithm.
+            Also, when the client hits an IP, it may not necessarily hit an application server. Instead, it may hit another load balancer implemented at the data center level that manages the clusters of application servers.
+
+            Limitations of DNS load balancing
+            DNS load balancing is largely used by companies to distribute traffic across multiple data centers that the application runs in.
+            However, this approach has several limitations. For instance, it does not take into account the existing load on the servers, the content they hold, their request processing time, their in-service status, and so on.
+            DNS load balancing despite its limitations, is preferred by companies because it is an easy and less expensive way of setting up load balancing on their services.
+
+        There are primarily three modes of load balancing:
+            (1) DNS Load Balancing
+            (2) Hardware-based Load Balancing
+            (3) Software-based Load Balancing
+
+        Hardware-based Load Balancing: They sit in front of the application servers and distribute the load based on the number of existing open connections to a server, compute utilization, and several other parameters.
+             Since these load balancers are physical hardware they need maintenance and regular updates, just like any other server hardware would need. They are expensive to set up in comparison to software load balancers, and their upkeep may require a certain skill set.
+             If the business has an IT team and network specialists in house, they can take care of these load balancers. Otherwise, the developers are expected to wrap their heads around how to set up these hardware load balancers with some assistance from vendors. This is why developers prefer working with software load balancers.
+             Hardware load balancers are primarily picked because of their top-notch performance.
+
+        Software load balancers:
+             Software load balancers can be installed on commodity hardware and VMs. They are more cost-effective and offer more flexibility to the developers. Software load balancers can be upgraded and provisioned easily compared to hardware load balancers.
+             Software load balancers are pretty advanced compared to DNS load balancing as they consider many parameters such as content hosted by the servers, cookies, HTTP headers, CPU and memory utilization, load on the network, and so on to route traffic across the servers.
+             They also continually perform health checks on the servers to keep an updated list of in-service machines.
+             Development teams prefer to work with software load balancers as hardware load balancers require specialists to manage them.
+             HAProxy is one example of a software load balancer that is used widely by the big guns in the industry to scale their systems, including GitHub, Reddit, Instagram, AWS, Tumblr, StackOverflow, and many more.
+                https://www.haproxy.com/
+             software load balancers leverage several other algorithms to efficiently route traffic across the machines
+
+        Algorithms/Traffic Routing Approaches Leveraged by Load Balancers:
+            (1) Round Robin and Weighted Round Robin:
+                Weighted Round Robin is based on the server’s compute and traffic handling capacity weights are assigned to them. And then, based on server weights, traffic is routed to them using the Round Robin algorithm.
+                More traffic is converged to machines that can handle a higher traffic load, thus efficiently using the resources.
+
+             (2) Least connections
+                When using this algorithm, the traffic is routed to the machine that has the least open connections of all the machines in the cluster. There are two approaches to implement this.
+             (3) Random: The load balancer may also find similar servers in terms of existing load, request processing time, and so on. Then it randomly routes the traffic to these machines.
+             (4) Hash: source IP where the request is coming from and the request URL are hashed to route the traffic to the backend servers.
+             Hashing the source IP ensures that the request of a client with a certain IP will always be routed to the same server.
+             This facilitates a better user experience as the server has already processed the initial client requests and holds the client’s data in its local memory. There is no need for it to fetch the client session data from the session memory of the cluster and process the request. This reduces latency.
+
+******************************************************************************************
+
+Monolith and Microservices:
+ What is Monolith architecture:
+        An application has a monolithic architecture if it contains the entire application code in a single codebase.
+        A monolithic application is a self-contained, single-tiered software application. This is unlike the microservices architecture, where different modules are responsible for running respective tasks and features of an app.
+        In a monolithic web app, all the different layers of the app, UI, business, data access, etc., are in the same codebase.
+        Monolithic apps are simple to build, test, and deploy compared to a microservices architecture.
+        In the present computing landscape, applications are being built and deployed on the cloud. A wise decision would be to pick the loosely coupled stateless microservices architecture from the start if you expect things to grow at a significant pace in the future.
+        On the flip side, if your requirements are simple, why bother writing a microservices architecture? Running different modules in conjunction with each other isn’t a walk in the park.
+
+    Pros:
+        Simplicity: simple to develop, test, deploy, monitor, and manage since everything resides in one repository.
+    Cons:
+        Continuous deployment: Continuous deployment is a pain in monolithic applications because even a minor code change in a layer necessitates a re-deployment of the entire application.
+        Regression testing: We need a thorough regression testing of the entire application after the deployment is done because the layers are tightly coupled with each other.
+        Single points of failure: If any of the layers has a bug, it can take down the entire application.
+        Scalability issues:
+        Cannot leverage heterogeneous technologies: using heterogeneous technologies is difficult in a single codebase due to compatibility issues. It is tricky to use Java and NodeJS together in a single codebase
+        Not cloud-ready, hold state: monolithic applications are not cloud-ready because they hold state in the static variables. An application to be cloud-native, to work smoothly, and to be consistent on the cloud has to be distributed and stateless.
+
+    Monolithic applications fit best for use cases where the requirements are pretty simple, and the app is expected to handle a limited amount of traffic. One example of this is an organization’s internal tax calculation app or a similar open public tool.
+
+ What is microservices architecture? - Single Responsibility and the Separation of Concerns principles
+    In a microservices architecture, different features/tasks are split into separate respective modules/codebases that work in conjunction to form a large service as a whole.
+    Every service ideally has a separate database, so there are no single points of failure or system bottlenecks.
+
+    Pros:
+        No Single Points of failure: microservices is a loosely coupled architecture, there is no single point of failure. Therefore, even if a few of the services go down, the application as a whole is still up.
+        Leverage the heterogeneous technologies - together like Java, Python, Ruby, NodeJS, etc.
+            Polyglot persistence uses multiple database types, like SQL and NoSQL together in an architecture
+        Independent and continuous deployments
+
+    Cons:
+        Complexities in management: Microservices is a distributed environment where there are so many nodes running together. As a result, managing and monitoring them gets complex.
+            We need to set up additional components to manage microservices such as a node manager like Apache Zookeeper, which is a distributed tracing service for monitoring the nodes etc.
+        No strong consistency: Strong consistency is hard to guarantee in a distributed environment. Things are eventually consistent across the nodes, and this limitation is due to the distributed design.
+
+ When should you pick a microservices architecture:
+    The microservice architecture fits best for complex use cases and for apps that expect traffic to increase exponentially in the future, like a fancy social network application.
+    A typical social networking application has various components such as messaging, real-time chat, LIVE video streaming, image uploads, Like and Share features, etc.
+    Develop each component separately, keeping the Single Responsibility and the Separation of Concerns principles in mind.
+    3 approaches:
+        Picking a monolithic architecture
+        Picking a microservice architecture
+        Starting with a monolithic architecture and later scaling out into a microservice architecture.
+    keep things simple and having a thorough understanding of the requirements. Get the lay of the land, build something only when you need it, and keep evolving the code iteratively. This is the right way to go.
+
+
+ Trade off between Monolith and Microservices:
+    Fault isolation: When we have a microservices architecture in place it’s easy for us to isolate faults and debug them. When a glitch occurs in a particular service, we just have to fix the issue in that service without the need to scan the entire codebase to locate and fix the issue. This is also known as fault isolation
+    Development team autonomy:
+        Always trade-offs involved, and there is no perfect solution. We need to be crystal clear on our use case and see what architecture suits our needs best.
+        With the microservices architecture comes the need to set up distributed logging, monitoring, inter-service communication, service discovery, alerts, tracing, build and release pipelines, health checks, and so on. You may even have to write a lot of custom tooling from scratch for yourself.
+        https://segment.com/blog/introducing-centrifuge/
+        https://blog.christianposta.com/microservices/istio-as-an-example-of-when-not-to-do-microservices/
+        https://www.youtube.com/watch?v=sZd4xTQlrIE&t=44s
+*********************************************************************************************
+Micro Frontends:
+    Micro frontends are separate loosely coupled components of an application’s user interface developed applying the principles of microservices on the front end.
+    What does applying the principles of microservices to the front end mean?
+        With the micro frontends approach, we split our application into vertical slices, where a single slice goes end to end right from the user interface to the database.
+        Every UI component has a dedicated microservice running on the backend powering that particular user interface component. All these different components are developed and managed by dedicated full-stack teams.
+        The application’s complete user interface is rendered combining all these different individual UI components, also called micro frontends.
+
+        When we have full-stack teams owning an entire service end to end, this averts the need for a dedicated front-end team. In addition, since the front-end devs now work alongside the backend devs on the same team, this saves a lot of time initially spent in the cross-team coordination between the backend microservices and the dedicated front-end teams.
+        Since, the micro frontends are loosely coupled, just like microservices, we can develop them leveraging different technologies. This lets us off the hook for sticking to just one UI technology to build the entire front end of the website.
+        We often have use cases where just plain JavaScript, HTML, and CSS suffices to build a feature, and then there are other cases where we need advanced frameworks like React, Angular, and Vue to build our features.
+        Going forward with the micro frontends approach may sound delightful, but it’s only fit for medium to large websites. This approach won’t be that advantageous for simple use cases. Rather, it will make things more complex.
+
+*********************************************************************************************
+
+Databases:
+    A database is a component required to persist data.
+    Data can be of many forms:
+        structured:
+            Data that conforms to a certain structure, typically stored in a database in a normalized fashion.
+            No need to run any sort of data preparation logic on structured data before processing it. Direct interaction can be done with this kind of data.
+            An example of structured data is the personal details of a customer stored in a database row. The customer ID would be of integer type, the name would be of string type with a certain character limit etc.
+            Structured data is generally managed by a query language such as SQL (Structured query language).
+        unstructured:
+            Unstructured data has no definite structure
+             It is generally the heterogeneous type of data consisting of text, image files, videos, multimedia files, pdfs, Blob objects, Word documents, machine-generated data, etc.
+             This kind of data is often encountered in data analytics.
+             This kind of data is often encountered in data analytics. Here the data streams in from multiple sources such as IoT devices, social networks, web portals, industry sensors etc., into the analytics systems.
+             The initial data is pretty raw, and we have to make it flow through a data preparation stage that segregates it based on some business logic and then runs the analytics algorithms on it.
+        semi-structured:
+            Semi-structured data is a mix of structured and unstructured data.
+            Semi-structured data is often stored in data transport formats such as XML or JSON and is handled as per the business requirements.
+        and user state data.
+
+    Relational database
+        A relational database is the most widely used type of database in the industry
+        A relational database saves data containing relationships, like One to One, One to Many, Many to Many, Many to One, etc.
+        It has a relational data model.
+        SQL is the primary data query language used to interact with relational databases.
+
+        Data consistency:
+            Besides the relationships, relational databases also ensure saving data in a normalized fashion
+            Normalized data means a unique entity occurs in only one place/table in its simplest and atomic form and is not spread throughout the database.
+            This helps maintain consistency in the data. In the future, if we want to update the data, we update the one place and every fetch operation gets the updated data.
+            Had the data been spread throughout the database in different tables, we would had to update the new value of an entity everywhere. This is troublesome, and things can get inconsistent
+
+        ACID transactions:  ACID stands for Atomicity, Consistency, Isolation, Durability.
+            An acid transaction means if a transaction, say a financial transaction, occurs in a system, it will either be executed with perfection without affecting any other processes or transactions, and the system will have a new state after the transaction that is durable and consistent. Or if anything amiss happens during the transaction, say a minor system failure, the entire operation is rolled back.
+            A relational database ensures that the system is either in State A or State B at all times. There is no middle state. If anything fails, the system goes back to State A.
+            If the transaction is executed smoothly the system transitions from State A to State B.
+
+         When to use relational database?
+            You should pick a relational database if you are writing a stock trading, banking, or a Finance-based app, or you need to store a lot of relationships, when writing a social network like Facebook for instance.
+                (1) Transactions and data consistency: They comply with the ACID rule, have been around for ages, and are battle-tested.
+                (2) Large community
+                (3) Storing relationships
+
+        https://www.8bitmen.com/what-database-does-facebook-use-a-1000-feet-deep-dive/
+        https://www.8bitmen.com/what-is-data-ingestion-how-to-pick-the-right-data-ingestion-tool/
+        https://www.8bitmen.com/master-system-design-for-your-interviews/
+
+        Popular relational databases:
+            MySQL, which is an open-source relationship database written in C and C++, which has been around since 1995.
+            Microsoft SQL Server, a proprietary RDBMS written by Microsoft in C and C++
+            PostgreSQL is an open-source RDBMS written in C.
+            Additionally, there are MariaDB, Amazon Aurora, Google Cloud SQL etc.
+
+    NoSQL Databases:
+        NoSQL databases have no SQL and they are more like JSON-based databases built for Web 2.0.
+        Built for high-frequency read and writes, typically required in social applications like Twitter, LIVE real-time sports apps, online massive multiplayer games, etc.
+
+        Why NoSQL database?
+            Scalability:
+                One big limitation with SQL based relational databases is scalability
+                Scaling relational databases is not trivial. They have to be Sharded or Replicated to make them run smoothly on a cluster. In short, this requires careful thought and human intervention.
+                NoSQL databases have the ability to add new server nodes on the fly and continue the work without any human intervention, just with a snap of your fingers.
+                Today’s websites need fast read-writes. There are millions, if not billions of users connected with each other on social networks.
+                A massive amount of data is generated every microsecond, and we needed an infrastructure designed to manage this exponential growth.
+
+            Clustering:
+                Server nodes even have self-healing capabilities. This is pretty smooth. The infrastructure is intelligent enough to self-recover from faults.
+                NoSQL databases had to sacrifice Strong consistency, ACID Transactions, and much more to scale horizontally over a cluster and across the data centers.
+                The data with NoSQL databases is more eventually consistent as opposed to being strongly consistent.
+
+            Pros:
+                NoSQL databases are also developer friendly.
+                Gentle learning curve: The learning curve is less than that of relational databases. When working with relational databases, a big chunk of our time goes into learning how to design well-normalized tables, setting up relationships, trying to minimize joins, and so on.
+                Schemaless: no strictly enforced schemas, so you can work with the data how you want. You can always change stuff and move things around. Entities have no relationships. Thus, things are flexible, and you can do stuff your way.
+
+            Cons:
+                Inconsistency: Since an entity is spread throughout the database one has to update the new values of the entity at all places.
+                This is not a problem with relational databases since they keep the data normalized. An entity resides at one place only.
+
+                No support for ACID transactions
+
+                we don’t have to be a pro in database design to write an application. Things were comparatively simpler because there was no stress of managing joins, relationships, n+1 query issues etc.
+                Just fetch the data using its key. You can also call it the ID of the entity. This is a constant O(1) operation, which makes the NoSQL database really fast.
+
+            Popular NoSQL databases:
+                MongoDB, Redis, Neo4J, and Cassandra.
+
+             When to go for NoSQL databse:
+                Handling a large number of read write operations: when there are a large number of read-write operations on your website and when dealing with a large amount of data
+                    Since NoSQL databases have the ability to add nodes on the fly, they can handle more concurrent traffic and bigger amounts of data with minimal latency.
+                Flexibility with data modeling
+                Eventual consistency over strong consistency
+                    It’s preferable to pick NoSQL databases when it’s okay for us to give up strong consistency and when we do not require transactions.
+
+                Running data analytics: NoSQL databases also fit best for data analytics use cases, where we have to deal with an influx of massive amounts of data.
+
+    Is NoSQL More Performant Than SQL?
+        No.
+        From a technology benchmarking standpoint, both relational and non-relational databases are equally performant.
+
+    Real world use case:
+        Facebook uses MySQL for storing its social graph of millions of users. Although it did have to change the DB engine and make some tweaks, MySQL fits best for its use case.
+        Quora uses MySQL pretty efficiently by partitioning the data at the application level. Here is an interesting read on it.
+
+    Using both SQL and NoSQL database in an application:
+        all the large-scale online services use a mix of both to implement their systems and achieve the desired behavior.
+        The term for leveraging the power of multiple databases is called polyglot persistence
+
+    Polyglot persistence:
+        Polyglot persistence means using several different persistence technologies to fulfil different persistence requirements in an application.
+
+        Example:
+            Designing a social network like Facebook.
+                Relational database: To store relationships like persisting friends of a user, friends of friends. MySQL.
+                Key Value Store: For low latency access of all the frequently accessed data, we will implement a cache using a Key-value store like Redis or Memcached.
+                Wide column database: To understand user behavior, we need to set up an analytics system to run analytics on the data generated by the users. We can do this using a wide-column database like Cassandra or HBase
+                ACID transactions and strong consistency:  Now businesses want to run ads on our portal. For this, we need to set up a payment system.  relational database to implement ACID transactions
+                Graph database: enhance our application’s user experience, we have to start recommending content to the users to keep them engaged. A graph database would fit best to implement a recommendation system.
+                Document Oriented Store: How cool would it be if a user could run a search for other users, business pages, and what not on our portal and connect with them. We can use an open-source document-oriented datastore like Elasticsearch.
+
+                Downside of this approach is the increased complexity required to make all these different technologies work together.
+
+    Multi-model database:
+        With the advent of multi-model databases, we have the ability to use different data models in a single database system.
+        Multi-model databases support multiple data models like Graph, Document-Oriented, Relational, etc. as opposed to supporting only one data model.
+        Popular multi-model databases:
+            ArangoDB, CosmosDB, OrientDB, and Couchbase, etc.
+
+    Eventual consistency:
+        Eventual consistency is a consistency model that enables the data store to be highly available.
+        It is also known as optimistic replication and is key to distributed systems.
+    Strong consistency:
+        Strong consistency simply means the data has to be strongly consistent at all times. All the server nodes across the world should contain the same value of an entity at any point in time. The only way to implement this behavior is by locking down the nodes as they are being updated.
+        Think of a stock market application where the users are seeing different prices of the same stock at one point in time and updating it concurrently. This would create chaos.
+        While being updated by one user, the system does not allow other users to perform concurrent updates. This is how strongly consistent ACID transactions are implemented.
+
+    CAP Theorem:
+        consistency, availability, partition tolerance
+        We’ve gone through consistency and availability in great detail. Partition tolerance means fault tolerance, how tolerant the system is of failures or partitions. It keeps working even if a few nodes go down.
+        Amongst the three, consistency, availability and partition tolerance, we have to pick two
+        *** The CAP theorem simply states that in case of a network failure, when a few of the nodes of the system are down, we have to make a choice between availability and consistency ***
+        If we pick availability, this means when a few nodes go down, the other nodes are available to the users for making updates. In this situation, the system is inconsistent because the nodes that are down don’t get updated with the new data.
+        If we pick consistency, in this scenario, we have to lock down all the nodes for further writes until the nodes that have gone down come back online. This ensures the strong consistency of the system because all the nodes will have the same entity values.
+        The design of the distributed systems forces us to choose one. We can’t have both availability and consistency at the same time.
+        Nodes spread around the globe will take some time to reach a consensus. It’s impossible to have zero-latency unless we transit data faster than or at the speed of time.
+
+    Different types of databases:
+        Document-oriented database
+        Key-value datastore
+        Wide-column database
+        Relational database
+        Graph database
+        Time-series database
+        Databases dedicated to mobile apps
+
+    Document-oriented database
+        Document-oriented databases are the main types of NoSQL databases. They store data in a document-oriented model in independent documents. The data is generally semi-structured and stored in a JSON-like format.
+        The data model is similar to the data model of our application code, so it’s easier to store and query data for developers.
+        Popular document-oriented databases:
+            MongoDB, CouchDB, OrientDB, Google Cloud Datastore, and Amazon DocumentDB
+        When do I pick a document-oriented data store for my project:
+            Pick a document-oriented data store if you are working with semi-structured data, and need a flexible schema that will change often.
+        Typical use cases of document-oriented databases include:
+            Real-time feeds
+            Live sports apps
+            Writing product catalogues
+            Inventory management
+            Storing user comments
+            Web-based multiplayer games
+        Being in the family of NoSQL databases these provide horizontal scalability, performant read-writes because they cater to Create Read Update Delete (CRUD) use cases. These include scenarios where there isn’t much relational logic involved and all we need is just quick persistence and retrieval of data.
+
+    Graph Database
+        Graph databases are also a part of the NoSQL database family. They store data in nodes/vertices and edges in the form of relationships.
+        Each node in a graph database represents an entity. It can be a person, a place, a business, etc., and the edge represents the relationship between the entities.
+        Features of a graph database
+            There are two primary reasons. The first is visualization.
+            The second reason is the low latency. In graph databases, the relationships are stored a bit differently than how relational databases store relationships.
+            Graph databases are faster because the relationships in them are not calculated at query time, as it happens with the help of joins in the relational databases. Rather, the relationships here are persisted in the data store in the form of edges, and we just have to fetch them. No need to run any sort of computation at the query time.
+            A good real-life example of an application that would fit a graph database is Google Maps. Nodes represent the cities, and the edges represent the connections between them.
+            Now, if I have to look for roads between different cities, I don’t need joins to figure out the relationship between the cities when I run the query. I just need to fetch the edges, which are already stored in the database.
+        When do I pick a graph database
+            Ideal use cases of graph databases are building social, knowledge, and network graphs, writing AI-based apps, recommendation engines, and fraud analysis apps, storing genetic data, etc.
+            Graph databases help us visualize our data with minimum latency. A popular graph database used in the industry is Neo4J.
+            https://neo4j.com/blog/walmart-neo4j-competitive-advantage/
+            https://neo4j.com/blog/david-meza-chief-knowledge-architect-nasa/
+
+    Key-Value database:
+        These databases use a simple Key-value method to store and quickly fetch the data with minimum latency.
+        Features of a Key-Value database:
+            Due to the minimum latency they ensure, a primary use case for the Key-value databases is to implement caching in applications.
+            The Key serves as a unique identifier and has a value associated with it. The value can be as simple as a block of text and can be as complex as an object graph.
+
+        Some of the popular key-value data stores used in the industry are Redis, Hazelcast, Riak, Voldemort, and Memcached.
+        Key-value stores are pretty efficient in pulling off scenarios that require super-fast data fetches.
+            Typical use cases of a key-value database are the following:
+                Caching
+                Persisting user state
+                Persisting user sessions
+                Managing real-time data
+                Implementing queues
+                Creating leaderboards in online games and web apps
+                Implementing a pub-sub system
+
+        https://redislabs.com/customers/inovonics/
+        https://redislabs.com/docs/microsoft-relies-redis-labs/
+        https://cloud.google.com/appengine/docs/standard/python/memcache/
+
+    Time Series Database:
+        Time-series databases are optimized for tracking and persisting time series data.
+            It is the data containing data points associated with the occurrence of an event with respect to time. These data points are tracked, monitored, and then aggregated based on certain business logic.
+            Time-series data is generally ingested from IoT devices, self-driving vehicles, industry sensors, social networks, stock market financial data etc.
+            General databases are not built to handle time-series data. With the advent of IoT, these databases are getting pretty popular and are being adopted by the big guns in the industry.
+        Popular time-series databases
+             Influx DB, Timescale DB, Prometheus.
+        When to pick a time-series database
+            If you have a use case where you need to manage data in real-time and continually over a long period of time, a time-series database is what you need.
+            As you know, time-series databases are built to deal with data streaming in real-time. Its typical use cases are fetching data from IoT devices, managing data for running analytics and monitoring, writing an autonomous trading platform that deals with changing stock prices in real-time, etc.
+
+    Wide-Column Database:
+        primarily used to handle massive amounts of data, technically called the Big Data.
+        Wide-column databases are perfect for analytical use cases. They have a high performance and a scalable architecture.
+        Also known as column-oriented databases wide-column databases store data in a record with a dynamic number of columns. A record can hold billions of columns.
+    Popular wide-column databases:
+        Cassandra, HBase, Google BigTable, ScyllaDB, etc
+
+    If you have a use case where you need to grapple with Big Data, to ingest it, or to run analytics on it, then a wide-column database is a good fit for this scenario.
+    Wide-column databases are built to manage Big Data ensuring scalability, performance and high availability at the same time.
+    https://medium.com/netflix-techblog/tagged/cassandra
+    https://hbase.apache.org/poweredbyhbase.html
+
+*********************************************************************************************
+Caching:
+    Caching is vital to applications to prevent users from bouncing off to other websites all the time.
+    Caching is key to the performance of any kind of application. It ensures low latency and high throughput. An application with caching will certainly do better than an application without caching, simply because it returns the response in less time as opposed to the application without a cache implemented.
+    Implementing caching in a web application simply means copying frequently accessed data from the database, which is disk-based hardware, and storing it in Random Access Memory (RAM) hardware.
+
+    RAM-based hardware provides faster access than disk-based hardware.
+    As I said earlier, it ensures low latency and high throughput. Throughput means the number of network calls or request-responses between the client and the server within a stipulated time.
+
+    Caching dynamic data
+        With caching, we can cache both the static data and the dynamic data.
+        Dynamic data is data that changes more often, and it has an expiry time, or a TTL.
+        After the TTL ends, the data is purged from the cache, and the newly updated data is stored in it. This process is known as cache invalidation.
+
+    Caching static data
+        Static data consists of images, font files, CSS, and other similar files.
+        This is the kind of data that doesn’t change often and can easily be cached on the client-side in their browser or local memory. It can also be stored, on the Content Delivery Networks(CDNs).
+    Caching also helps applications maintain their expected behavior during network interruptions.
+
+    Do I Need A Cache
+        It’s always a good idea to use a cache as opposed to not using it.
+        It doesn’t do any harm. It can be used at any layer of the application, and there are no ground rules as to where it can and cannot be applied.
+        The most common usage of caching is database caching. Caching helps alleviate the stress on the database by intercepting the requests being routed to the database for data.
+        Then, the cache then returns all the frequently accessed data. Thus, cutting down the load on the database by notches.
+
+        Caching is used in the client browser to cache static data. It is used with the database to intercept all the data requests, in the REST API implementation, etc.
+        Besides these places, I suggest you look for patterns. We can always cache the frequently accessed content on our website, be it from any component. There is no need to compute stuff over and over when it can be cached.
+        Caching is also the core of the HTTP protocol   https://web.dev/http-cache/
+
+        We can store user sessions in a cache. It can be implemented at any layer of an application be it at the OS level, at the network level, CDN, or the database.
+        You might remember, we talked about Key-value data stores in the database lesson. They are primarily used to implement caching in web applications.\
+
+    Caching Strategies:
+        Those are cache aside, read-through cache, write-through cache & write-back cache
+        Cache aside:
+            This is the most common caching strategy. In this approach, the cache works along with the database trying to reduce the hits on it as much as possible.
+            The data is lazy-loaded in the cache. When the user sends a request for particular data, the system first looks for it in the cache. If present, it is simply returned. If not, the data is fetched from the database, and the cache is updated and returned to the user.
+            This kind of strategy works best with read-heavy workloads. This includes the kind of data that is not frequently updated, like user profile data in a portal. User’s name, account number, etc.
+            The data in this strategy is written directly to the database. This means that the data present in the cache and the database could become inconsistent. To avoid this, data on the cache has a TTL. After the stipulated period, the data is invalidated from the cache.
+
+        Read-through:
+            This strategy is pretty similar to the cache aside strategy.
+             A subtle difference from the cache aside strategy is that the cache always stays consistent with the database in the read-through strategy.
+             The cache library, or the framework, takes the onus of maintaining consistency with the backend. The information in this strategy, is also lazy-loaded in the cache, only when the user requests it.
+             So, for the first time, when information is requested, it results in a cache miss. Then, the backend has to update the cache while returning the response to the user.
+             However, the developers can always preload the cache with the information that is expected to be requested most by the users.
+
+        Write-through:
+            In this strategy, each and every information written to the database even goes through the cache. Before the data is written to the DB, the cache is updated with it.
+            This maintains high consistency between the cache and the database even though it adds a little latency during the write operations because the data is updated in the cache separately. This works well for write-heavy workloads like online massive multiplayer games.
+            This strategy is generally used with other caching strategies to achieve optimized performance.
+
+        Write-back:
+             In the write-back caching strategy the data is directly written to the cache instead of the database, and the cache after some delay, as per the business logic, writes data to the database.
+             If there are quite a heavy number of writes in the application, developers can reduce the frequency of database writes to cut down the load and the associated costs.
+
+*********************************************************************************************
+
+Messaging Queue:
+    Message queue, as the name says, is a queue that routes messages from the source to the destination, or from the sender to the receiver.
+    Message queues facilitate asynchronous behavior
+    Asynchronous behavior allows the modules to communicate with each other in the background without hindering their primary tasks.
+
+    Message queues facilitate cross-module communication.  Which is key in service-oriented and microservices architecture.
+    It allows communication in a heterogeneous environment. They also provide temporary storage for storing messages until they are processed and consumed by the consumer.
+
+    Real-world example of a message queue:
+        Take email for example. Both the sender and receiver of the email don’t have to be online at the same time to communicate with each other. The sender sends an email, and the message is temporarily stored on the message server until the recipient comes online and reads the message.
+        Message queues enable us to run background processes, tasks, and batch jobs
+        there is a queue, there is a message sender called the producer, and there is a message receiver called the consumer.
+        While routing messages through the queue, we can define several rules based on our business requirements. Adding priority to the messages is one I pointed out. Other important features of queuing include message acknowledgments, retrying failed messages, etc.
+
+    Models:
+        A publish-subscribe(pub-sub) model is the model where multiple consumers receive the same message sent from a single or multiple producers.
+            A real-world newspaper service is a good analogy for the publish-subscribe pattern. Consumers subscribe to a newspaper service, and the service delivers the news to multiple consumers of its service every single day.
+            Exchanges:
+                To implement the pub-sub pattern, message queues have exchanges that further push messages to the queues based on the exchange type and the set rules. Exchanges are just like telephone exchanges, which route messages from sender to the receiver through the infrastructure based on a certain logic.
+                The relationship between exchange and the queue is known as binding.
+
+        Point-to-Point Model:
+            The use case for * Point-to-point* communication is pretty simple. It’s where the message from the producer is consumed by only one consumer.
+            We can set up multiple combinations in this messaging model, including adding multiple producers and consumers to a queue. However, at the end of the day, a message sent by the producer will be consumed by only one consumer
+
+            Messaging protocols:
+                Speaking of the messaging protocols, there are two popular protocols when working with message queues:
+                    AMQP Advanced Message Queue Protocol https://en.wikipedia.org/wiki/Advanced_Message_Queuing_Protocol
+                    STOMP Simple or Streaming Text Oriented Message Protocol https://en.wikipedia.org/wiki/Streaming_Text_Oriented_Messaging_Protocol
+
+
+            https://www.scaleyourapp.com/linkedin-real-time-architecture-how-does-linkedin-identify-its-users-online/
+            https://engineering.fb.com/2015/12/03/ios/under-the-hood-broadcasting-live-video-to-millions/
+
+*********************************************************************************************
+Stream processing:
+    The primary large-scale use of IoT devices is in industry sensors, smart cities, electronic devices, wearable healthcare body sensors, etc.
+    To manage the massive amount of streaming data we need to have sophisticated backend systems in place to gather meaningful information and archive/purge not so meaningful data.
+    The more data we have, the better our systems evolve.
+    Another use case of processing streaming-in data is tracking the service efficiency, for instance, getting the Everything is Okay signal from the IoT devices used by millions of customers.
+
+    Time-series databases is one tech we discussed that persist and run queries on real-time data, ingesting in from the IoT devices.
+
+
+    What is data ingestion?
+        Data ingestion is a collective term for the process of collecting data streaming in from several different sources and making it ready to be processed by the system.
+        In a data processing system, the data is ingested from the IoT devices and other sources into the system to be analyzed. It is routed to different components/layers through the data pipelines, algorithms are run on it, and it is eventually archived.
+
+    Layers of data processing setup:
+        Data collection layer - This data standardization process occurs in the data collection and preparation layer.
+        Data query layer
+        Data processing layer - further processed based on the business requirements.
+        Data visualization layer - Once the analytics are run and we have valuable intel from it, all the information is routed to the data visualization layer to be presented before the stakeholders, generally in a web-based dashboard. Kibana
+        Data storage layer
+        Data security layer - Moving data is highly vulnerable to security breaches. The data security layer ensures the secure movement of data all along. Speaking of the data Storage layer, as the name implies, is instrumental in persisting the data.
+
+    Different ways of ingesting data and the challenges involved
+        2 ways to ingest data -
+            real time and
+            batches
+        Which to pick depends on business requirements
+            Systems like medical data, like heartbeat or blood pressure via wearable IOT sensors where time is critical
+            Systems like read trends over time, we can always ingest data in batches. For instance, consider estimating the popularity of a sport in a region over a period of time.
+
+    Challenges with data ingestion:
+        slow process
+        complex and expensive - Goblin is a data ingestion tool by LinkedIn
+        Moving data around is risky
+
+    Data injection use case:
+        Moving big data into Hadoop
+        Streaming data from databases to Elasticsearch server
+            Elastic search is an open-source framework for implementing search in web applications
+            All the data intended to show up in the search was replicated from the main storage to the Elastic-search storage. Also, as the new data was persisted in the main storage it was asynchronously delivered to the Elastic server in real-time for indexing.
+        Log processing
+            Logs are the only way to move back in time, track errors, and study the system’s behavior.
+            So, to study the behavior of the system holistically, we have to stream all the logs to a central place. Ingest logs to a central server to run analytics on it with the help of solutions like the Elastic LogStash Kibana(ELK) stack, etc.
+        Stream processing engines for real-time events
+            Real-time streaming and data processing are the core components in systems handling LIVE information such as sports
+            Message queues like Kafka and stream computation frameworks like Apache Storm, Apache Nifi, Apache Spark, Samza, Kinesis, etc are used to implement the real-time large-scale data processing features in online applications.
+            https://medium.com/netflix-techblog/keystone-real-time-stream-processing-platform-a3ee651812a
+
+    Data Pipelines:
+        Data pipelines are the core component of a data processing infrastructure. They facilitate the efficient flow of data from one point to another and also enable developers to apply filters on the data streaming-in in real-time.
+        Features of data pipelines:
+            They ensure a smooth flow of data.
+            They enable the business to apply filters and business logic on streaming data.
+            They avert any bottlenecks and redundancy in the data flow.
+            They facilitate the parallel processing of data.
+            They avoid data being corrupted.
+        Traditionally we used ETL systems to manage all of the data’s movement, but one major limitation is they don’t really support handling real-time streaming data, which is possible with new era-evolved data processing infrastructure powered by the data pipelines.
+
+        What is ETL?
+            Extract means fetching data from single or multiple data sources.
+            Transform means transforming the extracted heterogeneous data into a standardized format based on the rules set by the business.
+            Load means moving the transformed data to a data warehouse or another data storage location for further processing of data.
+            The ETL flow is the same as the data ingestion flow. The difference is just that the entire movement of data is done in batches as opposed to streaming it through the data pipelines in real-time.
+
+            You’ll gain more insight into it when we go through the Lambda and Kappa architectures of distributed data processing in the upcoming lessons.
+            In the previous lesson, I brought up a few of the popular data processing tools, such as Apache Flink, Storm, Spark, Kafka, etc. All these tools have one thing in common they facilitate processing data in a cluster in a distributed environment via data pipelines.
+
+    What is distributed data processing?
+        Distributed-data processing means diverging large amounts of data to several different nodes running in a cluster for parallel processing.
+        All the nodes execute the task allotted parallelly, working in conjunction with each other coordinated by a node-coordinator. Apache Zookeeper is a pretty popular, de facto, node coordinator used in the industry.
+        Since the nodes are distributed and the tasks are executed parallelly, this makes the entire set-up pretty scalable and highly available. The workload can be scaled both horizontally and vertically. Data is made redundant and replicated across the cluster to avoid any sort of data loss.
+        Processing data in a distributed environment helps accomplish the task in significantly less time as opposed to when running it on a centralized data processing system.
+
+        Distributed data processing technologies:
+            MapReduce – Apache Hadoop -
+                The Map part of the programming model involves sorting the data based on a parameter and the Reduce part involves summarizing the sorted data.
+                The most popular open-source implementation of the MapReduce programming model is Apache Hadoop
+                 The framework is used by all big guns in the industry to manage massive amounts of data in their system. It is used by Twitter for running analytics. It is used by Facebook for storing big data.
+            Apache Spark
+                Apache Spark is an open-source cluster computing framework.
+                It provides high performance for both batch and real-time in-stream processing.
+                It can work with diverse data sources and facilitates parallel execution of work in a cluster.
+                Spark seamlessly integrates with distributed data stores like Cassandra, HDFS, MapReduce File System, Amazon S3, etc.
+
+            Apache Storm
+                Apache Storm is a distributed stream processing framework.
+                In the industry, it is primarily used for processing massive amounts of streaming data.
+                It has several different use cases, such as real-time analytics, machine learning, distributed remote procedure calls, etc.
+
+            Apache Kafka
+                Apache Kafka is an open-source distributed stream processing and messaging platform. It’s written using Java and Scala, and it was developed by LinkedIn.
+                The storage layer of Kafka involves a distributed scalable pub-sub message queue. It helps read and write streams of data like a messaging system.
+                Kafka is used in the industry to develop real-time features such as notification platforms, managing streams of massive amounts of data, monitoring website activity and metrics, messaging, and log aggregation.
+
+                Hadoop is preferred for batch processing of data whereas Spark, Kafka, and Storm are preferred for processing real-time streaming data.
+
+            Lambda Architecture:
+                Lambda is a distributed data processing architecture that leverages both the batch and the real-time streaming data processing approaches to tackle the latency issues that arise out of the batch processing approach. It joins the results from both approaches before presenting them to the end-user.
+            Kappa Architecture:
+                In Kappa architecture, all the data flows through a single data streaming pipeline as opposed to the Lambda architecture, which has different data streaming layers that converge into one.
+
+
+********************************************
+Architecture:
+
+1. Event-Driven Architecture - Part 1
+     Web 2.0 applications, chances are you have come across terms like reactive programming and event-driven architecture and concepts like blocking & non-blocking.
+     You might have also noticed that tech like NodeJS, Play, Tornado, and Akka.io are gaining more popularity in the developer circles for modern application development in comparison to traditional tech.
+
+     What is blocking:
+        In web applications blocking means the flow of execution is stopped while waiting for a process to complete.
+        Naturally, when the flow of execution enters the main function it will start executing the code from the top, from the first line. It will run the first line of code and will call the external function.
+     Non Blocking:
+        In this approach, the flow doesn’t wait for the first function that is called to return the response. It just moves on to execute the next lines of code
+        This approach is a little not-so-consistent as opposed to the blocking approach because a function might not return anything or throw an error. Still, the code in the sequence up next is executed.
+        The non-blocking approach facilitates Input-Output (IO) intensive operations.
+        The non-blocking approach facilitates Input-Output (IO) intensive operations. Besides the disk and other hardware-based operations, communication and network operations also fall under IO operations.
+
+    What are events?
+        There are generally two kinds of processes in applications: CPU intensive / IO intensive
+             In the context of web applications, IO means events.
+             A large number of IO operations mean a lot of events occurring over a period of time, and an event can be anything from a tweet to a click of a button, an HTTP request, an ingested message, a change in the value of a variable, etc.
+             Events happening too often is called a stream of events.
+
+             Event-driven architecture:
+                Non-blocking architecture is also known as reactive or event-driven architecture. Event-driven architectures are pretty popular in modern web application development.
+                Technologies like NodeJS, frameworks in the Java ecosystem like Play, and Akka.io are non-blocking in nature and are built for modern high IO scalable applications.
+                They are capable of handling a big number of concurrent connections with minimal resource consumption. Modern applications need a fully asynchronous model to scale. These modern web frameworks provide more reliable behavior in a distributed environment. They are built to run on a cluster, handle large scale concurrent scenarios, and tackle problems that generally occur in a clustered environment. They enable us to write code without worrying about handling multi-threads, thread lock, out of memory issues due to high IO etc.
+                Returning to Event-driven reactive architecture. It simply means reacting to the events occurring regularly. The code is written to react to the events as opposed to sequentially moving through the lines of codes.
+             Technologies to implement:
+                With the advent of Web 2.0, people in the tech industry felt the need to evolve the technologies to be powerful enough to implement modern web application use cases. Spring Framework added Spring Reactor module to the core Spring repo. Developers wrote NodeJS, Akka.io, Play etc.
+                So, you would have already figured that reactive, event-driven applications are difficult to implement with thread-based frameworks. As dealing with threads, shared mutable state, and locks make things a lot more complex, in an event-driven system everything is treated as a stream.
+                 The level of abstraction is good, developers don’t have to worry about managing the low-level memory stuff.
+                 NodeJS is a single-threaded non-blocking framework written to handle more IO intensive tasks. It has an event loop architecture. https://nodejs.org/fa/docs/guides/event-loop-timers-and-nexttick/
+                 At the same time, I want to assert the fact that the emergence of non-blocking tech does not mean that traditional tech is obsolete. Every tech has its use cases.
+                 NodeJS is not fit for CPU intensive tasks. CPU intensive operations are operations that require a good amount of computational power like for graphics rendering, running ML algorithms, handling data in enterprise systems etc. It would be a mistake to pick NodeJS for these purposes.
+
+
+
+2. Webhooks:
+    Webhooks are more like call-backs. It’s like, “I will call you when new information is available. You carry on with your work.”
+    Webhooks enable communication between two services without the middleware. They have an event-based mechanism.
+    Browser notifications are a good example of Webhooks. Instead of visiting the websites every now and then for new info, the websites notify us when they publish new content.
+
+3. Shared-Nothing Architecture:
+    Shared-nothing architecture means eliminating all single points of failure.
+    Every module has its own memory, or its own disk.
+    So, even if several modules in the system go down, the other modules online stay unaffected.
+    It also helps with scalability and performance.
+
+4. Hexagonal Architecture:
+    The architecture consists of three components:
+        Ports
+        Adapters
+        Domain
+    The architectural pattern holds the domain at its core, meaning the business logic. On the outside, the outer layer has ports and adapters. Ports act like an API as an interface. All the input to the app goes through the interface.
+    So, the external entities don’t have any direct interaction with the domain, the business logic. The adapter is the implementation of the interface. Adapters convert the data obtained from the ports, to be processed by the business logic. The business logic lies isolated at the center, and all the input and output is at the edges of the structure.
+    The hexagonal shape of the structure doesn’t have anything to do with the pattern, it’s just a visual representation of the architecture. Initially, the architecture was called the ports and the adapter pattern. Later, the name hexagonal stuck.
+    The ports & the adapter analogy comes from computer ports because they act as the input interface to the external devices, and the adapter converts the signals obtained from the ports to be processed by the chips inside.
+
+5. Peer-to-Peer Architecture – Part 1
+    Peer-to-peer (P2P) architecture is the base of blockchain tech.
+    We’ve all used it at some point in our lives to download files via torrent. So, I guess you have a little idea of what it is. You are also probably familiar with terms like seeding, leeching, etc. Even if you aren’t, you’ll learn everything in this lesson.
+
+    What is a peer-to-peer network
+        A P2P network is a network in which computers, also known as nodes, can communicate with each other without a central server.
+        The absence of a central server rules out the possibility of a single point of failure. All the computers in the network have equal rights. A node acts as a seeder and a leecher at the same time. So, even if some of the computers/nodes go down, the network and the communication is still up
+
+        Issue with central server:
+            Communication is not really secure
+            natural disaster, earthquake, a zombie attack, massive infrastructural failure, or the organization going out of business, we are stranded. There is no way to communicate with our friends across the globe. Think about it.
+
+    Usage example:
+        Need to share 3GB of data with friends across globle. Peer to peer is best option here. we need torrent client.
+
+    How does Peer to peer network work?
+        A P2P architecture is designed around several nodes in the network taking equal turns acting as both the client and the server.
+        Data is exchanged over TCP protocol [like it happens over HTTP protocol in a client server model].
+        The P2P design has an overlay network over TCP IP, which enables the users to connect directly. It takes care of all the complexities and the heavy lifting.
+        Nodes/peers are indexed and discoverable in this overlay network.
+
+        A large file is transferred between the nodes by being divided into chunks of equal size in a non-sequential order.
+        Say a system hosts a large file of 75 gigabytes. Other nodes in the network in need of the file locate the system containing the file. Then, they download the file in chunks, re-hosting the downloaded chunk simultaneously, making it more available to the other users. This approach is known as a segmented P2P file transfer.
+        Based on how these peers are linked with each other in the network, the networks are classified into a structured, unstructured, or a hybrid model.
+
+        Types of P2P networks:
+            Unstructured network:
+                In an unstructured network nodes/peers keep connecting with each other randomly.
+                So, there is no structure, no rule. Just simply connect and grow the network.
+                 In an unstructured network, we have to run a search through each system in the network to find the file.
+                 Some of the unstructured network’s protocols are Gossip, Kazaa, and Gnutella.
+            Structured network:
+                In contrast to an unstructured network, a structured P2P network holds the proper node indexing, or the topology. This makes it easier to search for specific data.
+                This kind of network implements a distributed hash table to index the nodes.
+                This index is just like the index of a book where we check to find a piece of particular information in the boo
+                BitTorrent is an example of this type of network.
+            Hybrid model:
+                The majority of the blockchain startups have a hybrid model.
+                A hybrid model means cherry-picking the good stuff from all the models like P2P, client-server etc. It is a network, involving both a peer to peer and a client-server model.
+                A P2P network offers more availability. To take down a blockchain network you have to literally take down all the network’s nodes across the globe.
+                A P2P application can scale to the moon without putting the load on a single entity or the node.
+
+                Nodes get added as more and more people interact with your data.
+                There are zero-data storage and bandwidth costs, and you don’t have to shell out money to buy third-party servers to store your data.
+                There is no third-party intervention, so data is secure. Share stuff only with friends you intend to share with.
+
+                The cult of the decentralized web is gaining ground in the present times. I can’t deny that this is a disruptive tech with immense potential.
+                Blockchain, or Cryptocurrency, is one example of this. It has taken the financial sector, in particular by storm.
+
+                There are numerous P2P applications available on the web for instance:
+                    1. Tradepal
+                    2. Peer-to-peer digital cryptocurrencies like Bitcoin and Peercoin
+                    3. GitTorrent (a decentralized GitHub which uses BitTorrent and Bitcoin).
+                    4. Twister (a decentralized microblogging service, which uses WebTorrent for media attachments).
+                    5. Diaspora (a decentralized social network implementing the federated architecture).
+                Federated architecture is an extension of the decentralized architecture, used in decentralized social networks. We are going to discuss this next.
+
+6. Decentralized Social Networks:
+                decentralized social networks have servers, spread out across the globe, and hosted by individuals like you and me. Nobody has autonomous control over the network, and everybody has an equal say.
+                We host our data from our systems instead of sending it to a third-party server. Nobody eavesdrops on our conversations or holds the rights to modify our data at their whim.
+                You might have heard of the term BYOD, which stands for Bring Your Own Device. Decentralized social networks ask you to Bring Your Own Data.
+
+                In these networks, the user data layer is separate, and it runs on standardized protocols, specifically designed for the decentralized web. The data formats and protocols are consistent across networks and apps.
+                So, if you want to get out of a particular social network. You don’t lose your data, and your data doesn’t just die. You can carry your data with you and feed it into the app you sign up for next.
+                There are decentralized social networks active on the web such as Minds, Mastodon, Diaspora, Friendica, Sola, etc.
+                Features:
+                    Bring your own data
+                    Ensuring the safety of our data
+                    Economic Compensation to the parties involved in the network
+                    Infrastructure ease
+                In the near future, these are going to consume a big chunk of the market share.
+
+7. Federated Architecture:
+                Federated architecture is an extension of decentralized architecture. It powers social networks like Mastodon, Minds, Diaspora, etc.
+                The term federated in a general sense means a group of semi-autonomous entities that exchange information with each other
+
+                The federated network has entities called servers or pods.
+                A large number of nodes subscribe to the pods. There are several pods in the network that are linked to each other and share information with each other.
+                Pods facilitate node discovery.
+
+********************************************
+Picking the right technology:
+    Everything depends on our business requirements. Every use case has its unique needs. There is no perfect tech, and everything has its pros and cons. You can be as creative as you want. There is no rule that holds us back.
+
+    Real-time data interaction:
+        You need a persistent connection between the client and server. You also need non-blocking technology on the backend. We’ve already talked about both the concepts in detail.
+        Some of the popular technologies that enable us to write these apps are NodeJS and Python, which has a framework called Tornado. If you are working in the Java Ecosystem you can look into Spring Reactor, Play, and Akka.io.
+    Peer-to-peer web application:
+        If you intend to build a peer-to-peer web app, for instance, a P2P distributed search engine or a P2P Live TV radio service, something similar to LiveStation by Microsoft, look into JavaScript protocols like DAT and IPFS. Also, checkout FreedomJS, which is a framework for building P2P web apps that work in modern web browsers.
+    CRUD-based regular application:
+        Simple use cases such for regular CRUD-based apps include an online movie booking portal, a tax filing app, etc.
+        Today, CRUD (Create Read Update Delete) is the most common form of web apps being built by businesses. Be it an online booking portal, an app collecting user data, or a social site, all have an Model View Controller (MVC) architecture on the backend.
+        Although the view part is tweaked a little with the rise of UI frameworks by React, Angular, Vue, etc., the Model View Controller pattern stays.
+    Simple, small scale applications:
+        If you intend to write an app that doesn’t involve much complexity like a blog or a simple online form or simple apps that integrate with social media running within the IFrame of the portal, including web browser-based strategy, airline, and football manager kind of games, you can pick PHP.
+        PHP is ideally used in these kinds of scenarios. We can also consider other web frameworks, like Spring boot and Ruby on Rails, that cut down the verbosity, configuration, and development time by notches and facilitate rapid development. However, PHP hosting will cost much less compared to hosting other technologies. It is ideal for very simple use cases.
+    CPU and memory intensive applications:
+        Do you need to run CPU intensive, memory intensive, or heavy computational tasks on the backend, such as Big Data processing, parallel processing, and running monitoring and analytics, on quite a large amount of data?
+        Performance is critical in systems running tasks that are CPU and memory intensive. Handling massive amounts of data has its costs. A system with high latency and memory consumption can blow up the economy of a tech company.
+
+        Java, Scala, and Erlang are also a good pick. Most of the large-scale enterprise systems are written in Java.
+        Elasticsearch is an open-source real-time search and analytics engine is written in Java.
+        Erlang is a functional programming language with built-in support for concurrency, fault-tolerance, and distribution. It facilitates the development of massively scalable systems. This is a good read on Erlang
+
+Key Things to Remember When Picking the Tech Stack
+    Be thorough with the requirements
+    See if what we already know fits the requirements
+    Does the tech we have picked has an active community? How is the documentation and the support?
+    Is the tech being used by big guns in production?
+    Check the license. Is it open source?
+    Availability Of skilled resources on the tech
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+****************************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Examples ********************************************************************************
+https://www.youtube.com/watch?v=cODCpXtPHbQ
+
+Youtube videos: CodeKarle
+
+Database Design tips | Choosing the best database in a system design interview:
+    Factors determining choice of databae
+    1. Structure of data.
+    2. The query pattern we have.
+    3. Amount of scale
+
+    Caching solution: Redis / Memcached / HCD / Hazelcast - Redis used widely.
+        Key and Value.
+
+   Blobs: S3 + CDN
+    When ever we have video or image to store - we will store it in a block storage.
+        Blog storage providers - Amazon S3 - data store
+    CDN Content delivery network - to distribute the same image across different locations
+
+    Text based searching
+        Example search by movie name, text searching on Google with fuzzy match.
+        Elastic search
+        Text search engine - Elastic search and Solar, both built on Apache Lucene
+            Fuzziness in search.
+
+    Difference between database and Search engine
+        When we write to a database there is a guarantee that data won't be lost. Search engine does not give that guarantee.
+        Primary data should be in a database and should be loaded to a search engine.
+
+    To Store metrics kinds of data: An application metrics tracking system. Say metrics around CPU utilization, latencies etc. - Time series database
+        It is like relational database, with not all functionality but has additional different functionality.
+        Optimized for certain type of query pattern
+        Ability to do sequential updates in append only mode. t1 t2 t3.... appended only right mode.
+        Read query is bulk read for a given time frame.
+        Example: Time series database - Influx DB, open TSDB - Open TSDB
+
+    Lot of information and want to store of a company and need to store for analytics on the data.
+        Give analytics on the data of the whole company - we need a data warehouse
+        A large database to dump all data, to query on top of it and server reports
+        This is not for transactions but for offline reporting.
+        We can use Hadoop - put in data from various systems
+
+
+    Choosing Relational DB VS Not relational DB
+        1. Structure of the data [If data is structured and can be modeled into tables. Example User information]
+            a.  If we need ACID (example payment transaction or inventory management system - where count of item has to be kept) - Use RDBMS (My SQL, Oracle, SQL Server, Posgress)
+        2. No Structured data. Eg. an ecommerce system like amazon. If we are building catalog for the items.
+            a. Lot of attributes that can come in and wide variety of queries then go for - Document DB - Example Mongo DB, Couchbase.
+            b. Elastic search and solar is a special type of Document DB.
+        3. No Structure data:
+            a. Every increasing data. Eg Uber drivers - no of trips they do. Both increases and is ever increasing data.
+            b. and we have finite number of queries
+            c. go for Columnar DB - Cassandra and HBase.[HBase easier to install]
+
+    If we have very small number of data and very small number of queries then pick up any of the database.
+
+    Let's build amazon - building inventory for Amazon - Say 10 items to be sold and 20 users to buy it.
+        RDBMS for inventory. But here data is ever increasing. No of orders are increasing. It looks like Cassandra use case.
+        We can use combination of both the database. Use MySQL for order details storage, once delivered put it in Cassandra for storage.
+        Combination of data can become powerful.
+
+    In real world we need to use combination of database.
+
+Kep decision factor on which database
+    Structured data - Yes - Need Acid - RDBMS - [eg. My SQL, Oracle, SQL Server, Posgres] [Payment systems, inventory management system]
+                    - No  - Datatypes (lot of attributes) & Lot of queries - Document DB [eg. MongoDB, Couchbase] [catalog of items]
+                    - No  - Ever increasing Data and finite queries - Columnar DB [eg. Cassandra, HBase]
+
+******************************************************************************************
+
+Notifications system:
+[This system is usually a part of other larger systems]
+https://www.youtube.com/watch?v=CUwt9_l0DOg
+
+Function Requirements:
+    Send notifications
+    Plugable [say to support SMS and email or in app notifications] - extendible
+    SaaS (Software as a service) - We need to be able to rate limit overall across all the platform and make sure particular user should not get more than five notifications per day
+            - There can be transactional notifications and promotional notifications.
+    Prioritization - Some message are low priority and some are high priority (eg. one time password). Always process high priority first.
+Non Functional Requirements:
+    High Availability
+    Many clients
+
+Overall architecture of the whole system:
+    Few clients want to send notifications -> requests comes to Notification service ->
+        (there are 2 kids of requests (1) I want to send this content as an email to user x (2) This is the content, and this is the user. U decide if it has to be an SMS or email
+    -> The notification service would place the request and put it to Kafka and respond to client (instead of synchronous and making client wait)
+    (if it really has to be synchronous, we can make it via, API call)
+    [The notification service itself does very basic validation - such as email id not null, content not null,
+
+    -> Next we have Notification validator and Prioritizer message (eg. OTP is high priority, transactional messages. eg order placed, promotional messages last priority)
+    -> After deciding priority it is put into a Kafka topic specific for each priority, so the consumer will first consume high priority message and the medium and then low
+
+    -> Rate limiter + request counter
+        - Can this client call me this many number of times
+        - The user who will receive this message, am I suppose to sent this notification to this user these many times.
+
+        - Both rate limiting works in a similar way - there will be a key (client id / user id). When we get a request, we increment that key into the Redis for certain timestamp
+          When the limit gets exceeded, that request is dropped.
+          There are also pay per request model.
+
+     -> Notification Handler and User preferences: [talks to preference DB MySQL and User service (given an user id get the user details)]
+           User can have preferences, eg, don't send me SMS, send me email instead.
+           A user can say, I want to unsubscribe from all your promotional messages.
+
+     -> now we have a phone number, emails, content to send.
+     -> This is info is put into a Kafka to send it out.
+     -> Multiple handlers sitting on top of this Kafka.
+            SMS Handler, Email Handler, In app handler (all push notifications, firebase for android, apple push notification for ios platform), IVRS handler (high value cash on delivery COD, we send IVRS call saying are u sure this is cash on deliver order, press 1 or 2)- one topic for each of them.
+
+     ->Handlers can be integrated with vendors
+     -> Notification tracer - we always need to keep track of what all notifications have sent. In case a customer sues you. Put them to Cassandra. Most write only and read for audits only.
+
+     Deciding on throughput and traffic we can club all components
+
+Bulk notifications:
+    Say for all the users who bought TV in 24 hours, send them a notification.
+Search functionality built on top of Kafka topics - Elastic search / Mongo cluster to make complex aggregation
+Other consumers - Rule engine, Fraud Engine, Search Platform
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+******************************************************************************************
+Example 1.
+Short URL / Tiny URL
+    1. API
+    2. Application layer
+    3. Persistence layer
+
+    tinry url - 7 characters long
+        a-z = 26
+        A-Z = 26
+        0-9 = 10
+        --------
+              62
+
+        62^7 = 3.5 trillion unique string of length 7
+
+        1. system generated random url
+        If system generates 1000 tiny url per second then it takes 110 years to exhaust this 3.5 trillion unique strings
+        If system generates million tiny rul per seconds then it will be exhausted in 40 days. we will have to increase the number of characters then.
+
+        s. MD5 approach
+        MD5 is a hashing function that generates 128 bit long hash
+        We can get MD5 of the long URL and take 43 bits from it.
+        collision: If we take more bits then collision possibility will get less.
+
+
+        43 bits convert to 7 character long string.
+
+        3. counter based approach
+            1. single host generating keys / zookeeper - single point of failure
+            2. Assign unique 6 digits to each host + current time stamp (32 bits) + 5 bits of incremental value
+
+       LoadBalancer
+       Rest API
+       Zookeeper
+       NoSQL DB
+       CDN
+       MD5
+       Memcached
+
+
+---------------------------------------------------------------------------
+2. Design Youtube:
+https://www.youtube.com/watch?v=lYoSd2WCJTo&t=265s
+
+NFR
+Functional Requirements:
+    - Upload video
+    - Users Home page + Search
+    - Page Video
+    - Support all devices (Devices vs format vs dimensions vs bandwidth = d * f * dm * b)
+
+NFR
+    - No buffering [important feature for video platform] - video should be available when need to play
+        - low latency and high availability
+    - high user's session time
+        - low latency and high availability
+    - recommendation engine
+
+Client
+Users
+power users (who upload a lot)
+
+Not the entire video gets downloaded to the client, on request, but sent in chunks.
+
+Say chunks are coming slowly - then low quality chunk is requested.
+Quality 1080p, 720p, 480p..
+Adaptive betray steaming
+
+Kafka for analytics and processing
+Complete architecture diagram: https://raw.githubusercontent.com/codekarle/system-design/master/system-design-prep-material/architecture-diagrams/Video%20Streaming%20Platform.png
+
+
+
+**************************************************
+Design Twitter:
+https://www.youtube.com/watch?v=EkudBdvbDhs&t=510s
+
+FR:
+
+
+
+NFR:
+
+User onboarding flow
+Tweek flow
+search flow
+
+
+When ever we have a read heavy system, we need to pre compute lot of things. We need enough caching in place.
+
+
+UI - point - could also be on mobile. (green)
+LB - includes reverse proxy and authentication and authorization layer in between. (black)
+Rest Services / web services / Kafka consumers (blue)
+cluster / databases / open source tools
+
+
+User - onboard UI  -> LB -> User Service <-> User DB/My SQL
+                                         <-> Redis
+
+User follow <-> LB <-> Graph service (creates ecosystem of how every one is connected)
+
+User App -> Analytics service -> Kafka
+           -> WebLive Websockets (notifications)
+
+Post a tweet -> Tweet Injection service -> Cassandra cluster (we have massive amount of data / millions of tweets ) (hbase also fine but setup is difficult - we need zookeeper and hadoop cluster)
+
+Redis -> Inmemory solution - only calculate time line for active users in advance and keep it in Redis
+TTL important to scale up
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------------------------------------------
+
+To read upon:
+zookeeper - https://zookeeper.apache.org/doc/current/index.html
+Webservices
+Types of servers: application servers, proxy server, mail server, file server and virtual server
+When to use which server - eg. Apache tomcat or Jett, Apache Http server
+I will discuss the pros and cons of client-side vs server-side rendering further down the course.
+Overview of HTTP https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview
+HTTP PUSH methods: [Try implementing each and learn more]
+    Ajax Long polling
+    Web Sockets
+    HTML5 Event Source
+    Message Queues
+    Streaming over HTTP
+
+Data replication strategy
+RPC vs HTTP
+mode of communication like Sync/ Async
+Thrift, Protobuf etc based on your use cases. - protocols
+Handle Murphy’s law - how resilient your system
+TCP vs UDP
+SQL vs NoSQL
+OAuth based flow or a SAML
+Redis - to get unique number for short url
+zookeeper
+Try using Redis - solution for caching
+
+https://towardsdatascience.com/system-design-interview-checklist-a-gateway-to-faangs-2b7fac80e423
+System design challenges big companies have
+    Facebook Engineering: https://engineering.fb.com/
+    Uber Engineering: https://eng.uber.com/
+    Netflix Tech Blog: https://netflixtechblog.com/
+Amazon S3 - try
+Text search engine - Elastic search and Solar, both built on Apache Lucene. Lucen provides text searching capability.
+Example: Time series database - Influx DB, open TSDB - Open TSDB
+Try different Db types and read pros and cons
+1. Optimistic locking vs Pessimistic locking (deadlock)
+2. Hash function and collision
+System availability - Five 9s - 9.9999
+Assumption: client - browser or mobile
+Couchbase
+look up is fast
+half DB in memory
+https://docs.couchbase.com/java-sdk/2.7/concurrent-mutations-cluster.html
+    pessimistic locking
+    optimistic locking
+
+expiry date for old short url ids and reusing it
+https://sre.google/sre-book/table-of-contents/
+
+Graph QA - gateway service -
+    Proxy to route request
+    Federated schema
+    Domain models
+    Apollo company
+    pagination issue
+    asynchronous calls
+    stitching
+
+JSF - Java Server faces
+HAProxy - software load balancer
+Each of them - see how to do - A typical social networking application has various components such as messaging, real-time chat, LIVE video streaming, image uploads, Like and Share features, etc.
+LB - includes reverse proxy and authentication and authorization layer in between.
+
+**************************************************
+Design Twitter:
+https://www.youtube.com/watch?v=EkudBdvbDhs&t=510s
+
+FR:
+
+
+
+NFR:
+
+User onboarding flow
+Tweek flow
+search flow
+
+
+When ever we have a read heavy system, we need to pre compute lot of things. We need enough caching in place.
+
+
+UI - point - could also be on mobile.
+LB - includes reverse proxy and authentication and authorization layer in between.
+
+
+
+************************************************************************************************************************************************
+Practice System Design:
+All sessions: https://github.com/donnemartin/system-design-primer/tree/master/solutions/system_design
+
+Mock free sessions at: https://www.pramp.com/dashboard#/
+UI to use for system design:   https://excalidraw.com/#room=bfd62550ff2b8e8b4a44,9xKUznfM_nIL9iiaahElzQ
+https://excalidraw.com/#room=bfd62550ff2b8e8b4a44,9xKUznfM_nIL9iiaahElzQ
+https://excalidraw.com/#room=f00d595f16a76fda2349,Bi4AbOcMfbUnMHBqpHI9oA
+
+Use it to share thoughts and resources, such as:
+- Features scope
+- API design
+- Pseudo code for specific components
+- Data model/schema
+- Back-of-the-envelope calculations
+- Reference links
+- Link to whiteboard or diagram such as https://sketchboard.me/new
+
+
+Scale on the cloud:
+https://github.com/donnemartin/system-design-primer/tree/master/solutions/system_design/scaling_aws#design-a-system-that-scales-to-millions-of-users-on-aws
+https://github.com/donnemartin/system-design-primer/tree/master/solutions/system_design/sales_rank#design-amazons-sales-rank-by-category-feature
+
+Feedback:
+Kafka stream improve
+map reduce and when hadoop is used
+Data base replica and query from read instance can be done
+Read question properly
+In facebook: Behind the envelop calculation was asked. We had to derive it. 300M and 10% as populat at 30K
+
+
+
+
+
+**************************************************************************************
+Apache Kafka - http://kafka.apache.org/intro
+    Think about events rather than things first.
+    Events have state too. Even is an indication that a thing took place.
+    It is cumbersome to store events in DB. Rather we have logs.
+    Which is ordered sequence of events.
+
+    Apache Kakfa is for managing logs with topics. Topic is an ordered collection of events that is stored in a durable way.
+    Durable meaning they are written to disk. and replicated. No one failure can cause data loss.
+    Topic can store data for a short period of time or hours or years or indefinitely.
+    Topic can be small or enourmous.
+
+    Each entry in Kafka is an event. Think of events first and things second.
+
+    Each consumer can talk to a Kafka topic and can produce to another Kafka topic
+    Real time analysis of the data by consuming data from Kafka.
+
+    Earlier it used to be batch process running over night. But yesterday is already long time ago.
+    We want to be close ot instantly.
+
+    What about legacy Databases and SAS system. How can these system take advantage of Kafka.
+    | Kafka Connect | is a tool that help to get these data in and back out.
+    Connect help to connect to external legacy system. [All these connectors are available and no need to write code]
+
+    What do people do with the messages:
+        The services / consumers are going to Process messages and do computation on the message.
+        Few things that we end up doing: Group all messages and group them. Group by a key and run aggregation.
+        Take message from one topic and take another from another topic we do aggregating, filtering, grouping, enriching is what the services do.
+        This will be lot of work if services do them. Kafka provides | Kafka Streams | to do this.
+        This Kafka Stream - Java API can be used in the services to get all done in a scalable and fault tolerant way.
+
+        Technically speaking, event streaming is the practice of capturing data in real-time from event sources like databases, sensors, mobile devices, cloud services, and software applications in the form of streams of events; storing these event streams durably for later retrieval; manipulating, processing, and reacting to the event streams in real-time as well as retrospectively; and routing the event streams to different destination technologies as needed.
+        Event streaming thus ensures a continuous flow and interpretation of data so that the right information is at the right place, at the right time.
+
+
+    Stream:
+        Unbound flow of record
+        Kafka streams API - transforms and enriches stream of data
+            Supports per record stream processing with millisecond latency
+            Supports stateless processing, stateful processing (like joins and aggregation), windowing operation (last week work of data or last hour worth of data)
+            Write standard Java application and microservices to process your data in real time.
+            Elastic, highly scalable, fault-tolerant
+            Deploy to containers, VMs, bare metal, cloud or prem
+
+**************************************************************************************
+
+Hadoop:
+Hadoop distributed file system - distributed file system
+Highly fault tolerant - low cost hardware.
+High throughput access to application data and is suitable for applicatins that have large data set.
+
+HDFS instance consist of hundreds or thousands of server machines, each storing part of the file system’s data.
+HDFS is designed more for batch processing rather than interactive use by users.
+Large data set - giga bytes to terabytes in size.
+
+Write once read many access model for files.
+Move computation closer to data.
+
+Name Node
+Data Node
+
+
+
+
+
+
+

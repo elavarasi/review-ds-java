@@ -1,0 +1,96 @@
+Foundation material
+Class
+Practice problem and momentum
+Timed test
+
+
+System Design:
+Step1: Gather functional requirement - detailed problem statement, in plain english, ask clarifying questions
+Step2: Bucketize the functional requirements into micorservices/ Cluster them into a collection of microservices
+            Rule of thumb - If the APIs and data models for two functional requirements do not look the same, put them in different buckets.
+            When doing this we know if the problem is depth oriented problem (1 microservice) or breadth oriented problem (many microservice).
+                If the problem is breadth oriented, then we will be drawing block diagrams with one block for each microservice
+                Draw and explain the data/logic flow between them
+                If there are many microservice, negotiate with the interviewer which ones to focus on. If there is only one microservice then there might be coding part to the interview.
+
+Step3: Draw the architecture diagram connecting them.
+Step4: Dive into each microservice (assuming scale is not in the picture)
+   [always first build the system and then scale it. Building with scale from beginning is too expensive. Experimentation is more important].
+
+
+Given a computational problem:
+Resources:
+ CPU (Time complexity) (most elementary computing system)
+ Memory - RAM (Space complexity) (unbounded) or Disk
+ Communication channels - given a stream of bytes communication channel makes sure it gets it across
+
+Client:
+    User program that sends request and waits for response.
+    Can be a browser.
+    Exits after receiving response.
+
+Server:
+    Listen to incoming request, build response and sends back response to client.
+    Actively listening for requests.
+    Response time should be as small as possible.
+    Handle increase in load - then our system is scalable system.
+
+404 not found the webpage requested
+
+
+
+API (Application programming interface):
+
+Depth VS Breadth
+    Monolith application - does just one function.
+
+
+
+
+1. URL Shortener Functional Requirements - Design a URL Shortener - A service that converts a long URL to a unique short URL and whenever
+that short URL is accessed, redirect the visitor to the corresponding long URL.
+    Example: tinyurl.com, bit.ly, youtu.be
+
+    URL - Uniform Resource Locator - specifies a web server and a webpage on the server
+    http://www.computer.com/page - protocol/webserverToGoTo/webpage - page can be long
+
+   Why Short URL:
+    Many URLs are really long -eg. google maps and pasting them can split them across multiple lines
+    Some media do not allow long text - eg. Twitter, SMS message
+    Meaningful short URL
+    Statistics - how many times the url was clicked
+    Referral program
+    bit.ly makes money by analyzing the effectiveness of different short links and providing that data back to the business.
+
+
+  Functional Requirement:
+    Given long URL: shorten it and return the short URL
+    If some one hits the short URL, translate back to long URL
+    If the same long URL is entered multiple times, need to return a different and unique short URL each time.
+
+  Optional functional requirement:
+    URLs can be customized
+    TTL for the mapping
+    Analytics.
+
+  How we would we implement short URL service:
+    We need a method to encode [long url to short URL] and decode [short URL to long URL].
+    Hash table can be used to maintain our shortURL to longURL mapping. O(1) time.
+    How do we create the short URL based on long URL:
+        option1: Steadily growing global counter (naive method)
+            Pros:
+                Short URL are unique (i.e no collision)
+            Cons:
+                Short URLs are not so short. Say a billion short URL has been submitted, then the counter value now is 1,000,000,000 - 10 characters long as we working with base 10 representations (0 to 9s)
+                Predictable short URLs (may or may not be a problem - but gives away some information publically accessible)
+
+         option2: Switch to a higher base by using more digits then we can reduce the length of counter.
+                Example: 10 in
+                        Base2: 1010 - 0,1
+                        Base10: 10 - 0...9
+                        Base16: A -  0-9 A-F
+                        Base62:   0-9, A-Z, a-z
+                        Base64:
+                 How to take any number n and convert to any base x?
+
+

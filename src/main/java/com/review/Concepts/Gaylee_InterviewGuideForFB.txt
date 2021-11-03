@@ -1,0 +1,297 @@
+Gaylee_InterviewGuideForFB
+
+Gayle video on approach -
+https://vimeo.com/157480836  and
+https://vimeo.com/158532188
+Password FB_IPS
+
+
+https://vimeo.com/357608978
+Password fbprep
+
+https://www.facebook.com/careers/life/sample_interview_questions
+
+
+Practice coding the way you’ll code during your tech screen. Use CoderPad.io if your
+interview is via phone or video call, or use a whiteboard or pen and paper if your interview will be
+in person. Check with your recruiter if you’re not sure which format you’ll use.
+
+Set a time constraint when you practice problems. In your tech screen, you’ll be asked
+to solve one or two problems in under 35 minutes. Practice coding solutions to medium and
+hard problems in less than 15 minutes each to help you be ready for the constraints during the
+interview.
+
+Code in your strongest language. Provide the most efficient solution, and find and fix the bugs
+yourself.
+
+Practice talking through the problem space and possible solutions before you dive in, and
+talk through your decisions out loud as you code. Interviewers will be evaluating your thought
+process as well as your coding abilities. Explaining your decisions as you code is crucial to helping
+them understand your choices. The more you practice this, the more natural it will feel during the
+interview
+
+
+
+
+
+
+01) Behavioural:
+   Your 2 minute pitch:
+    I am ___ at ___. In college I studied __ at __.
+    Then I worked for ___ where I ___. Then I worked for ___ where I ___
+    In my current job, I've accomplished..."
+    Also, outside of work, I ...
+
+
+   Learning new programming language
+   Functional programming learning
+   Hacathon participation
+   Building an iOS app - even if not launched.
+   Any hobby
+   Medium article
+
+
+   Your past work
+    1 to 2 hard project
+        Hard/cool
+        Your were central
+        Technical depth
+
+        what did you do?
+        what would you do differently?
+
+
+     Go through all past work
+        Challenges, architecture, tradeoffs, mistakes, successes, motivations
+        Team work, leadership, conflicts, etc
+        Technical decision made and implications
+
+        Hardest bug
+
+        Soft side: how did you show leadership
+        Interpersonal conflicts
+
+
+     Be Passionate
+     Be knowledgeable
+     Be a good teammate
+
+     No project is done perfect. Be willing to admit to mistakes.
+     Be open and admit. That is more important and showing that all are perfect
+
+
+02) Technical:
+
+
+03) Design Questions:
+WWYDAW
+What would you do at work
+
+    Build tiny URL
+    Amazon product best seller rating system
+
+    1. Scope
+        Ask questions
+            Is this a website or an API?
+            Are we going to allow people to enter shortURL or are we going to autogenerate in all case
+
+            Is rest of the system fully built
+            What do you mean by best seller rating
+            Spend time to figure out what they mean
+        Make appropriate assumptions
+        Scoping part should be taken seriously
+    2. Key Components
+            Naive idea of the system
+            simple idea would be a Front end layer - API layer - Data store - Analytics engine
+            What are the problems we might face. We might want to put a caching layer in order to avoid every single request to hit the db
+
+            Take a top down approach, a little bit at a time.
+
+            Drive Drive - like a senior engineer - Drive the discussion and be sensitive to what interviewer says. Do not just dismiss ideas.
+            Show that you give careful thought to what the interviewer says
+            Use white board
+
+            Read about how major companies design. Think and do not memorize. Identify patterns.
+            What is the fundamental difference between google's problem vs twitters.
+            Why is different architecture chosen.
+
+
+            Know key concepts
+                Tasks, sharding, Caches.
+                Web stack, REST, etc.
+
+             Practice back of the envelope calculations
+             These are problem solving questions and not knowledge questions
+    3. Identify issues
+
+
+
+04) Algorithms
+    Analytics skills
+    Strong CS fundamentals
+    Make trade offs
+    communication skills
+
+    Are you eager to solve hard problem
+    Mentally lazy people (not dumb but lazy and just don't want to think). It is correct and as long as it is correct it is fine.
+    Are you excited to solve hard problem
+
+    Must have knowledge:
+    Data structure:
+        ArrayList
+        LinkedList
+        HashTable
+        Trees(+Tries)
+        Graphs
+        Stacks/Queues
+        Heaps
+    Algorithms
+        Merge Sort
+        Quick Sort
+        Breadth-First Search
+        Depth-First Search
+        Binary Search
+    Concepts
+        Big O Time
+        Big O space
+        Recursion
+        Memoization / Dynamic Programming
+        Bit manipulation
+
+    Preparation
+        MASTER Big O
+        Implement DS / Algorithms
+        Practice with interview questions
+        Code on paper / whiteboard
+        Mock interviews
+
+     Push your self as much as possible
+
+Crash course in Big O
+    How run time scales with time
+    Draw a call tree
+
+Solving Algorithms
+    Be excited about hard problems
+    Drive
+        Keep trying when stuck
+        More than just correct
+    Pay attention to me !
+    Write real code
+    show me how you think
+    Talk out loud
+        what I am thinking now is how to get rid of the second array. we don't need this.
+
+
+    Implement data structure and algorithm from scratch
+    Prove to yourself the runtime of the major algorithms
+
+
+    Listen -> Example -> Brute Force -> Optimize -> Walk Through -> Implement -> Test
+
+    Listen to clues in the problem. Every bit of information in the problem is generally useful for something
+    Draw example. make example large and avoid special case. find output of the example. Get a meaty complex example. get output. and reverse engineer it. will help.
+        Example has to complex enough so brain has to do the thinking.
+    State a brute force (don't code yet). like state one way of doing this is...state run time and then go to optimization
+
+    Techniques to Develop Algorithms
+    (A) Optimize algorithm - Look for BUD - bottleneck / unnecessary work / Duplicated work
+
+    (B) Look for space time trade off.
+        Pre computing.
+        use logical variable names.
+
+        Q. Find permutations of S within B.
+        s! is way slow than exponential time. get rid of s!. which means no generating permutations any more
+
+    (C) Do it yourself - Push yourself
+
+    (D) Recursion / Base case and build
+        Careful -> this sounds recursion is 50% right.
+        Bottom-up approach, top-down implementation.
+        "Backtracking" -> Recursion
+        Draw a "call tree". Look for repeated sub problems.
+        Q. subsets of a set
+
+
+    Step5 - Walk through the algorithm few times and know exactly what you are going to write. After writing 3 lines do not thing about
+    what data structure to use. We should know what data structure we will use and when variables will change before writing the code.
+    Rushing does not help.
+
+    Step6 - Write beautiful code
+    Be aware of runtime of built in functions.
+        How to write white board code
+        a. Write Straight
+        b. Top-left code
+        c. User arrow if needed
+        d. Error cases / TODOs
+        e. Good Variables
+        f. Modularized
+        language choice is up to you.
+
+
+    Modularize code - demonstrates better coding style, makes your life easier and makes testing easier.
+    Start top down and not bottom up.
+
+    Step7 - Test your code
+        Analyze
+            What's it doing? why?
+            Anything that looks weird?
+            Error hot spots
+        Then  use test cases
+            Small test cases
+            Edge cases
+            Bigger test cases
+         But
+            Test your code and not the algorithm
+            Think before you fix
+
+
+
+
+Questions for the interviewer
+Ask some questions
+Ask what you want to know - shows curiosity
+    Passion
+    knowledge
+    Interest
+    Communication
+    Curiosity
+
+Consider below to generate questions:
+    What made you happy and unhappy in past job - what kind of influence I have over the features. How long it takes to launch
+    What are your goals
+    Culture and work style
+    Career goal
+    Technology - which technology you use and interesting technical problems
+
+Be a great teammate
+Be a great engineer
+
+
+facebook.com/careers/teams/engineering
+Slides ? Gayle.com -> events -> search -> "facebook"
+
+******************************************************
+
+Math - Douglas crockford
+Function
+Bit
+Bit Field & word
+Addition
+Multiplication
+Rational
+Scaled
+Floating Point
+Irrational
+    Exponential
+    Roots
+    Logarithms
+    The circle Functional (aka Trignometry)
+    Binions (fna Complex)
+Matrixes
+
+*******************************************************
+
+
+

@@ -1,0 +1,561 @@
+https://leetcode.com/discuss/general-discussion/665604/Important-and-Useful-links-from-all-over-the-LeetCode
+
+*************
+
+
+Tree
+There are two basic kinds of traversals on a tree or a graph.
+One is where we explore the tree in a depth first manner i.e. one branch at a time.
+The other one is where we traverse the tree breadth-wise i.e. we explore one level of the tree before moving on to the next one.
+For trees, we have further classifications of the depth first traversal approach called preorder, inorder, and the postorder traversals.
+Breadth first approach to exploring a tree is based on the concept of the level of a node.
+The level of a node is its depth or distance from the root node. We process all the nodes on one level before moving on to the next one.
+
+
+String:
+str.length()                returns the length of the string str
+str.charAt(n)               returns the character at the specified index
+str.indexOf(ch)             returns the index of the first occurrence of character ch in the string
+str.substring(start, end)   returns a new string which is a substring of str beginning at start and extends to end-1
+str.toUpperCase()           converts string str to upper case
+str.toLowerCase()           converts string str to upper case
+str1.equals(Str2)           compares the str1 with the str2 and returns true if both matches else false
+str1.compareTo(str2)        returns 0 if the str1 is equal to str2, negative value if str1 is lexicographically less than str2 or
+                            value greater than 0 if the str1 is lexicographically greater than str2
+str.split(regex)            split the string and returns the array of substring that matches the given regular expression
+str.contains(str2)          returns true if str2 is found in string str1
+str1.concat(str2)           combines string str1 and str2
+
+
+https://www.educative.io/module/lesson/data-structures-in-java/xopm7m0pEol
+    Tree has vertices (nodes) and edges that connect them.
+    An edge is an ordered pair of nodes.
+    Unlike linear data structure, trees are hierarchical.
+    One of the node has significance and is the root
+
+    Edge connects two nodes in a tree. If (u, v) is an edge in a tree, then u is the parent of v and v is a child of u.
+    Each node in a tree contains a value.
+    Trees are similar to Graphs (which we’ll cover later), except that a cycle cannot exist in a Tree - they are acyclic.
+    In other words, there is always exactly one path between any two nodes.
+
+    Terminologies:
+        Root Node: A node with no parent nodes. Generally, trees don’t have to have a root. However, rooted trees have one distinguished node.
+        Parent and child nodes: If uu and vv are nodes in a tree and (u, v)(u,v) is an edge in the tree, then uu is the parent of vv. Conversely, vv is a child of uu. The root node has no parent.
+        Sibling Node: Nodes that have the same Parent Node
+        Leaf Node: A node that doesn’t have any Child Node
+        Ancestor Nodes: All the nodes on the path from a node uu to the root node are ancestors of uu. In other words, ancestors of a node include its parents, grandparents, and so on.
+        Descendant Nodes: The children, grand children and so on, of a node
+        Sub-tree: The tree under a given node is its sub tree. It includes all of its descendants
+        Degree of a node: Total number of children of a node
+        Path: The path between two nodes uu and vv is an alternating sequence of nodes and edges, which starts at uu and ends at vv with edges that are present in the tree and no node is repeated. In a tree, there is exactly one path between any pair of nodes
+        Length of a path: The number of edges in a path
+        Depth of a node n: The length of the path from a node n to the root node. The depth of the root node is 0.
+        Level of a node uu: (Depth of a Node uu)+1
+        Height of a node uu: The length of the path from uu to its deepest descendant. The height of the leaf nodes is always 0.
+        Height of a Tree: Height of the root node
+
+    Binary tree:
+        In a binary tree, any node can have at most two children.
+        A binary tree is called a full (or proper) binary tree if every node other than the leaf nodes has exactly two children.
+        A binary tree is called a complete binary tree if every level, except possibly the last one, are completely filled with nodes and the leaf nodes are as far left as possible.
+
+    Implementation
+        There are different ways to implement trees. A common approach is:
+            Declare a class to represent a node in the tree
+            If it is a binary tree, have pointers to the left and right children. Otherwise, have a pointer to a list of children
+            Maintain a root pointer that holds a reference to the root of the tree
+
+
+
+Problems to solve:
+    https://www.educative.io/module/lesson/data-structures-in-java/7Alwgw73m0r
+
+
+
+-----------------------------
+
+
+1. Heap:
+https://www.educative.io/module/lesson/data-structures-in-java/JQ5wl6N6RWP
+Heaps are Datastructure primarily used for efficiently finding the smallest or largest element in an array.
+Heaps are advanced data structure based on Binary Trees, which is why they are commonly known as Binary Heaps. [Some reference says it does not have to be a binary tree and can be a tree]
+All heaps must be tree, no cycles.
+
+Implementation
+Heaps are implemented through Arrays, where each element of the array corresponds to a node in the binary tree and the value inside the node is called a “key”.
+Heaps can also be implemented using trees with a node class and pointers, but it’s usually easier and more space efficient to use an array.
+All the nodes are ordered according to the rules listed below:
+    A Heap tree must be a Complete Binary Tree.
+    The nodes must be ordered according to the Heap Property.
+
+Heap property
+    A heap is built, based on the Heap property, by comparing the parent node key with its child node keys. This comparison is done based on the heap property. The two heap structures that we are going to cover in this chapter are:
+    Min Heap
+    Max Heap
+    Min Heap is built on the Min Heap property, and Max Heap is implemented on the Max Heap property. Let’s see how they are different.
+
+Max Heap property
+    This property states that all the parent node keys must be greater than or equal to their child node keys. So the root node, in this case, will always contain the largest element present in the Heap. If Node A has a child node B, then
+
+Min Heap property
+    In Min Heap, all the parent node keys are less than or equal to their child node keys. This goes without saying that the rule will apply to all children of the node. So the root node, in this case, will always contain the smallest element present in the Heap. If Node A has a child node B, then,
+
+Operations
+    Following operations can be performed on a heap:
+    Insertion: It has O(log(n))O(log(n)) time complexity.
+    Remove min/max: It has O(log(n))O(log(n)) time complexity.
+
+Problems:
+1. Convert a Max-Heap to a Min-Heap
+    - input is a max-heap representation in an array. O/P same array with min heap arrangement of elements.
+        Steps: Consider the array as a normal array. For each root element (which is (N.length-1)/2 to 0 - check if its left and right child are smaller if not
+        swap with root with the smallest of the children. Only consider root nodes. LeftNode = 2 * index + 1 and RightNode = 2 * index + 2;
+        i/p Max Heap: [9, 4, 7, 1, -2, 6, 5]
+        o/p Min Heap: [-2, 1, 5, 9, 4, 6, 7]
+
+2. Find the Kth largest Element in an array:
+    1. [We can do this by sorting and taking the last but 3 number - complexity will be O(n log n) for sorting.
+    2. Creating a Max-Heap and removing max kk times #: max heapify the array for k times and take the root each time and store in separate output array.
+    Then remove last item and put it in root and heapify again and then take root which has the largest. This way
+        Complexity - time complexity of creating heap O(n) and removing min is O(k log n) = O(n + k log n)
+
+3. Find median of a moving sliding window
+    Median needs the array to be sorted. So here we need to sort every window and keep sliding
+    Use two priority queues - a max heap and a min heap to quickly access the center two numbers in order to calculate mean.
+    https://leetcode.com/problems/sliding-window-median/
+
+4.
+
+
+
+
+----------------
+2. Hash Table:
+A datastructure to retrieve elements in constant time.
+Hash table apply a technique called hashing to uniquely identify each element.
+Every entry is stored as key-value pair and the collection of such item is called "Dictionary"
+
+Complexity: Each item can be searched using the key in O(1)
+Internal implementation: Hash Tables are generally implemented using Arrays, as they are the only data structures that provide access to elements in constant O(1) time.
+
+Comparison between Tries & Hash Table:
+    We can implement dictionary with Hash table but if we need fast lookup and have long words which share common prefixes then a Trie is the perfect data structure for you.
+    Also makes storing words easier, as the implementation is very simple with Tries.
+
+    1. Common Prefixes:
+        In Tries, the words having common prefixes share a common path until the end of the prefix. After that, they are divided into two branches. We cannot do that in Hash Tables; no matter how similar the words are, we would still need to store them at different locations. This would result in irrelevant iterations while searching. Here is an interesting example to explain what we just said: two words “interest” and “interesting” will be stored differently in a HashTable, but in a Trie we only need to add 3 new nodes for “ing” at the end of the “t” Node. Did you notice the space efficiency?
+    2. Lookup for Exact Words
+        Tries can perform a spell-check, but in Hashing. We can only look up exact words, otherwise, it will not be able to identify the word.
+    3. No Re-hashing Required
+        The most important part of a HashTable is the Hash function.
+        It is often very difficult to build as the performance of HashTable is entirely dependent on it.
+        But in Tries, we do not need to perform re-hashing to generate an index. It just traverses the nodes and inserts new nodes, that’s it!
+    4.  Collision Resolution
+        One downside of using a HashTable is that we always need to come up with good collision resolution strategies to avoid collisions if the data is huge.
+        A collision can never occur in Trie because all words are unique and can act like a “key”. This makes the implementation of Tries so much simpler.
+    5.  Memory Requirements
+        In worst case scenarios, a Trie will definitely perform better than a HashTable, but HashTables will be more convenient to use in average cases-- depending upon the efficiency of the Hash function. As in Trie, we need to allocate 26 pointers at every node even if most of them are Null, so a HashTable would be more of a wise choice here!
+
+        If your dictionary contains a lot of words with common prefixes or suffixes then Tries would be an efficient data structure to use as compared to Hash-Tables.
+
+HashMap VS Hash Set
+
+    HashMap:
+    Is a collection that contains all the key-value pairs; it maps the values to keys.
+    It provides the basic functionality of hashing along with some helper functions that help in the process of insertion, deletion, and search.
+    Some of the key features of HashMap are given below:
+
+    A HashMap stores key-value pairs (examples given below) to map a key to the value:
+        abc->123abc−>123
+        xyz->456xyz−>456
+
+    HashMap cannot contain duplicate keys. It can, however, have duplicate values.
+    HashMap also allows multiple null values and only one null key
+    This mechanism does not support synchronous operations and is not thread-safe.
+
+    Hash Set:
+    HashSet class is implemented in Java using Set interface
+    HashSet also stores values in an unordered way, using hashing, but this happens in the backend. On the backend, the HashSet class is implemented using the HashMap class. The value that we add to the HashSet is then added to the HashMap as a key, corresponding to a dummy value Object. The retrieval remains O(1)O(1)
+    HashSet is a class which implements the Set interface and this interface only stores values, not a key-value pair.
+    HashSet restricts storing multiple null values and only allows one null value in the whole table
+    HashSet does not allow storing duplicate values as a set can only contain unique elements
+    Just like HashMap, HashSet also does not support synchronous operations
+
+Problems:
+    Find if an array is a subset of another array [Array do not have any duplicate]
+    https://leetcode.com/problems/remove-zero-sum-consecutive-nodes-from-linked-list/submissions/
+
+
+-------------
+3. Graph [Leet code tile - https://leetcode.com/explore/learn/card/graph/?ref=landing]
+"Graph” is a non-linear data structure consisting of vertices and edges
+
+Vertex: nodes such as A, B, and C are called vertices of the graph.
+Edge: The connection between two vertices are the edges of the graph.
+Path: the sequence of vertices to go through from one vertex to another.
+A path from A to C is [A, B, C], or [A, G, B, C], or [A, E, F, D, B, C].
+**Note**: there can be multiple paths between two vertices.
+Path Length: the number of edges in a path. In Figure 1, the path lengths from person A to C are 2, 3, and 5, respectively.
+Cycle: a path where the starting point and endpoint are the same vertex. [A, B, D, F, E] forms a cycle. Similarly, [A, G, B] forms another cycle.
+Negative Weight Cycle: In a “weighted graph”, if the sum of the weights of all edges of a cycle is a negative value, it is a negative weight cycle.
+Connectivity: if there exists at least one path between two vertices, these two vertices are connected. A and C are connected because there is at least one path connecting them.
+Degree of a Vertex: the term “degree” applies to unweighted graphs. The degree of a vertex is the number of edges connecting the vertex.
+In-Degree: “in-degree” is a concept in directed graphs. If the in-degree of a vertex is d, there are d directional edges incident to the vertex. A’s indegree is 1, i.e., the edge from F to A.
+Out-Degree: “out-degree” is a concept in directed graphs. If the out-degree of a vertex is d, there are d edges incident from the vertex. A’s outdegree is 3, i,e, the edges A to B, A to C, and A to G.
+Parent node: the direct parent node of a vertex. For example, in Figure 5, the parent node of vertex 3 is 1, the parent node of vertex 2 is 0, and the parent node of vertex 9 is 9.
+Root node: a node without a parent node, and it can be viewed as its own parent node. For example, in Figure 5, the root nodes of vertices 3 and 2 are both 0. 0 is its own parent node and its own root node. The root node of vertex 9 is 9 itself.
+
+
+Problems Graph:
+    (1) Disjoint Set
+    (2) The Depth First Search Algorithm in Graph
+    (3) The Breadth First Search Algorithm in Graph
+    (4) Algorithms to Construct Minimum Spanning Tree
+    (5) Single Source Shortest Path Algorithm
+    (6) Kahn's Algorithm for Topological Sorting
+
+
+(1) Disjoint set
+    Given vertices and edges, quick way to check if two vertices are connected [direct or indirect connection].
+    Disjoint set is a data structure.
+        [Example problem]
+        Consider a situation with a number of persons and following tasks to be performed on them.
+            Add a new friendship relation, i.e., a person x becomes friend of another person y.
+            Find whether individual x is a friend of individual y (direct or indirect friend)
+    Implementation:
+        We need an extra auxilary datastructure - we need an array.
+        Here array index is used to represent the vertices. The array value will be the parent node value.
+    Two important function of a disjoint set:
+        We will have a root array.
+        The find function: that finds the root of a node
+        The union function: that unions two vertices and makes their rood node the same.
+
+    Quick union is more efficient than Quick find
+    Union of rank: Decision is made based on the height of the tree. Tallest tree will dominate and become root node.
+        We will use rank array to record height of each vertex
+     Path compression Disjoint sets (to optimize find function of quick union)
+
+     Summary disjoint set:
+        The main idea of a “disjoint set” is to have all connected vertices have the same parent node or root node, whether directly or indirectly connected. To check if two vertices are connected, we only need to check if they have the same root node.
+        The two most important functions for the “disjoint set” data structure are the find function and the union function.
+        The find function locates the root node of a given vertex.
+        The union function connects two previously unconnected vertices by equating their root node.
+        There is another important function named connected, which checks the “connectivity” of two vertices.
+        The find and union functions are essential for any question requiring the “disjoint set” data structure, while only some of the questions need the connected function.
+
+(2) Depth First search
+    Given a graph, how can we find all of its vertices? How can we find all paths between two vertices?
+    The depth-first search algorithm is ideal in solving these kinds of problems.
+
+    In Graph theory, the depth-first search algorithm (abbreviated as DFS) is mainly used to:
+        Traverse all vertices in a “graph”;
+        Traverse all paths between any two vertices in a“graph”.
+
+    A stack is used.
+        To return to previous state just remove the item from stack.
+        Lot of times we will use recursion which is also an implicit stack. We will use recursion to implement DFS
+        We will keep track of what is visited.
+
+        Time complexity: O(V+E)
+        Space complexity: O(V)  for the visited array
+
+    Example Problems:
+        All Paths From Source to Target (Directed acyclic graph DAG, all paths from 0 to n-1, no need for visited array as directed)
+                https://leetcode.com/problems/all-paths-from-source-to-target/solution/
+                DFS + Backtracking // Here we will take recursive implementation
+
+        Clone a undirected graph
+        https://leetcode.com/problems/clone-graph/submissions/
+
+(3) Breadth First Search / Breadth / Width - Process all vertices of a level before the next level / Use Queue
+     Graph theory, the primary use cases of the “breadth-first search” (“BFS”) algorithm are:
+        Traversing all vertices in the “graph”;
+        Finding the shortest path between two vertices in a graph where all edges have equal and positive weights.
+
+        Time Complexity  O(V+E) - V represents the number of vertices, and E represents the number of edges.
+        Space Complexity O(V) - V represents the number of vertices.
+
+        Find shortest path problem means use breadth first search - important
+        2D arrays that are representing a graph come up a lot in interview questions.
+        https://leetcode.com/problems/shortest-path-in-binary-matrix/solution/
+
+
+(4) Overview of Minimum spanning tree
+    A spanning tree is a connected subgraph in an undirected graph where all vertices are connected with the minimum number of edges
+    An “undirected graph” can have multiple spanning trees.
+    A minimum spanning tree is a spanning tree with the minimum possible total edge weight in a “weighted undirected graph”
+
+    Algorithms for constructing a “minimum spanning tree”, and the “cut property”:
+        Cut Property
+        Kruskal’s Algorithm
+        Prim’s algorithm
+
+    Cut Property:
+        First, in Graph theory, a “cut” is a partition of vertices in a “graph” into two disjoint subsets. Figure 10 illustrates a “cut”, where (B, A, E) forms one subset, and (C, D) forms the other subset.
+        After knowing the basics of a graph cut, let’s delve into the “Cut property”. The Cut property provides theoretical support for Kruskal’s algorithm and Prim’s algorithm.
+
+        The “Cut property” refers to:
+            For any cut C of the graph, if the weight of an edge e in the cut-set of C is strictly smaller than the weights of all other edges of the cut-set of C, then this edge belongs to all MSTs of the graph.
+        In a weighted undirected graph, in an arbitary cut set, if the weight of the cut set is smaller than the weight of other edges, then this edge belongs to the minimum spanning tree.
+        MST - minimum spanning tree.
+        Spanning tree mandates connecting all edges with the minimum edges.
+
+    Krushal's Algorithm
+        “Kruskal’s algorithm” is an algorithm to construct a “minimum spanning tree” of a “weighted undirected graph”.
+        Time complexity: O(ElogE)  /    E represents the number of edges.
+        Space Complexity: O(V) / V represents the number of vertices.
+            Algorithm Steps:
+                Step1: Ascending Sort all edges by their weight
+                Step2: Add edges in that order into the Minimum spanning tree. skip the edges that would produce cycle in the minimum
+                spanning tree.
+                Step3: Repeat step2 until N-1 edges are added.
+
+            Why does Kruskal’s Algorithm only choose N-1 edges?
+                It has to be N-1 edges to form a minimum spanning tree.  (N is the node here). If it is N it will form a cycle.
+
+            Why can we apply Greedy Algorithm:
+                The main idea of Krushal's algorithm is choose the edge that do not create cycles, pick the edge with the least weight.
+
+
+    Prim's Algorithm: Another algorithm to construct minimum spanning tree of a weighed undirected graph.
+        Prim's algorithm uses the greedy strategy. All visited vertices are considered as a whole.
+        Time Complexity
+            Binary heap: O(ElogV).
+            Fibonacci heap: O(E+VlogV).
+            V represents the number of vertices, and E represents the number of edges.
+
+        Space Complexity
+            O(V)
+            V represents the number of vertices.
+    Comparison: “Kruskal’s algorithm” expands the “minimum spanning tree” by adding edges. Whereas “Prim’s algorithm” expands the “minimum spanning tree” by adding vertices.
+
+(5) Overview of Single Source Shortest Path:
+    Given the starting vertex, find the “shortest path” to any vertices in a weighted graph. Then, we can easily acquire the shortest paths between the starting vertex and a given target vertex.
+        (1) Dijkstra’s algorithm
+            “Dijkstra algorithm” can only be used to solve the “single source shortest path” problem in a weighted directed graph with non-negative weights.
+            https://github.com/Algorithms-Made-Easy/Graphs/blob/master/Dijkstra's%20Algorithm
+            https://www.youtube.com/watch?v=ov0K4PcvgNs&list=PL-fjlL47i8fV2hjXNJO5Q-6lS-8unb6Bc&index=1
+
+        (2) Bellman-Ford algorithm
+                - cheapest path with k steps
+                - cheapest path with k steps and negative edges
+                - this algorithm does not work for graph with negative cycles
+
+            Dynamic programming with bottom up approach. When there is constrain on no. of edges that can be used.
+            “Bellman-Ford algorithm”, on the other hand, can solve the “single-source shortest path” in a weighted directed graph with any weights, including, of course, negative weights.
+                Graph without cycle
+                    In a regular graph with N vertices there are at most N-1 edges between any two vertices
+                Graph with cycle
+                    1. Positive weight cycle - sum of the weight of the edges is >= 0
+
+                    2. Negative weight cycle - sum of the weight of the edges in the cycle is < 0
+                        For Negative weight cycle there is no shortest path, as the value can go smaller and smaller.
+                        So for negative cyclic graph there is no shortest path
+
+                 Shortest distance occurs before going around the cycle
+
+                 Limitation of the algorithm
+                 “Bellman-Ford algorithm” is only applicable to “graphs” with no “negative weight cycles”.
+
+                 How does the Bellman-Ford algorithm detect “negative weight cycles”?
+                 Although the “Bellman-Ford algorithm” cannot find the shortest path in a graph with “negative weight cycles”, it can detect whether there exists a “negative weight cycle” in the “graph”.
+                 Detection method: After relaxing each edge N-1 times, perform the Nth relaxation. According to the “Bellman-Ford algorithm”, all distances must be the shortest after relaxing each edge N-1 times. However, after the Nth relaxation, if there exists distances[u] + weight(u, v) < distances(v) for any edge(u, v), it means there is a shorter path . At this point, we can conclude that there exists a “negative weight cycle”.
+
+                 Time Complexity
+                 O(V∗E) // V represents the number of vertices, and E represents the number of edges.
+
+                 Space Complexity
+                 O(V)
+
+                 Problems:
+                    Cheapest Flights Within K Stops
+
+
+(6) Kahn's Algorithm:
+            When selecting courses for the next semester in college, you might have noticed that some advanced courses have prerequisites that require you to take some introductory courses first
+            “Topological sorting” helps solve the problem. It provides a linear sorting based on the required ordering between vertices in directed acyclic graphs
+            To be specific, given vertices `u` and `v`, to reach vertex `v`, we must have reached vertex `u` first. In “topological sorting”, `u` has to appear before v in the ordering. The most popular algorithm for “topological sorting” is Kahn’s algorithm.
+
+            For a cyclic graph topological sort does not work, as we don't know to pick from.
+            Limitation of the Algorithm
+                “Topological sorting” only works with graphs that are directed and acyclic.
+                There is at least one vertex in the “graph” with an “in-degree” of 0. If all vertices in the “graph” have non-zero “in-degree”, then all vertices need at least one vertex as a predecessor.
+                In this case, no vertex can serve as the starting vertex.
+
+                Time Complexity
+                O(V+E)
+                V represents the number of vertices, and E represents the number of edges.
+
+                Space Complexity
+                O(V+E)
+                V represents the number of vertices.
+
+                The first node in the topological ordering will be the node that doesn't have any incoming edges. Essentially, any node that has an in-degree of 0 can start the topologically sorted order. If there are multiple such nodes, their relative order doesn't matter and they can appear in any order.
+                https://leetcode.com/problems/course-schedule-ii/solution/
+
+
+
+Graph:
+BFS - Queue
+DFS - stack and Recursion (keep track of visited) - https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
+
+
+******************************************************************
+
+Tries:
+https://leetcode.com/explore/learn/card/trie/
+
+    Tries are prefix trees that are used to store strings for fast retrieval.
+    A node in a trie represents a letter in an alphabet.
+    For insertion, the tree takes a string as input and then creates a new node for
+    each character of that string/word.
+    The node registered for the last character of the string/word is marked as the end of the word.
+    A Boolean variable is usually used to do this.
+
+Trie node:
+    A typical Node in a Trie consists of two data members:
+
+    children: An array that consists of the children nodes. The size of this array depends on the number of alphabets (26 for the English language). By default, all elements are set to Null.
+    isEndWord: A flag to indicate the end of a word. It is set to false by default and is only updated when an end of the word is observed during insertion.
+
+Methods#
+    The following are the common operations performed by tries:
+
+    Insert(String): Inserts a string into the trie.
+    Delete(String): Deletes an existing string from the trie.
+    Search(String): Searches if the input string exists as a complete word in the trie.
+    prefixSearch(String): Searches if the prefix string exists in the trie.
+
+//TrieNode => {TrieNode[] children, boolean isEndWord, int value,
+//access root => getRoot()
+//markAsLeaf(int val), unMarkAsLeaf()}
+
+    To store collection of strings
+    If 2 strings have same prefix then same ancestors in the tree.
+    If there are a lot of strings like 100s of thousands of strings, then tries make it easy to search
+    Trie - ideal datastructure for storing dictionary. [Hash tabel takes more space than tries]
+
+    https://www.youtube.com/watch?v=AXjmTQ8LEoI
+    https://leetcode.com/tag/trie/
+    https://www.educative.io/module/lesson/data-structures-in-java/RL9mrO8L34V
+
+    TrieNode {
+        int[] children; // if tries only has lower case alphabets then size 26. If not use a Map<Character, TrieNode>
+        boolean endOfWord;
+    }
+
+
+***************************************
+Stacks & Queues
+    A stack is a collection of elements in which the storage and retrieval follows the Last in First Out (LIFO) ordering.
+    This means that the last element added is the element on the top, and the first element added is at the bottom.
+    A real-life example of Stack could be a stack of books.
+
+    A typical implementation of stack supports the following operations:
+
+    push(): adds an element to the stack
+    pop(): removes the last inserted element from the stack
+    top(): Returns the value of the last inserted element from the stack, without removing it
+    size(): Returns the number of elements currently in the stack
+    isEmpty(): Returns true if there are no elements in the stack
+    isFull(): Returns true if the stack is full, false otherwise. This method is implemented only if there is a constraint on the maximum size of the stack
+
+    What are stacks used for?
+        There are many famous algorithms, such as Depth First Search and the Expression Evaluation Algorithm, which harness the functionality of stacks. Stacks are used:
+            To backtrack to the previous task/state, for example in recursive code
+            To store a partially completed task, for example, when you are exploring two different paths on a Graph from a point while figuring out the smallest path to the target.
+
+    Implemented using arrays or linkedlist (mostly via array and all of them have O(1) operation.
+
+    Queues:
+        Similar to the stack, a queue is another linear data structure that stores the elements in a sequential manner. The storage and retrieval in a queue follows the FIFO principle, which is short for First in First Out.
+        In other words, in a queue, the first element inserted is the one that comes out first. You can think of a queue as a pipe with both ends open. Elements enter from one end (back) and leave from the other (front).
+        A perfect real-life example of a queue is a line of people waiting to get a ticket from the booth.
+
+        Usage:
+            Just like stacks, queues are used widely in searching and sorting algorithms such as the Breadth-First Search algorithm.
+            Most operating systems also perform operations based on a Priority Queue that allows operating systems to switch between appropriate processes.
+            They are also used to store packets on routers in a certain order when a network is congested. Implementing a cache also heavily relies on queues.
+                We generally use Queues when:
+                    We want to prioritize something over another
+                    A resource is shared between multiple devices
+
+                enqueue(): Adds an element to the tail of the queue
+                dequeue(): Removes the element from the front of the queue
+                front(): Returns the element from the front of the queue without actually removing it from the queue
+                size(): Returns the number of elements currently in the queue
+                isEmpty(): Returns true if the queue is empty, false otherwise
+                isFull(): Returns true if the queue is full, false otherwise. This is only implemented if there is a constraint on the maximum size of the queue
+
+
+         Queues can be implemented via array, a linked list, or even a stack
+         5 data members required to implement Queue:
+                private int maxSize;
+                private V[] array;
+                private int front;
+                private int back;
+                private int currentSize;
+
+
+***************************************
+Linked List
+    A linked list is a linear data structure consisting of nodes where each node contains data and a pointer to the next node in the list.
+    There are two kinds of linked lists:
+        Singly linked list
+        Doubly linked list
+
+
+    Singly Linked List#
+    A singly linked list can only be traversed in one direction, meaning, from the first node (head) towards the last node.
+    The last node points to NULL, indicating the end of the list.
+
+        head
+        data|next  -> data|next  -> data|next  -> null
+
+        Pros:
+            Insertion and deletion at head is moree efficient compared to corresponding operation in array.
+            Changes are localized when inserting and deleting in the middle of the linked list.
+            In case of array all subsequent elements need to be moved around.
+            [Searching for the position to inserts takes O(n) in worst case linked list].
+        Cons:
+            Each node also has a pointer, so memory overhead.
+            We cannot access a node through index directly. Rather we have to traverse from the
+            start to access an element at  a given position n.
+            Reverse traversal is not possible with a singly linked list.
+
+    Doubly Linked List
+        Each node in a doubly linked list contains a pointer to the next node as well as pointer to the previous node.
+        This allows the list to be traversed in both directions: forward and backward.
+
+
+                    head                            tail
+        null <- data|next  <- -> data|next  <- -> data|next -> null
+
+        Pros
+            Insert and delete at the head as well as tail are O(1) operations
+            The list can be traversed forward as well as backward
+        Cons
+            Have greater space overhead than singly linked list
+
+    Singly Vs Doubly linked list
+        Operation	    SinglyLinked List	Doubly Linked List
+        Insert at head	    O(1)	            O(1)
+        Delete at head	    O(1)	            O(1)
+        Insert at tail	    O(n)	            O(1)
+        Delete at tail	    O(n)	            O(1)
+
+    In terms of space, if there are nn nodes in a linked list, dd is the (average) number of bytes of data in each node and pp is the number of bytes consumed by a pointer, then a singly linked list consumes n*(d+p)n∗(d+p) bytes, whereas a doubly linked list consumes n*(d+2p)n∗(d+2p) bytes.
+
+    Comparison between Arrays VS Linked List
+        Memory Allocation: main difference between linked list and array is the way they are allocated in memory
+        Arrays instantiate a whole block of memory. on other hand linked list only instantiates the portion of memory in uses
+    Insertion and Deletion:
+        For list and arrays, many differences can be observed in the way elements are inserted and deleted.
+        In linked list, insertion and deletion at head happens in constant time O(1).
+        while array take O(n) time to insert or delete a value because you have to shift the array element left or right after that operation.
+
+    Searching:
+        Array takes constant time to access an index.
+        In a linked list, you have to iterate the list from start until we find the node with correct value.
+
+

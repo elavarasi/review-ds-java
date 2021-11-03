@@ -1,0 +1,44 @@
+From Vasanth
+1. Coding Technical:  First solve : 5 medium and hard problem in the below topic on leetcode / educative io
+        Arrays | 2D Arrays
+        Linked List | Stack | Queue
+        Tree
+        Graph
+        Recursion
+        Sorting
+        Searching
+        DP
+        Patterns
+2. System Design:
+    Educative io (system design with explanation)
+    Gaurav Sen - videos / Narendra - videos / Code Karle
+    Mock interview - must
+     1st step - peer to peer (free mock interview - 2 to 3) - here questions on how to poke and what to look for comes on the screen.
+            This will help to prepare us.
+     2nd step - paid mock interview (2 to 3) $150 - actual interview with industry people. In addition to system design, also take behaviour interview.
+    Sites:
+            https://expertmitra.com/free-mock-interview
+            pramp.com -> free
+            http://www.gainlo.co/#!/
+            https://www.techmockinterview.com/
+3. Behavioural
+        STAR principle [leadership principle questions]
+        1st - Communication  - how we keep every one informed
+        Poked for detail - so better give real scenarios
+        2nd How you handle a situation
+            With the data take decision
+            Validate - if we make mistake we have to accept how we fixed it
+        What happens -> what you did and what results.
+        Main what was the learning [not just success, what you learnt is important]
+        Give details with example for each actual scenario for behavioural questions
+        Ambiguity -> timeline -> how you solved
+
+        1. Communication
+        2. conflict resolution
+        3. challenging work
+        4. Deliver result
+        STAR format preparation - take recent example is better
+
+4. Company level / forums / compensation / negotiation:    levels.fyi
+
+

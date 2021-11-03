@@ -1,0 +1,99 @@
+Software Design Patterns: Best practices for software developers:
+
+https://www.educative.io/courses/software-design-patterns-best-practices/7npOR61p9nQ
+
+
+Whenever writing code in an object oriented language, sticking to the following list of suggestions will make your code amenable to changes with the least effort.
+
+1. Separate out parts of code that vary or change from those that remain the same.
+2. Always code to an interface and not against a concrete implementation.
+3. Encapsulate behaviors as much as possible.
+4. Favor composition over inheritance. Inheritance can result in explosion of classes and also sometimes the base class is fitted with new functionality that isn't applicable to some of its derived classes.
+5. Interacting components within a system should be as loosely coupled as possible.
+6. Ideally, class design should inhibit modification and encourage extension.
+7. Using patterns in your day to day work, allows exchanging entire implementation concepts with other developers via shared pattern vocabulary.
+
+
+design flexible and extensible correspondingly increases the complexity and understandability of the code base
+
+
+Design Patterns: Gang of four:
+
+
+1. Creational - how best to create objects -
+    1. Builder pattern
+    2. Prototype pattern
+    3. Singleton pattern
+    4. Abstract factory pattern
+
+
+2. Structural
+    Adapter Pattern
+    Bridge Pattern
+    Composite Pattern
+    Decorator Pattern
+    Facade Pattern
+    Flyweight Pattern
+    Proxy Pattern
+
+3. Behavioural
+    Interpreter Pattern
+    Template Pattern
+    Chain of Responsibility Pattern
+    Command Pattern
+    Iterator Pattern
+    Mediator Pattern
+    Memento Pattern
+    Observer Pattern
+    State Pattern
+    Strategy Pattern
+    Visitor Pattern
+
+What to focus on for interview:
+    All the creational design patterns, decorator, proxy, iterator, observer and visitor patterns.
+
+1. Builder Patter (Creational Design pattern):
+    builder pattern encapsulates or hides the process of building a complex object and separates the representation of the object and its construction. The separation allows us to construct different representations using the same construction process
+    1. Used to build objects
+    2. Sometimes, the objects we create can be complex, made up of several sub-objects or require an elaborate construction process.
+    3. exercise of creating complex types can be simplified by using the builder pattern.
+    4. A composite or an aggregate object is what a builder generally builds.
+
+    https://www.educative.io/courses/software-design-patterns-best-practices/gxQy88PwQEj
+    https://www.geeksforgeeks.org/builder-design-pattern/
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------
+
+Interview KickStart - Design patterns:
+Composite pattern
+Decorator pattern
+
+
+
+Observer Pattern: Behavioral Pattern:
+Java https://www.educative.io/courses/software-design-patterns-best-practices/gxkvNgMqDk3
+JS https://www.educative.io/courses/javascript-design-patterns-for-coding-interviews/qVJYD1oYER3
+https://www.tutorialspoint.com/design_pattern/observer_pattern.htm
+
+
+
+
+
+
+
+
+
+
+

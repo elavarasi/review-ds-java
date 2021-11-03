@@ -1,0 +1,3 @@
+
+Core Java interview questions:
+http://www.developersbook.com/corejava/interview-questions/corejava-interview-questions-faqs.php

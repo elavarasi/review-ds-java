@@ -1,0 +1,16 @@
+System design:
+    Kafka
+    NoSQL
+    Cassandra
+    Payment integration
+    Java 8, 11, 12
+
+
+Design pattern
+    Circuit pattern design pattern for microservices  https://medium.com/geekculture/design-patterns-for-microservices-circuit-breaker-pattern-276249ffab33
+
+
+Spring boot
+    actuator - https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html
+
+
