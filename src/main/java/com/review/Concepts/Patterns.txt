@@ -92,6 +92,7 @@ Algorithms:
     Minimum depth of binary tree - https://www.educative.io/courses/grokking-the-coding-interview/3jwVx84OMkO
     connect level order successor - https://www.educative.io/courses/grokking-the-coding-interview/m2YYxXDOJ03
     Connect All Level Order Siblings - https://www.educative.io/courses/grokking-the-coding-interview/qVxy1qop77p
+    https://leetcode.com/problems/find-leaves-of-binary-tree/
 
 8. Tree Depth First Search:
     We will use recursion or stack (for iterative approach) - this also means that the space complexity of the algorithm will be O(H)
@@ -160,6 +161,7 @@ Algorithms:
         symmetric tree - https://leetcode.com/problems/symmetric-tree/solution/
         [** build tree from inorder and post order array] https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/solution/
         [** build tree from inorder and preorder] https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/solution/
+        https://leetcode.com/problems/find-leaves-of-binary-tree/
 
         Tree traversal
             DFS - Pre, Post, inorder - With explanation [try both recursive and iterative] - https://leetcode.com/problems/binary-tree-preorder-traversal/solution/
@@ -181,6 +183,12 @@ Algorithms:
         Leetcode - BST - card 1 - https://leetcode.com/explore/learn/card/introduction-to-data-structure-binary-search-tree/140/introduction-to-a-bst/
                        - card 2 - https://leetcode.com/explore/learn/card/binary-search/146/more-practices-ii/
 
+
+    Graph:
+        [important **] Quick union and Quick find https://leetcode.com/explore/learn/card/graph/618/disjoint-set/3840/
+        [important **] Graph a valid tree https://leetcode.com/explore/learn/card/graph/618/disjoint-set/3910/s
+        no.of connected component:  https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/solution/
+        [important **] smallest-string-with-swaps https://leetcode.com/problems/smallest-string-with-swaps/discuss/1522256/Java-Union-Find-with-Priority-Queue
 
     Graph: =[youtube videos - https://www.youtube.com/watch?v=YZtHU7R7J_0&list=PLJtzaiEpVo2xg89cZzZCHqX03a1Vb6w7C&index=8]
     Leetcode card: https://leetcode.com/explore/learn/card/graph/619/depth-first-search-in-graph/
