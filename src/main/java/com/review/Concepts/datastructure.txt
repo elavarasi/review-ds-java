@@ -400,6 +400,116 @@ BFS - Queue
 DFS - stack and Recursion (keep track of visited) - https://www.geeksforgeeks.org/depth-first-search-or-dfs-for-a-graph/
 
 
+Graph - interviewkickstart - foundation
+https://uplevel.interviewkickstart.com/resource/rc-video-27401-241454-69-406-1436933
+Exponential time O(n!)
+
+
+Eulerian cycle or path problem
+            |
+    Graph representation
+            |
+    General graph traversal
+
+BFS             Dijkstra  -> BellmanFord                      Prim    DFS                 Best-first -  A*
+
+bipartite        connected components & cycles           top.sort SCC        Bridges & articulation points
+
+
+How it began:
+    Euler's trying to solve 7 bridge problem
+    7 bridges of
+    Path
+    Cycle - starts and ends at same vertex / node
+    Degree - no of vertex sticking from a vertex.
+    Self loop and multiple path between same vertex - multi graph
+    Mostly we will see simple graph
+
+    G =  (V, E)
+    Sum of all degree of all the vertices in an undirected graph G = (V, E) = 2|E|
+    For directed graph it will be |E|   (can be in degree or outdegree)
+
+
+    Eulerian cycle: Start from a vertex, pass through all edges and then again come to start
+        Modeling Eulerian cycle
+        Modeling a graph problem is key
+        Must be connected
+        If degree of any vertex is odd, then the graph does not have an Eulerian cycle
+
+    Eulerian path: cycle and start and end at two different vertices - only start and end has odd degree, every other vertex has even degree
+
+Representation of graph:
+    4 different ways to represent
+    1. Edge List:
+        vertex list = [u, v, w, z]
+        edge list = []
+        How edges are stored changes between each representation
+    2. Adjacency List:
+        array (if vertices are numbers) or use a hashMap (if vertices are string) - O(n)
+        space O(n) + O(m)
+    3. Adjacency Matrices
+        n * n matrix representation
+        diagonal entries must all be zero. For simple graph withouth self loop
+        Lower triangle matches flip of higher triangle
+        We need to scan entire row to find neighbors.
+        time to find neighbors - O(n) to find neighbors
+        space complexity - O(n2)
+        Good only for dense graph
+        Sparse graph |E| << |V|2  eg. facebook friends
+        Helps with quick look up. [how can we take this advantage to adjacency list]
+    4. Adjacency Maps
+        Dictionary(hash table) to store the neighbors of vertex v, instead of a list of neighbors (as in adjacency list).
+        Map<Integer, Map<Integer, Integer>>
+
+        adjacency matrix representation is the most optimized for edge search, but space requirements of adjacency matrix are comparatively high for big sparse graphs
+        Neighbors can also be dynamically calculated by get neighbor function eg. graph matrix i+1
+
+
+General Graph Search:
+    Find all reachable vertices from S
+    S = 1
+
+    The algorithms differ by policies, on which edge needs to be pulled next.
+    There are 6 algorithms:
+
+    Algorithm                   Policy                                                             Search Tree
+1.  Breadth First Search        choose the edge that was seen first                                 BFS Tree
+2.  Depth First Search          choose the fringe edge that was seen the last                       DFS tree
+3.  Dijkstra's                  Choose the edge whose RHS vertex has smallest numeric label         Shortest path tree
+4.  Prim's                      Same                                                                Minimum spanning tree
+5.  Best First Search           Same                                                                Best First search
+6.  A*                          Same except that vertices have two label which need to be added     A* tree
+
+
+BFS (breadth first search)
+    First capture the immediate neighbors of s (one hop away)
+    Then capture their neighbors (two hop away)
+    and so on
+    BFS handle cycle
+        cross edge (indicates presence of cycle in graph)
+        tree edge
+    BFS cannot be used to check for cycle in a graph
+    Parent array can be used to construct shortest path after BFS
+
+DFS
+    Go deep, then backtrack and then try next option.
+    Go deep
+    Stack based implementation
+        Just replace stack in place of queue. Every thing else is same.
+        O(m)
+
+Finding connected component
+
+
+
+
+
+
+
+
+
+
+
 ******************************************************************
 
 Tries:
