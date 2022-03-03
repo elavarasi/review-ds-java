@@ -5,9 +5,13 @@ Interview quick start:
 
 General Concepts:
 Basics:
-    Sundar videos
+    Sundar videos - shads for high write qps | replication for high read qps | high read write concurrency - copy on write pattern
     Reading materials
         Engineering blogs - fb, google, linkedin
+            https://eng.uber.com/
+            https://netflixtechblog.com/
+            https://medium.com/airbnb-engineering
+
         Youtube videos
         Engineering conferences / Qcon videos
         Kafka, Web Search, MapReduce, Dynamo-papers
@@ -30,4 +34,1029 @@ Scalable Systems 1 - Vivek:
         11. CDN
         12. Monitoring / Testing
         13. Failures / What if scenarios - how resilient our system is
+
+Spend most time in the interview on the detailed design
+Build up a solution step by step with why and how
+how you evolve to the solution is much more important
+
+Say 5 REST API has to be built for the
+Pseudocode, Locking, Mutex or pseudo code is required.
+Locking level and Mutex at one point we will have to go.
+
+In addition to doing End to End API design - to CDN - to monitoring  to Testing. Take one specific API problem and go to DS, locking to concurrency - this shows we have depth
+
+General Concepts Review:
+    1. Objects usually in billions - how to generate object ID
+    2. Resource - CPU / Memory / Disk/IO / Network
+    3. High Storage / Write QPS / iOps - shard - say 10k tweets every second
+    4. High Read / Write Concurrent - copy on write / duplicate record or object
+    5. Too many writes on a big object - Normalize the object in such a way that the parts of object
+    that are changing less are separated out from parts of object that are highly changing.
+    6. Edits/Updates on big objects - split object so as to not make entire obj dirty.
+    7. Real time communication - persistent like connection (long polling / websocket).
+    8. Fast look ups - Hash based Index (usually with in memory - cache).
+    9. Search - reverse index (in addition to forward index)
+    10. Too many writes with read-after write consistent not needed -
+            queue the data in a distributed queue, batch it, and perform batch updates (kafka / spark)
+    11. Need to perform lots of work (cpu) on lots of data per online request - Scatter Gather architecture
+    (shard the data and distribute the request to many shards which execute on their shard of data and gather / merge the results).
+    12. Too much of data sent over network / written to disk for every operations - split / chunkify the data / normalize and send only the relevant parts.
+
+In a scalable system - There will be one object that is large in number - in billions
+    eg. photos application - no of photos
+    eg twitter app - no of tweets
+    some object that is large in scale
+
+
+Questions:
+typical use case is - use 1 shard per terra byte of data - is this thumb of rule
+2. which one to choose between long polling vs websocket
+3. Consistent writes to DB, async writes to cache - scalable system
+4. Does sharding introduce latency
+5. scatter/gather - cpu is not really reduced? - big db is shared into 10 shard. Broker is there. Node at top and many nodes below.
+6 microservice should access only one logical db
+Capacity hardware - used by all company - standard used for capacity planning - 500 QPS can serve
+Long polling vs websockets  - know one well
+7. High throughput and high scale. Depends upo
+
+
+Traditional system design - 3 tier system:
+    Web tier
+    Backend
+    DB
+        Object definition
+        DB will generate auto generated Sequence ID
+        news.yahoo.com/category/sports/123456
+    How do we scale out linearly?
+        Have multiple DBs to contain the data
+        UUIDs are needed
+
+Problem1:    Techniques to generate UUID - discussion: - discussion should say why we choose something
+
+    Students:
+        TimeStamp + NIC / mac [network + interface + cord address] + host id  + random id
+                Network interface card - is unique per server
+                timestamp - unique id per second [using network transfer protocol - we can keep timestamp same across servers upto granularity. But not beyond that.
+                If server gets more than one request per second - how are you going to generate UUID. Has to be within nano second granularity
+        Content Hash - down side - CPU intense - Large space if we put all these - We need less bytes per ID as we need to store billions.
+            MD5 or any crypto hashing algorithm - we are using 128 to 256 bits.
+        DB decides UUID - can't work because DB is sharded and can collide.
+        UUID generation service
+            - centralized server - giving range of UUID.
+            - 64 bit increasing id. How we get monotonically unique ID's.
+        Random  number into the mix
+
+    Sir:
+        High level problem is DB is sharded and we need a unique ID before even saving object.
+        Amount of object coming is very very high.
+        Concurrency problem
+        How fault tolerance is built into the system.
+                Options
+                    1) Random number (say for billion objects) -
+                        advantage: stateless - no concurrency issue. Randomly generated.
+                        disadvantage: collision - multiple request can generate same id. So every time we need to hit DB and check if ID exits.
+                    2) year 2038 problem 48 bits id will not work
+                    3) say we generate uuid on sharded servers, and zookeeper can help take care of available id's
+
+                    ts + uuid (1 - 20k)
+                    1-956789456 + 16500
+
+                    tweet service --> uuid serv
+                    |
+                    shard master save replication
+
+
+Problem2: Short url Bit.ly
+    capacity planning / estimation:
+    CPU
+    Memory
+    Disk
+    NW BW
+
+    Typical computer resource: [a commodity hardware]
+        CPU: can handle 2000 reads per sec and 200 writes per second
+        Mem: 64GB / 256G memory
+        Disk 4 TB
+        NW BW: 10G NIC card
+
+        Estimate of storage: # of object * object size
+            = (# of users * object / user) * object size
+        User = Total Users, Daily Active, Monthly Active
+
+        Estimation of Users:
+            world populatin ~ 7-8 Billion
+            10% of world population is connected online ~700-800 Million
+                -FB user size = 1 Billion (2Billion) ~ Total Internet Users available
+            FB / Twitter (daily app) - DAU - 300M to 500M
+            Amazon (shopping) - weekly app - WAU - 300M
+            Bitly (short url gen) - MAU - 30m is monthly active ~500m
+            Uber / Lyft - DAU - Driver DAU ~ 1m, Rider DAU ~10m / 100m
+
+First find no of objects and each object size
+object is related to user. If we know how many objects an user creates then that is good.
+
+DAU (daily users) * objects / user ~ objects created per day ~ obz/sec ~ bytes / s
+Object: 500million users per month * 2 per month
+1 day = 86,400 secs ~ (approximate it to) 100,000 sec
+
+[500,000,000 * 2 / (30 * 100,00) objects per sec ~ Write QPS
+
+
+Bit.ly:
+What all API's I need.
+create_short_url(longurl, userid)
+get_long_url(shorturl).
+
+Data Model:
+each object 1kb
+read heavy
+    URL table
+        id (integer - 64 bit integer)
+        long url (String 500 bytes)
+        created by (int)
+        creation ts (int)
+        expiry (int)
+        shortKey
+
+    user
+        userid
+        name
+        last.longtime
+
+Design a brute force solution: [say only 100 urls and short key can be of any length]
+    web -> backend -> DB (autogenseq)
+
+Now add constrains: 4 billion URL's [but no constrain for short key length]
+    we have to shard as we have lot of URL's and can't fit on one db
+    What can we shard on?  geo shard, ts shard, userid shard,  Why is important
+    good distribution is important. Every request will have user id.
+    Popular user will be shard. [what is donald trup has a url and all users are opening it]
+    Range based partitioning. Take long url -> hash it ->
+
+    shard on object itself | shard on object id / uuid itself
+    bit.ly/12345
+
+    Shared based on geo / region - if 90% request come from US, then that becomes hot spot - not a good approach
+    Time stamp based shard is  - all recent data goes to same shard - recent data is accessed more
+    User Id based shard - good approach. - can result in hot user for twitter kid of app
+    object based shard (either the short url or long url is the object)  - some times say read part object is not there.
+
+3 techniques - shard by user id | shard by shortkey | shard by obj id
+If no constrain on ID, then my key will look like this - goin to 4 trillion. But now let's add constrain to short url key size
+
+bit.ly/33
+bit.ly/4,000,000,000,000
+Say we only need 6 to 8 characters long only
+
+md5/SHA - 128 to 256 bit long - if we are talking about hashing solution.
+Another problem using md5 - if we need analytics - if 2 users created short url for same url then both of them get's same shrot url / short key
+So if we need to do analytics then this does not work.
+
+Encoding / decoding problem:
+    Encoding - storing large information in smaller space
+        1010 -> 10 [binary]
+        10   -> 10 [decimal]
+        A    -> 10 [hexa decimal]
+
+As character set increases we need fewer characters to represent numbers
+Hexa decimal will not work for 4 trillion
+16 power 6
+
+With base 64 encoding we can represent 4 trillion number
+0 ... z
+1 - 26
+62 - 64
+
+10000 / 64 = 56
+1000/64
+
+Base 64 representation
+    How to convert from integer to base 64 and base 64 to integer.
+
+LB -> url read serv / url write serv -> LB -> UUID -> LB -> UUID DB
+
+Shard -> LB -> Master replication.... shard n
+
+Say we have 10 shard then we % by 10
+uuid % 10 - number between 0 to n-1
+popular sharding function is % 10
+
+
+----
+Design Uber
+
+Reverse on index
+Hash based index to tree based index - gives dynamic index
+Quad tree
+Scatter gather architecture
+copy on write
+reverse index and forward index
+
+**********************************
+Niloy Class:
+
+Basic though process
+Slice dice to smaller component of any system: - 4 divisions / components for any system:
+    1. Key value work loads
+    2. compute intensive analytics
+    3. Stream processing
+    4. Analytics.
+
+
+URL shortener - key value work load type problem
+Document Seach Problem - compute intensive analytics problem
+User Problem
+
+
+System design question can be breadth oriented:
+    Like design Uber, linked in
+or depth oriented.
+    eg URL shortener.
+
+Step1:
+    Ask questions and clarify as much as possible. - objective is to visualize API form the requirements.
+    Collect design constrains
+        eg google does 50k search per sec
+
+    bitly/shorturl
+        Given long URL get short URL
+        Give short URL give long URL
+        Customized URLs
+        TTL
+        Analytics
+
+    constrains:
+        no of short urls gen per second
+        Number of url retrieval per sec
+        length of the short url - Let's start with 7
+        Character set in the short URL A-Z
+
+Step2:
+    microservices.io
+    Bucketize functional requirements into microservices:
+        Simple high level clustering of requiremen  ts.
+        Imagine if all requirements can be handled by the same team or not
+        One approach if data models and API to address two requirements do not look same, then put them in different buckets.
+    From this it will be clear if problem is breadth or depth oriented.
+
+If interview does not bring up security don't do it.
+
+Each microservice has:
+    App server / compute (CPU) tier - to handle application logci
+    Cache / Compute (CPU) server tier - for high throughput data access adn in memory compute
+    Storage server tier - for data persistence.
+
+App server tier - handles stateless application logic - web traffic handled
+Cache tier - cache tier is meant for scaling throughput and for APIs that wrok well with in memory structure
+Persistence Tier - Persistent tier for storage and source of truth
+
+Write through [for consistent system - first to cache and then to db] - consistent read after write.
+Write back
+Write around
+
+Graph API - does it work will with inmemory datastructure
+    Adjacency list
+    Adjacency matrix
+
+Tree API - inmemory structures.
+Multi tenant persistence.
+
+Cache helps with throughput  more than latency
+for end user 2ms and 10ms does not make much difference.
+But throughput is reduced 5x time with cache.
+
+memcache - in memory
+
+Oracle | mysql mongo | cassandra - persistent layer
+Redis - inmemmory
+
+Identify DS
+discuss how it will be stored
+    Doubly linked list
+    DQueue
+
+
+Row storage / column storage - mongo, dynamo db, oracle
+random queries are solved better with keybase - columnar is better
+SIMD - single instruction multiple processing
+
+Cassandra - hybrid mechanism - Write row oriented data in memtable in an append
+only way, and then merge lazily into column stores (LSM trees)
+
+Columnar - oracle, vatica, red shift, snowflakes
+    snowflakes
+
+hbase.
+
+Solar - subsystem
+
+Columnar mainly for analytics
+Amazon red shift - a columnar solution
+Writes still go to cassandra or mongo
+
+columnar mainly for analytics
+
+
+120 vector computation, read queries -
+
+Files / Rows / Columns
+When something is stateless - round robin
+when stateful - cannot afford
+cluster manager is fault tolerant and distributed by itself
+    the metadata should be kept in good state
+
+----------
+Designing Search system
+Merging - O(D) - trillions
+search and merge
+
+Data structure:
+    Inverted index or a reverse index
+    Mapping of word -> sorted list of document ids
+
+APIs
+    Search(List<String> terms)
+    Hashmap is good enough
+Implementation
+    Take the first element from each list and put in a priority queue.
+    Heapify
+    Check whether the tree is unival or not
+    If not unival, remove the root, increment the pointer of the list and repeat
+    If unival remove all elements, increment all pointers and repeat
+
+    Time complexity - O(C) + O(kn * logk + kn*k) ~O(n)
+
+    {1, 3, 5, 7, p}
+
+O(Trillion). - not a good solution.
+Throw in scale for the system.
+
+Need for storage (memory and persistence):
+    Number of K-Vs (A) * size of (K-V) pair(B)
+    A * B
+    Often the theoretical max of K-Vs can be too large, better way to estimate is
+        How many new K-V records /s (C) * Plan for 2 to 3 years
+        Prevent over provisioning
+
+Need for API parallelization
+
+Mapreduce like approach - share nothing
+Analytics problem do scatter gather
+Analytics work flow need parallelization
+Not throughput hungry
+Parallelize the api
+compute intensive algorithm
+
+If no of record is bottle neck - divide horizontally
+If size of data is a bottle neck - divide virtually
+
+Any analytics problem is algorithm dependent problem -
+   eg. recommendation engine
+   web crawling
+
+Analytics work load are compute intensive.
+API parallelization - compute heavy - scatter gather
+
+Inverted index - horizontal partitioning does not work
+we need vertical sharding.
+
+Search is only done by large companies.
+Elastic search also maintains inverted index - lucene index which is inverted indexes.
+
+
+----
+Design Uber:
+Functional requirements:
+    User account management for riders and drivers
+    location based multiple vehicle dashboard for rider.
+    Driver should be able to accept or reject a trip request
+    rider pays driver
+    rider and driver endorse each other.
+
+Constrains:
+    No of riders and drivers: 80 million riders + 4 million drivers
+    No of vehicles: 4 to 5 million
+    no of trips   14 million
+
+
+------
+Foundation course: - 9 hours video:
+
+Rule of thumb: If the API and data models for two functional requirements do not look the same, put them different boxes
+This will show if it is depth oriented problem (one microservice) or breadth oriented problem (many microservices).
+
+In interview if there are many services, negotiate which one to focus on.
+Budget time.
+If only one microservice, then probably there is a coding part to it.
+
+Dive into each microservice (assuming scale is not a problem) - rapid experimentation is important.
+Then we assume load increases.
+
+Method 1: Naive approachL global counter increment and used as short url
+    conL at one billion the short url is long - needs 10 digit         1,000,000,000
+    we are only using 0-9 characters here.
+    Also predictable.
+
+Method: 2: If we switch to a higher base then we are able to reduce the length of short url.
+
+Eg. to represent 10  - Base 2 : 1010
+                       Base 10: 10
+                       Base 16: A
+
+
+                       Base 62: 0-9, a-z, A-Z,  10 + 26 + 26
+                       Base 64:
+Pro:
+    No collision
+    short url is truly short
+cons: Predictable
+
+Method3:
+    URL shortening cryptographic hash function
+    Say we take the length can be 6 characters
+        Then we have 64 to the power of 6 number of shorturls available.  64^6
+        To keep colition low we can increase length of short url
+        Hash table chaining will allow us to avoid some degree of collition
+
+    Croptographers came up with good hash function
+        Message digest
+        MD5 - message digest 5 - 128 bit
+        SHA1 - 160 bit
+        SHA2 -  used today
+        SHA3 - used today
+
+    We are use these cryptographic functions.
+
+    128 bit string will be mapped to base 64 number system.
+    Long url -> Message digest 5 -> short url (here we will have duplicates as same long url will always have same short url. But our requirement is to have unique one for each request
+    Solution:
+        Long url + counter / timestamp (suffix to long url) -> hash -> shorturl
+        another way is to try again in case of collision. The time stamp would have
+
+
+
+Summary:
+    Short URL Generations methods:
+        1. counter method [independent of long url]
+        2. Generate "random/unpredictable" short URL
+            - Generate random string [independent of long url]
+            - Timestamp
+            - Apply cryptographic hash function to
+                Long URL
+                Timestamp / counter value [independent of long url]
+                Combination of both
+
+We can do offline key generation - as this process is independent of the URL
+
+Network Protocol:
+    Every machine on the internet has a unique address - an ip address
+    DNS takes in server name and returns back ip address
+    ip address is embedded in the header of the message
+    ip address are hierarchical, to help routing
+    port number is also important
+    ip address and port address required.
+
+    Request -> client -> server -> ip address of client | port | ip of server | port
+    Response -> ip and port of client | ip and port of server | response
+
+    both machines need to speak same language - this is the protocol (format of the message).
+    Many protocols
+        IP = Internet protocol
+        Hyper text transfer protocol - format of request and response protocol.
+
+        curl -v http://bit.ly/IKAddr
+        connected to bitly(67.199.148.44) port 80
+
+        respond with redirect 301 response code
+
+        Global lock around critical section
+        Acquire lock
+        Release lock
+
+        Database server- criticaldata
+
+        Request queue - is queue where requests lines up
+        Responses queue - responses might get queued if there are many responses to be sent out at the same time
+
+        Multithreaded, shared state in DB.
+
+        Web server software - provides framework to enable online services.
+            Web server framework example:
+                Java: Tomcat, Jetty
+                JavaScript: Node.js
+                Python: Django, Flask
+                C#: .NET
+                Ruby: Rails
+                nginx
+                older websites use httpd
+
+        General architecute has 3 tiers
+                App tier
+                cache tier
+                DB tier
+
+        nginx is another popular web server that bitly uses.
+
+
+
+HashIndex:
+Index:
+    A dictionary is implemented like a hash table or tree.
+
+    Hashindex:
+        Key: shorturl
+        Value: offset in data file
+
+Behind envelope calculation:
+https://uplevel.interviewkickstart.com/resource/rc-video-27343-208875-223-1376
+https://uplevel.interviewkickstart.com/resource/rc-video-27343-208875-223-1377
+
+
+Rule of thumb -
+    1 to 2 tb disk space per commodity machine.
+    128GB RAM space available in a commodity machine
+
+
+One thread can handle 1000/x back to back requests per second.
+Assuming 8-12 cores, 8 thread per core, 100 such thread per machine.
+
+100 thread serving per machine * 1000 requests per sec / x    req/sec handled.
+30 to 40 % CPU utilization
+
+
+Performance metrics:
+SLI - service level indicator
+Availability: fraction of time a service is usable 99.95%
+System Throughput:No of request per sec that could bandled
+Response time:how long it took to return a response to a client request - ipmacted by network traffic/GC going on.
+    We collect Responsetime and percentile value p95, p85
+
+    e.g p50 < 200ms and p99 < 1s
+    availability >= 99.9%
+
+Latency vs response time
+
+10Mbps = 10 million bit/sec   small b is for bits. B is for bytes
+bandwidth - # bits transmitted over the network per sec
+
+Reverse and Forward Proxy:
+Load balancer
+    100k-1Mq qps
+    Nginx
+
+Single leader Data Replication
+Multi leader Data replication
+    Add time stamp (UTC)
+
+***********************************
+Design: Friend suggestion - Degree of connection
+https://uplevel.interviewkickstart.com/resource/associated-class-video-27354-182-6467-1
+
+ API Parallelization: - To do API Parallelization, the bottleneck, determines the sharding.
+ - we will have to do scatter gather.
+ Note:
+ Bottleneck: number of connections ie -  size of kv pair
+    Data to shard:
+        For compute intensive, sharding technique will be based on bottleneck
+        Vertical / horizontal sharding
+
+For reducing response time:
+We will use vertical sharding
+
+API work flow in in-memory distributed tier
+
+Read - linkedin engineering blog
+
+This is a graph problem - We can also use graphdb. - can we take advantage of it
+There are a million graph DB.
+It is a DB where adjacencies are marked as indices
+Graph DB - that supports index for adjacencies.
+In traditional DB, we need to get neighbours, then again for each neighbour go to its neighbors.
+There is a pointer on each node.
+
+***************************
+Design Netflix
+Breadth Oriented problem:
+FR:
+    streaming
+    recommendation
+    payment
+    pause and resume at a point
+    ratings
+    parental control
+    History - no one thought about this. History of what you watched.
+    User registration + login + profiles + authentication
+    Search
+    User activity tracking
+    User dashboard
+    Content upload and Device specific delivery
+        Rights and licenses
+        Categories
+    Notifications
+    Trending Movie
+    Watch history UI
+    Ratings
+    Analytics
+
+Design constrains:
+    No of users 100 Million
+    DAU 10%
+    Read heavy:
+        Volume of content upload
+        Volume of content streamed
+    Number of contents
+    Rate of user activity tracking: High
+    content streaming latency
+    hotspots
+    Geo distribute
+
+
+Microservices: microservices.io -> one team per microservice, one db per microservice.
+    User registration + login + profiles
+    Search
+    Recommendation
+    User activity + tracking
+    Trending movies
+    User dashboard
+    Payment
+    Content Ingestion and delivery
+    Notifications
+
+https://medium.com/@kethan.pothula/netflix-system-design-and-architecture-592ea72e155f
+netflixtechblog.com
+
+reduce bandwidth
+ISP - less if bandwidth is less
+3rd party CDN to be closer to user to deliver content
+
+HTTP over TCP is used - Initial latency - to make sure user is not interrputed
+UDP - For zoom - real time conversation is required and uses UDP - user needs info as quickly as possible.
+
+Uses elastic search
+
+
+**********************
+Amazon review system:
+Reconcile map reduce - for reviews
+no sql - gives a dump as a set of files and easily available for map reduce.
+Map reduce.
+*******
+Billionth car
+read on CRDT
+
+
+
+******************************
+
+Design facebook messenger
+    1. listing contacts
+    2. contact last seen and online offline status
+    3. message - offline, online, text, notification
+
+user base: !B
+MAU: 500M
+20% (100 M)
+Message sizeL 100 bytes:
+500 * 10 pow 6 * 25 * 100 = 125 * 10 pow 10 = 125 TB
+5 years ~= 2PB
+DB 500M * 25 messages *  = 15MB/s
+
+Communication options:
+    1. REST/HTTP - this is a lot of hits on the server. c -> s -> c
+    2. long polling - reducing frequency of poll - HTTP 1.0  c -> s (server won't communicate back)
+    3. Web sockets [TCP] - bidirection communication between client and server.   c -> <- s (bidrectional) - challenge TCP communication is not the best way. - Maintaining connections all the time. static connection. session polling
+    4. gRPC / Proto 3 (netty) - google.  HTTP/2 - bidirectional. server and client can chunk data and send.
+
+    100k connections per server can be handled.
+
+    Server sent events.
+
+High level design
+    Client ->  lb ->  Server ->   db (cassandra)
+                  -> cache (redis)
+
+
+data model
+user id, serverid, ts.
+
+
+Questions:
+why wide column datastore - LSM data structure - last
+long polling vs websockets why
+
+
+
+
+
+
+
+
+
+
+
+
+******************************
+
+
+
+------
+To read - Important
+Row oriented
+column oriented xhow queries and storage differ - when to go for columnar and when to go for row based
+Copy on Write
+Quad tree - Hierarchical data model like a map. Aggregation at various depths.
+Scatter Gather architecture
+Multi tenant
+encoding decoding
+hashing
+apache helix - helix.apache.org
+Geo spacial indexes - read about it for map company interviews - research about DS specific to the problem - API requires search based on non primary key - google g2 library
+Trees are only in memory and not in storage
+Storage tier can have blobs or files
+Stateful services vs stateless services
+ringpop - https://github.com/uber/ringpop - gossip protocol. - nodes agree who other nodes are. Based on SWIM.
+Pub sub
+long polling
+socket
+https://www.cs.cornell.edu/projects/Quicksilver/public_pdfs/SWIM.pdf
+TChannel uber's protocol RPC
+kios monkey style
+quick kill
+Map reduce
+CRDT - distributed counter
+
+----
+
+Concurrency (threads, deadlock, starvation, consistency, coherence)
+• Caching
+• Database partitioning, replication, sharding, CAP Theorem
+• Networking (IPC, TCP/IP)
+• Real-world performance (relative performance RAM, disk, your network, SSD)
+• Availability and reliability (types of failures, failure units, how failures may
+manifest, mitigations, etc.)
+• Data storage and data aggregation
+• QPS capacity / machine estimation (back of the envelope estimates), byte size estimation
+
+Architect a worldwide video distribution system
+• Build Facebook chat
+• Design a mobile image search client
+
+• Performance vs. scalability
+• Latency vs. throughput
+• Availability vs. consistency
+
+
+
+From FB interview prep material:
+ https://medium.com/@XiaohanZeng/i-interviewed-at-five-top-companies-in-silicon-valley-in-five-days-and-luckily-got-five-job-offers-25178cf74e0f
+Best prep for system design:
+http://blog.gainlo.co
+http://horicky.blogspot.com
+https://www.hiredintech.com/classrooms/system-design/lesson/52
+http://www.lecloud.net/tagged/scalability
+http://tutorials.jenkov.com/software-architecture/index.html
+http://highscalability.com/
+
+https://github.com/donnemartin/system-design-primer
+
+such as Hacker Noon and engineering blogs of some companies, as well as the official documentation of open source projects.
+
+
+*****
+Ela
+Systems to design:
+
+Breadth Oriented:
+1. Search system [Google search | Twitter search]
+2. Chat system  [Whatsapp | facebook Messenger]
+3. Inventory management / Transactional system [Amazon Inventory | PayPal | ticket master]
+4. Online recommendation engines    [FB news feed | Amazon recommendation
+5. Streaming system   [Youtube | Netflix]
+6. PhotoSharing System [Instagram]
+7. Map based system [Google map | Uber]
+
+Depth Oriented:
+1. URL shortener
+2. PasteBin
+3. Type Ahead Suggestion
+4. API Rate Limiter
+5. Web Crawler
+6. search system
+6. Check leetcode
+
+
+**************  Design Paste Bin with Sasha ***************************************
+Sasha's session:
+    Get FR,
+    Scalability requirement,
+    Tech Req
+    what microservices to use.
+    Logic
+        App, cache, data tiers
+        Scalability
+
+Design PasteBin
+What we should know
+    Size of data
+    R : W   10 : 1
+    DAU : 10M reads 1M writes
+
+    Create Paste (data that is coming in, [key], [expiry date], api_key to identify user and analytics)
+    Read paste
+
+Micorservices:
+
+
+
+
+
+
+*********************************************************************************************************************
+
+Ela's try:
+Whats app Chat app: https://developers.facebook.com/videos/f8-2016/a-look-at-whatsapp-engineering-for-success-at-scale/
+
+Engineering blog:
+Facebook:
+    facebook chat - channel server,
+
+Developers.facebook.com/videos
+
+Throughput (scalability)
+Whats app messenger - mobile messaging app - uses mobile data plan to exchange txt message, video file, audio file,
+create group chat, make voice call
+
+Misssion - provide simple fast reliable communication - allowing us to stay connected.
+
+Whats app:
+1 Billion users per month
+45 billion messages per day -> averages to a million messages every 2 seconds
+1.6 billion pictures shared every day
+250 million videos every day
+
+
+3 step:
+Fostering right engineering culture
+using the right technology stack
+managing the challenges of scale
+
+Keep things small
+Keep things simple
+single minded focus
+
+
+Keep Things small:
+57 - number of engineers (server team + client platform)
+engineering team is small - lot of autonomy, developers do everything, specialization
+Fewer number of more capable servers - so fewer things to break
+not much redundancy
+Software side - limit number of components and systems
+Less tech debt as all components are visited / rolled out often
+
+Keep things simple:
+Simple fast reliable tool
+Believe in just enough engineering
+We don't over invest.
+On server side for most of the back end systems
+
+
+Transient multimedia storage - where pictures are stored in between time they leave senders phone and received by receiver
+phone
+
+Client on senders phone is given a url -> that is pointed directly at the storage server - the client makes a direct connection
+to a web server that is running on the storage server -> post the file on to the server ->  It get written on to a hash as a
+big hash directory tree on to the file system.
+
+We do need to store reference to the file on how many recepients we have and need to keep track of when evey body has received it
+and remove it when every one received it.
+
+On the oher side the receiver gets an url to the webserver on the storage server where the file is located.
+The client / receiver receives the file then the reference get removed from file system.
+
+Example 2: Offline system - transient storage
+Stored temporarily when send sends to one ore more recepient, if the recepient clients are connnected to whats app server
+so until the phone receives a notification, able to connect and retrieve, coming back to cellular  / wifi connectin.
+
+Clinet -> make direct connection to a server -> we store reference to the file ->
+
+Here the client is connected to front end chat servers - that is primary connection whether they are exchanging - all protocol messages
+from client to chat server - are they online - if not the messages gets forwarded to storage partition which is a server dedicated to a
+particular set of users.
+
+Here the file system is the database
+
+Each user has a file that corresponds to their mail box:
+as messages come. Then when user comes online we read the file corresponding to the user - then forward the file to the client and delete on the file
+system.
+
+We do need some redundancy as failures to occur and we don't want to loose messages when they are in transit.
+Model is again simple -> instead of one transient store we have two.
+When user come online then we pop from both.
+This is all we have  - it is simple
+System has been reliable - easy to debug when problems do occur
+
+Final message - focus
+We get a token gift focus
+
+Removed all distraction - no meeting culture (minimized - bare minimum - continuous conversation on messaging tool
+synchronous / asynchronous - very quite office - just use laptop to talk to people next to me - then that becoems active conversation.
+Remove external distraction - no effort into marketting - all energy into putting to product
+
+Technology: What's app
+3 areas: on server system:
+Errlang - designed for concurrency - distributed scaling - low latency - falut tolerance (first class feature of this language)
+Uniquely suited for messaging at global scale
+It is a functional language - recursion instead of loos - syntax is little funky - derived from prolog
+Errlang is very concise - smaller amount of code - with library support called over telecom platform
+We try reducing dependency as much as possible.
+Errlang allows to hot swap code. We can make changes to app code and can load it to running application without breaking connection,
+It does not kill any processes. Keeps going and new code is running.
+Fast iteration cycle. Systems that are up over year with thousands of code pushes
+
+Errlang is also great in performance for what we want to do. Was built for concurrency from beginning.
+Message passing model, share nothing.
+We have larger servers - around 32 CPUs or 48 logical CPUs on our server, We were able to run all CPU without running into
+contention.
+SMP hardware - apps scale up - few customization.
+
+Operating system -
+Scalability we need without blowing server count.
+Few hundred thousand concurrent connections. On each server and we want to get to million.
+Tuning - Increase number of sockets, reducing buffer sizes, changing size of hash table.
+We were able to ge to 3 million connections per server.
+Million and millions connection per server
+
+For network connectivity, kernel is also great for SMP scalability
+few years back - CPU overheat alerts - servers were running 98% CPU utilization and colling problem
+running day and night and running hot
+Throughput was working fine but saturation level
+
+Kernel develoment, compatibility
+Minor validation between OS
+
+SOFTLAYER - provides
+clients connect directly to server - softlayer has that
+segregated private and public network
+
+Errlang - TCP connection between nodes in the cluster
+Operate bare metal servers -remove extra layers.
+Great and simple
+
+Extra performance - network segregated.
+Large data base.
+Tailored hardware configs. - 768 Giga bytes of ram stuffed
+Most part all data is in memory. It is fast and simplicity and no need to worry about caching tiers.
+Storage system that have
+
+Capture metrics - 100 metrics every second - CPU virtual memory - memory - disk - logging remotely and locally
+Aggregated cluster over entire statistics. - visiblity - trigger alert - how system reacted - capacity planning
+limits are  -
+
+we have head room in capacity
+earthquake and all want to find if friends are safe
+
+system is loosly couples as possible. Erlang message passing system - there are message queues every where
+same node or different node. Monitoring size of message queue is one way to measure health of the system.
+If there is backlog then go see what is happening.
+Drop non essential traffic.
+System can stretch.
+
+Learn from what happened. Immediate postmartum, get fixes out immediately.
+Loose coupling.
+Tools and dashboard to deal with the situation. Fire fighting tool.
+
+------------
+
+Algorightms:
+Count min sketch
+    sublinear memory
+    count frequencies of letter in an infinite stream - tons of data.
+    Say one day 1TB
+Bloom filters
+    Probablistic datastructure.
+    Membership check
+    less storage
+Fan out approach
+    home time line generation
+    fan out - moving to different direcion from one point
+    pushing to users timeline when a followed by person tweets
+
+Kafka and storm streaming
+
+Scatter gather architecture
+    twitter search
+
+Websocket
+    real time connections
+Read heavy system: cache and pre-compute as much as possible
+
+
+
+
+
+
+
+
+
+
 
